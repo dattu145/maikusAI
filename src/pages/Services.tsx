@@ -181,7 +181,7 @@ const Services = () => {
                         <div className="relative w-full max-w-5xl rounded-2xl overflow-hidden bg-brand-bg border border-brand-border shadow-2xl">
                             <button
                                 onClick={() => setDemoVideo(null)}
-                                className="absolute top-4 right-4 z-10 w-10 h-10 flex items-center justify-center rounded-full bg-black/50 text-white hover:bg-accent-blue transition-colors"
+                                className="absolute top-4 right-4 z-10 w-10 h-10 flex items-center justify-center rounded-full bg-black/50 text-brand-text hover:bg-accent-blue transition-colors"
                             >
                                 <X className="w-6 h-6" />
                             </button>
@@ -192,7 +192,7 @@ const Services = () => {
                                     autoPlay
                                     className="w-full h-full object-contain"
                                 >
-                                    <p className="text-white">Your browser does not support the video tag. Please update your browser.</p>
+                                    <p className="text-brand-text">Your browser does not support the video tag. Please update your browser.</p>
                                 </video>
                             </div>
                         </div>

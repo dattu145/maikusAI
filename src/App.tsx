@@ -81,7 +81,7 @@ function App() {
   return (
     <Router>
       <ScrollToTop />
-      <div className="flex flex-col min-h-screen selection:bg-accent-blue/30">
+      <div className="flex flex-col min-h-screen selection:bg-accent-blue/30 bg-brand-bg text-brand-text">
         <Navbar theme={theme} toggleTheme={toggleTheme} />
         <main className="flex-grow flex flex-col">
           <AnimatedRoutes />

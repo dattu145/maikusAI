@@ -3,10 +3,10 @@ import { Phone, ShieldCheck, Clock, CheckCircle, CheckCircle2, DollarSign, Arrow
 import { motion, AnimatePresence } from 'framer-motion';
 
 const inputClass =
-    'w-full bg-brand-bg/30 border border-brand-border/60 hover:bg-brand-bg/50 hover:border-brand-border backdrop-blur-sm rounded-lg px-4 py-3.5 text-white focus:outline-none focus:ring-2 focus:ring-accent-blue/50 focus:ring-offset-2 focus:ring-offset-brand-bg transition-all';
+    'w-full bg-brand-bg/30 border border-brand-border/60 hover:bg-brand-bg/50 hover:border-brand-border backdrop-blur-sm rounded-lg px-4 py-3.5 text-brand-text focus:outline-none focus:ring-2 focus:ring-accent-blue/50 focus:ring-offset-2 focus:ring-offset-brand-bg transition-all';
 
 const selectClass =
-    'w-full bg-brand-bg/30 border border-brand-border/60 hover:bg-brand-bg/50 hover:border-brand-border backdrop-blur-sm rounded-lg px-4 py-3.5 text-white focus:outline-none focus:ring-2 focus:ring-accent-purple/50 focus:ring-offset-2 focus:ring-offset-brand-bg transition-all appearance-none cursor-pointer';
+    'w-full bg-brand-bg/30 border border-brand-border/60 hover:bg-brand-bg/50 hover:border-brand-border backdrop-blur-sm rounded-lg px-4 py-3.5 text-brand-text focus:outline-none focus:ring-2 focus:ring-accent-purple/50 focus:ring-offset-2 focus:ring-offset-brand-bg transition-all appearance-none cursor-pointer';
 
 const plans = [
     {
@@ -127,7 +127,7 @@ const AIVoiceReceptionist = () => {
                         <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-brand-bg-alt/80 backdrop-blur-sm border border-brand-border/80 text-sm font-medium shadow-lg">
                             <span className="w-2 h-2 rounded-full bg-accent-green animate-pulse" />
                             <span className="text-brand-text-muted">Service:</span>
-                            <span className="text-white font-semibold tracking-wide uppercase text-xs">AI Voice Receptionist</span>
+                            <span className="text-brand-text font-semibold tracking-wide uppercase text-xs">AI Voice Receptionist</span>
                         </div>
                     </div>
 
@@ -259,7 +259,7 @@ const AIVoiceReceptionist = () => {
                                     }`}
                             >
                                 {plan.popular && (
-                                    <div className="absolute top-0 left-0 right-0 bg-gradient-to-r from-accent-blue to-accent-purple text-white text-xs font-bold text-center py-1">
+                                    <div className="absolute top-0 left-0 right-0 bg-gradient-to-r from-accent-blue to-accent-purple text-brand-text text-xs font-bold text-center py-1">
                                         MOST POPULAR
                                     </div>
                                 )}
@@ -331,7 +331,7 @@ const AIVoiceReceptionist = () => {
                                 <div className={'w-5 h-5 rounded-full bg-white absolute top-1/2 -translate-y-1/2 transition-all shadow-sm ' + (quickCall ? 'left-[calc(100%-1.5rem)]' : 'left-0.5')} />
                             </button>
                             <div>
-                                <h4 className="font-semibold text-white text-lg leading-tight mb-1">I'm in a hurry</h4>
+                                <h4 className="font-semibold text-brand-text text-lg leading-tight mb-1">I'm in a hurry</h4>
                                 <p className="text-sm text-brand-text-muted">Just take my number and call me.</p>
                             </div>
                         </div>
@@ -389,43 +389,43 @@ const AIVoiceReceptionist = () => {
                                             <div>
                                                 <label className="block text-sm font-medium text-brand-text-muted mb-2">Industry / Specialty</label>
                                                 <select required className={selectClass}>
-                                                    <option value="" className="bg-brand-bg text-white">Select industry...</option>
-                                                    <option value="Dental" className="bg-brand-bg text-white">Dental Clinic</option>
-                                                    <option value="Medical" className="bg-brand-bg text-white">Medical / GP</option>
-                                                    <option value="Real Estate" className="bg-brand-bg text-white">Real Estate</option>
-                                                    <option value="Law Firm" className="bg-brand-bg text-white">Law Firm</option>
-                                                    <option value="Salon/Spa" className="bg-brand-bg text-white">Salon / Spa</option>
-                                                    <option value="Other" className="bg-brand-bg text-white">Other</option>
+                                                    <option value="" className="bg-brand-bg text-brand-text">Select industry...</option>
+                                                    <option value="Dental" className="bg-brand-bg text-brand-text">Dental Clinic</option>
+                                                    <option value="Medical" className="bg-brand-bg text-brand-text">Medical / GP</option>
+                                                    <option value="Real Estate" className="bg-brand-bg text-brand-text">Real Estate</option>
+                                                    <option value="Law Firm" className="bg-brand-bg text-brand-text">Law Firm</option>
+                                                    <option value="Salon/Spa" className="bg-brand-bg text-brand-text">Salon / Spa</option>
+                                                    <option value="Other" className="bg-brand-bg text-brand-text">Other</option>
                                                 </select>
                                             </div>
                                             <div>
                                                 <label className="block text-sm font-medium text-brand-text-muted mb-2">Primary Goal</label>
                                                 <select required className={selectClass}>
-                                                    <option value="" className="bg-brand-bg text-white">Select goal...</option>
-                                                    <option value="Book appointments" className="bg-brand-bg text-white">Book Appointments</option>
-                                                    <option value="Answer FAQs" className="bg-brand-bg text-white">Answer FAQs &amp; Hours</option>
-                                                    <option value="Capture leads" className="bg-brand-bg text-white">Capture New Leads</option>
-                                                    <option value="All" className="bg-brand-bg text-white">All of the above</option>
+                                                    <option value="" className="bg-brand-bg text-brand-text">Select goal...</option>
+                                                    <option value="Book appointments" className="bg-brand-bg text-brand-text">Book Appointments</option>
+                                                    <option value="Answer FAQs" className="bg-brand-bg text-brand-text">Answer FAQs &amp; Hours</option>
+                                                    <option value="Capture leads" className="bg-brand-bg text-brand-text">Capture New Leads</option>
+                                                    <option value="All" className="bg-brand-bg text-brand-text">All of the above</option>
                                                 </select>
                                             </div>
                                             <div>
                                                 <label className="block text-sm font-medium text-brand-text-muted mb-2">Approx. Inbound Calls / Month</label>
                                                 <select required className={selectClass}>
-                                                    <option value="" className="bg-brand-bg text-white">Select volume...</option>
-                                                    <option value="0–50" className="bg-brand-bg text-white">0 – 50 calls</option>
-                                                    <option value="50–200" className="bg-brand-bg text-white">50 – 200 calls</option>
-                                                    <option value="200–500" className="bg-brand-bg text-white">200 – 500 calls</option>
-                                                    <option value="500+" className="bg-brand-bg text-white">500+ calls</option>
+                                                    <option value="" className="bg-brand-bg text-brand-text">Select volume...</option>
+                                                    <option value="0–50" className="bg-brand-bg text-brand-text">0 – 50 calls</option>
+                                                    <option value="50–200" className="bg-brand-bg text-brand-text">50 – 200 calls</option>
+                                                    <option value="200–500" className="bg-brand-bg text-brand-text">200 – 500 calls</option>
+                                                    <option value="500+" className="bg-brand-bg text-brand-text">500+ calls</option>
                                                 </select>
                                             </div>
                                             <div>
                                                 <label className="block text-sm font-medium text-brand-text-muted mb-2">Current Setup</label>
                                                 <select required className={selectClass}>
-                                                    <option value="" className="bg-brand-bg text-white">Select current setup...</option>
-                                                    <option value="Human only" className="bg-brand-bg text-white">Human Receptionist Only</option>
-                                                    <option value="Voicemail" className="bg-brand-bg text-white">Mostly Voicemail</option>
-                                                    <option value="Answering service" className="bg-brand-bg text-white">Answering Service</option>
-                                                    <option value="Nothing" className="bg-brand-bg text-white">Nothing Yet</option>
+                                                    <option value="" className="bg-brand-bg text-brand-text">Select current setup...</option>
+                                                    <option value="Human only" className="bg-brand-bg text-brand-text">Human Receptionist Only</option>
+                                                    <option value="Voicemail" className="bg-brand-bg text-brand-text">Mostly Voicemail</option>
+                                                    <option value="Answering service" className="bg-brand-bg text-brand-text">Answering Service</option>
+                                                    <option value="Nothing" className="bg-brand-bg text-brand-text">Nothing Yet</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -454,7 +454,7 @@ const AIVoiceReceptionist = () => {
                                                             Popular
                                                         </span>
                                                     )}
-                                                    <div className="font-bold text-white mb-0.5 flex items-center gap-2">
+                                                    <div className="font-bold text-brand-text mb-0.5 flex items-center gap-2">
                                                         {!contactForPricing && selectedPlan === plan.id && (
                                                             <CheckCircle className="w-4 h-4 text-accent-blue shrink-0" />
                                                         )}
@@ -478,10 +478,10 @@ const AIVoiceReceptionist = () => {
                                                 }`}
                                         >
                                             <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center shrink-0 transition-colors ${contactForPricing ? 'border-accent-purple bg-accent-purple' : 'border-brand-text-muted'}`}>
-                                                {contactForPricing && <Zap className="w-3 h-3 text-white" />}
+                                                {contactForPricing && <Zap className="w-3 h-3 text-brand-text" />}
                                             </div>
                                             <div>
-                                                <div className="font-semibold text-white text-sm">I'm not sure — contact me to discuss pricing</div>
+                                                <div className="font-semibold text-brand-text text-sm">I'm not sure — contact me to discuss pricing</div>
                                                 <div className="text-xs text-brand-text-muted">We'll recommend the best plan for your call volume</div>
                                             </div>
                                         </button>

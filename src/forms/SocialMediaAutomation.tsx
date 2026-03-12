@@ -13,7 +13,7 @@ const SocialMediaAutomation = () => {
                         <div className="inline-flex items-center gap-2 px-4 py-3 rounded-full bg-brand-bg-alt/80 backdrop-blur-sm border border-brand-border/80 text-sm font-medium shadow-[0_0_15px_rgba(0,0,0,0.2)]">
                             <span className="w-2 h-2 rounded-full bg-accent-purple animate-pulse"></span>
                             <span className="text-brand-text-muted">Service:</span> 
-                            <span className="text-white font-semibold tracking-wide uppercase text-xs">Social Media Auto</span>
+                            <span className="text-brand-text font-semibold tracking-wide uppercase text-xs">Social Media Auto</span>
                         </div>
                     </div>
                     <h1 className="text-5xl md:text-7xl font-bold mb-6 tracking-tight">
@@ -59,7 +59,7 @@ const SocialMediaAutomation = () => {
                                 <div className={"w-5 h-5 rounded-full bg-white absolute top-1/2 -translate-y-1/2 transition-all shadow-sm " + (quickCall ? "left-[calc(100%-1.5rem)]" : "left-0.5")}></div>
                             </button>
                             <div>
-                                <h4 className="font-semibold text-white text-lg leading-tight mb-1">I am in a hurry</h4 >
+                                <h4 className="font-semibold text-brand-text text-lg leading-tight mb-1">I am in a hurry</h4 >
                                 <p className="text-sm text-brand-text-muted">Just take my number and call me.</p>
                             </div>
                         </div>
@@ -69,11 +69,11 @@ const SocialMediaAutomation = () => {
                                 <div className="space-y-6 max-w-lg mx-auto">
                                     <div>
                                         <label className="block text-sm font-medium text-brand-text-muted mb-2">Name</label>
-                                        <input type="text" required className="w-full bg-brand-bg/30 border border-brand-border/60 hover:bg-brand-bg/50 hover:border-brand-border backdrop-blur-sm rounded-lg px-4 py-3.5 text-white focus:outline-none focus:ring-2 focus:ring-accent-purple/50 focus:ring-offset-2 focus:ring-offset-brand-bg shadow-[0_0_15px_rgba(0,0,0,0)] focus:shadow-[0_0_20px_rgba(0,0,0,0.3)] shadow-accent-purple/20 transition-all" placeholder="John Doe" />
+                                        <input type="text" required className="w-full bg-brand-bg/30 border border-brand-border/60 hover:bg-brand-bg/50 hover:border-brand-border backdrop-blur-sm rounded-lg px-4 py-3.5 text-brand-text focus:outline-none focus:ring-2 focus:ring-accent-purple/50 focus:ring-offset-2 focus:ring-offset-brand-bg shadow-[0_0_15px_rgba(0,0,0,0)] focus:shadow-[0_0_20px_rgba(0,0,0,0.3)] shadow-accent-purple/20 transition-all" placeholder="John Doe" />
                                     </div>
                                     <div>
                                         <label className="block text-sm font-medium text-brand-text-muted mb-2">Phone / WhatsApp</label>
-                                        <input type="tel" required className="w-full bg-brand-bg/30 border border-brand-border/60 hover:bg-brand-bg/50 hover:border-brand-border backdrop-blur-sm rounded-lg px-4 py-3.5 text-white focus:outline-none focus:ring-2 focus:ring-accent-purple/50 focus:ring-offset-2 focus:ring-offset-brand-bg shadow-[0_0_15px_rgba(0,0,0,0)] focus:shadow-[0_0_20px_rgba(0,0,0,0.3)] shadow-accent-purple/20 transition-all" placeholder="+91 98765 43210" />
+                                        <input type="tel" required className="w-full bg-brand-bg/30 border border-brand-border/60 hover:bg-brand-bg/50 hover:border-brand-border backdrop-blur-sm rounded-lg px-4 py-3.5 text-brand-text focus:outline-none focus:ring-2 focus:ring-accent-purple/50 focus:ring-offset-2 focus:ring-offset-brand-bg shadow-[0_0_15px_rgba(0,0,0,0)] focus:shadow-[0_0_20px_rgba(0,0,0,0.3)] shadow-accent-purple/20 transition-all" placeholder="+91 98765 43210" />
                                     </div>
                                 </div>
                             ) : (
@@ -87,19 +87,19 @@ const SocialMediaAutomation = () => {
                                         <div className="grid md:grid-cols-2 gap-6">
                                             <div>
                                                 <label className="block text-sm font-medium text-brand-text-muted mb-2">Business Name</label>
-                                                <input type="text" required className="w-full bg-brand-bg/30 border border-brand-border/60 hover:bg-brand-bg/50 hover:border-brand-border backdrop-blur-sm rounded-lg px-4 py-3.5 text-white focus:outline-none focus:ring-2 focus:ring-accent-purple/50 focus:ring-offset-2 focus:ring-offset-brand-bg shadow-[0_0_15px_rgba(0,0,0,0)] focus:shadow-[0_0_20px_rgba(0,0,0,0.3)] shadow-accent-purple/20 transition-all" placeholder="Acme Corp" />
+                                                <input type="text" required className="w-full bg-brand-bg/30 border border-brand-border/60 hover:bg-brand-bg/50 hover:border-brand-border backdrop-blur-sm rounded-lg px-4 py-3.5 text-brand-text focus:outline-none focus:ring-2 focus:ring-accent-purple/50 focus:ring-offset-2 focus:ring-offset-brand-bg shadow-[0_0_15px_rgba(0,0,0,0)] focus:shadow-[0_0_20px_rgba(0,0,0,0.3)] shadow-accent-purple/20 transition-all" placeholder="Acme Corp" />
                                             </div>
                                             <div>
                                                 <label className="block text-sm font-medium text-brand-text-muted mb-2">Contact Name</label>
-                                                <input type="text" required className="w-full bg-brand-bg/30 border border-brand-border/60 hover:bg-brand-bg/50 hover:border-brand-border backdrop-blur-sm rounded-lg px-4 py-3.5 text-white focus:outline-none focus:ring-2 focus:ring-accent-purple/50 focus:ring-offset-2 focus:ring-offset-brand-bg shadow-[0_0_15px_rgba(0,0,0,0)] focus:shadow-[0_0_20px_rgba(0,0,0,0.3)] shadow-accent-purple/20 transition-all" placeholder="John Doe" />
+                                                <input type="text" required className="w-full bg-brand-bg/30 border border-brand-border/60 hover:bg-brand-bg/50 hover:border-brand-border backdrop-blur-sm rounded-lg px-4 py-3.5 text-brand-text focus:outline-none focus:ring-2 focus:ring-accent-purple/50 focus:ring-offset-2 focus:ring-offset-brand-bg shadow-[0_0_15px_rgba(0,0,0,0)] focus:shadow-[0_0_20px_rgba(0,0,0,0.3)] shadow-accent-purple/20 transition-all" placeholder="John Doe" />
                                             </div>
                                             <div>
                                                 <label className="block text-sm font-medium text-brand-text-muted mb-2">Phone / WhatsApp</label>
-                                                <input type="tel" required className="w-full bg-brand-bg/30 border border-brand-border/60 hover:bg-brand-bg/50 hover:border-brand-border backdrop-blur-sm rounded-lg px-4 py-3.5 text-white focus:outline-none focus:ring-2 focus:ring-accent-purple/50 focus:ring-offset-2 focus:ring-offset-brand-bg shadow-[0_0_15px_rgba(0,0,0,0)] focus:shadow-[0_0_20px_rgba(0,0,0,0.3)] shadow-accent-purple/20 transition-all" placeholder="+91 98765 43210" />
+                                                <input type="tel" required className="w-full bg-brand-bg/30 border border-brand-border/60 hover:bg-brand-bg/50 hover:border-brand-border backdrop-blur-sm rounded-lg px-4 py-3.5 text-brand-text focus:outline-none focus:ring-2 focus:ring-accent-purple/50 focus:ring-offset-2 focus:ring-offset-brand-bg shadow-[0_0_15px_rgba(0,0,0,0)] focus:shadow-[0_0_20px_rgba(0,0,0,0.3)] shadow-accent-purple/20 transition-all" placeholder="+91 98765 43210" />
                                             </div>
                                             <div>
                                                 <label className="block text-sm font-medium text-brand-text-muted mb-2">Instagram / Facebook Page Link</label>
-                                                <input type="text" required className="w-full bg-brand-bg/30 border border-brand-border/60 hover:bg-brand-bg/50 hover:border-brand-border backdrop-blur-sm rounded-lg px-4 py-3.5 text-white focus:outline-none focus:ring-2 focus:ring-accent-purple/50 focus:ring-offset-2 focus:ring-offset-brand-bg shadow-[0_0_15px_rgba(0,0,0,0)] focus:shadow-[0_0_20px_rgba(0,0,0,0.3)] shadow-accent-purple/20 transition-all" placeholder="https://instagram.com/yourbrand" />
+                                                <input type="text" required className="w-full bg-brand-bg/30 border border-brand-border/60 hover:bg-brand-bg/50 hover:border-brand-border backdrop-blur-sm rounded-lg px-4 py-3.5 text-brand-text focus:outline-none focus:ring-2 focus:ring-accent-purple/50 focus:ring-offset-2 focus:ring-offset-brand-bg shadow-[0_0_15px_rgba(0,0,0,0)] focus:shadow-[0_0_20px_rgba(0,0,0,0.3)] shadow-accent-purple/20 transition-all" placeholder="https://instagram.com/yourbrand" />
                                             </div>
                                         </div>
                                     </div>
@@ -112,24 +112,24 @@ const SocialMediaAutomation = () => {
                                         </h3>
                                         <div>
                                             <label className="block text-sm font-medium text-brand-text-muted mb-2">1. Which platforms do you use?</label>
-                                            <select required className="w-full bg-brand-bg/30 border border-brand-border/60 hover:bg-brand-bg/50 hover:border-brand-border backdrop-blur-sm rounded-lg px-4 py-3.5 text-white focus:outline-none focus:ring-2 focus:ring-accent-blue/50 focus:ring-offset-2 focus:ring-offset-brand-bg shadow-[0_0_15px_rgba(0,0,0,0)] focus:shadow-[0_0_20px_rgba(0,0,0,0.3)] shadow-accent-blue/20 transition-all appearance-none cursor-pointer">
-                                                <option value="" className="bg-brand-bg text-white">Select platform...</option>
-                                                <option value="Instagram" className="bg-brand-bg text-white">Instagram</option>
-                                                <option value="Facebook" className="bg-brand-bg text-white">Facebook</option>
-                                                <option value="WhatsApp" className="bg-brand-bg text-white">WhatsApp</option>
-                                                <option value="LinkedIn" className="bg-brand-bg text-white">LinkedIn</option>
-                                                <option value="Multiple" className="bg-brand-bg text-white">Multiple</option>
+                                            <select required className="w-full bg-brand-bg/30 border border-brand-border/60 hover:bg-brand-bg/50 hover:border-brand-border backdrop-blur-sm rounded-lg px-4 py-3.5 text-brand-text focus:outline-none focus:ring-2 focus:ring-accent-blue/50 focus:ring-offset-2 focus:ring-offset-brand-bg shadow-[0_0_15px_rgba(0,0,0,0)] focus:shadow-[0_0_20px_rgba(0,0,0,0.3)] shadow-accent-blue/20 transition-all appearance-none cursor-pointer">
+                                                <option value="" className="bg-brand-bg text-brand-text">Select platform...</option>
+                                                <option value="Instagram" className="bg-brand-bg text-brand-text">Instagram</option>
+                                                <option value="Facebook" className="bg-brand-bg text-brand-text">Facebook</option>
+                                                <option value="WhatsApp" className="bg-brand-bg text-brand-text">WhatsApp</option>
+                                                <option value="LinkedIn" className="bg-brand-bg text-brand-text">LinkedIn</option>
+                                                <option value="Multiple" className="bg-brand-bg text-brand-text">Multiple</option>
                                             </select>
                                         </div>
                                         <div>
                                             <label className="block text-sm font-medium text-brand-text-muted mb-2">2. What do you need help with?</label>
-                                            <select required className="w-full bg-brand-bg/30 border border-brand-border/60 hover:bg-brand-bg/50 hover:border-brand-border backdrop-blur-sm rounded-lg px-4 py-3.5 text-white focus:outline-none focus:ring-2 focus:ring-accent-blue/50 focus:ring-offset-2 focus:ring-offset-brand-bg shadow-[0_0_15px_rgba(0,0,0,0)] focus:shadow-[0_0_20px_rgba(0,0,0,0.3)] shadow-accent-blue/20 transition-all appearance-none cursor-pointer">
-                                                <option value="" className="bg-brand-bg text-white">Select need...</option>
-                                                <option value="Content scheduling" className="bg-brand-bg text-white">Content scheduling</option>
-                                                <option value="Auto-reply to DMs" className="bg-brand-bg text-white">Auto-reply to DMs</option>
-                                                <option value="Lead collection from DMs" className="bg-brand-bg text-white">Lead collection from DMs</option>
-                                                <option value="Posting consistently" className="bg-brand-bg text-white">Posting consistently</option>
-                                                <option value="Engagement management" className="bg-brand-bg text-white">Engagement management</option>
+                                            <select required className="w-full bg-brand-bg/30 border border-brand-border/60 hover:bg-brand-bg/50 hover:border-brand-border backdrop-blur-sm rounded-lg px-4 py-3.5 text-brand-text focus:outline-none focus:ring-2 focus:ring-accent-blue/50 focus:ring-offset-2 focus:ring-offset-brand-bg shadow-[0_0_15px_rgba(0,0,0,0)] focus:shadow-[0_0_20px_rgba(0,0,0,0.3)] shadow-accent-blue/20 transition-all appearance-none cursor-pointer">
+                                                <option value="" className="bg-brand-bg text-brand-text">Select need...</option>
+                                                <option value="Content scheduling" className="bg-brand-bg text-brand-text">Content scheduling</option>
+                                                <option value="Auto-reply to DMs" className="bg-brand-bg text-brand-text">Auto-reply to DMs</option>
+                                                <option value="Lead collection from DMs" className="bg-brand-bg text-brand-text">Lead collection from DMs</option>
+                                                <option value="Posting consistently" className="bg-brand-bg text-brand-text">Posting consistently</option>
+                                                <option value="Engagement management" className="bg-brand-bg text-brand-text">Engagement management</option>
                                             </select>
                                         </div>
                                     </div>
@@ -142,11 +142,11 @@ const SocialMediaAutomation = () => {
                                         </h3>
                                         <div>
                                             <label className="block text-sm font-medium text-brand-text-muted mb-2">3. How often do you currently post?</label>
-                                            <select required className="w-full bg-brand-bg/30 border border-brand-border/60 hover:bg-brand-bg/50 hover:border-brand-border backdrop-blur-sm rounded-lg px-4 py-3.5 text-white focus:outline-none focus:ring-2 focus:ring-accent-purple/50 focus:ring-offset-2 focus:ring-offset-brand-bg shadow-[0_0_15px_rgba(0,0,0,0)] focus:shadow-[0_0_20px_rgba(0,0,0,0.3)] shadow-accent-purple/20 transition-all appearance-none cursor-pointer">
-                                                <option value="" className="bg-brand-bg text-white">Select frequency...</option>
-                                                <option value="Rarely" className="bg-brand-bg text-white">Rarely</option>
-                                                <option value="1–2 times per week" className="bg-brand-bg text-white">1–2 times per week</option>
-                                                <option value="3+ times per week" className="bg-brand-bg text-white">3+ times per week</option>
+                                            <select required className="w-full bg-brand-bg/30 border border-brand-border/60 hover:bg-brand-bg/50 hover:border-brand-border backdrop-blur-sm rounded-lg px-4 py-3.5 text-brand-text focus:outline-none focus:ring-2 focus:ring-accent-purple/50 focus:ring-offset-2 focus:ring-offset-brand-bg shadow-[0_0_15px_rgba(0,0,0,0)] focus:shadow-[0_0_20px_rgba(0,0,0,0.3)] shadow-accent-purple/20 transition-all appearance-none cursor-pointer">
+                                                <option value="" className="bg-brand-bg text-brand-text">Select frequency...</option>
+                                                <option value="Rarely" className="bg-brand-bg text-brand-text">Rarely</option>
+                                                <option value="1–2 times per week" className="bg-brand-bg text-brand-text">1–2 times per week</option>
+                                                <option value="3+ times per week" className="bg-brand-bg text-brand-text">3+ times per week</option>
                                             </select>
                                         </div>
                                     </div>

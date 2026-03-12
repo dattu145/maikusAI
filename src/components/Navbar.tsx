@@ -35,8 +35,8 @@ const Navbar = ({ theme, toggleTheme }: { theme: string; toggleTheme: () => void
                         transition={{ duration: 0.5 }}
                         className="flex items-center justify-center w-10 h-10 rounded-xl bg-gradient-to-tr from-accent-blue to-accent-purple p-0.5 relative z-10"
                     >
-                        <div className="w-full h-full bg-[#0B0F19] rounded-xl flex items-center justify-center">
-                            <BrainCircuit className="w-6 h-6 text-white" />
+                        <div className="w-full h-full bg-brand-text rounded-xl flex items-center justify-center">
+                            <BrainCircuit className="w-6 h-6 text-brand-bg" />
                         </div>
                     </motion.div>
                     <span className="text-xl font-bold tracking-tight text-brand-text">

@@ -51,7 +51,8 @@
     --theme-grid-opacity: 0.6;
   }
 
-  :root, .light {
+  :root,
+  .light {
     transition: background-color 0.5s ease, color 0.5s ease, border-color 0.5s ease;
   }
 
@@ -74,7 +75,7 @@
   }
 
   .btn-primary {
-    @apply relative inline-flex items-center justify-center px-8 py-3 text-sm font-semibold text-white transition-all duration-300 bg-black border border-transparent rounded-full overflow-hidden hover:scale-105 hover:-translate-y-1 hover:shadow-[0_10px_40px_-10px_#00f0ff80];
+    @apply relative inline-flex items-center justify-center px-8 py-3 text-sm font-semibold text-brand-bg transition-all duration-300 bg-brand-text border border-transparent rounded-full overflow-hidden hover:scale-105 hover:-translate-y-1 hover:shadow-[0_10px_40px_-10px_#00f0ff80];
   }
 
   .btn-primary::before {
@@ -87,12 +88,13 @@
   }
 
   .btn-secondary {
-    @apply inline-flex items-center justify-center px-8 py-3 text-sm font-semibold text-brand-text transition-all duration-300 border border-brand-border rounded-full hover:bg-brand-glass hover:border-accent-purple hover:dark:text-white hover:scale-105 hover:-translate-y-1 hover:shadow-[0_10px_30px_-10px_#9b51e04d];
+    @apply inline-flex items-center justify-center px-8 py-3 text-sm font-semibold text-brand-text transition-all duration-300 border border-brand-border rounded-full hover:bg-brand-glass hover:border-accent-purple hover:text-white hover:scale-105 hover:-translate-y-1 hover:shadow-[0_10px_30px_-10px_#9b51e04d];
   }
 
   .no-scrollbar::-webkit-scrollbar {
     display: none;
   }
+
   .no-scrollbar {
     -ms-overflow-style: none;
     scrollbar-width: none;

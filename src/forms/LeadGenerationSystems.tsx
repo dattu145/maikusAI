@@ -13,7 +13,7 @@ const LeadGenerationSystems = () => {
                         <div className="inline-flex items-center gap-2 px-4 py-3 rounded-full bg-brand-bg-alt/80 backdrop-blur-sm border border-brand-border/80 text-sm font-medium shadow-[0_0_15px_rgba(0,0,0,0.2)]">
                             <span className="w-2 h-2 rounded-full bg-accent-green animate-pulse"></span>
                             <span className="text-brand-text-muted">Service:</span> 
-                            <span className="text-white font-semibold tracking-wide uppercase text-xs">Lead Gen Funnels</span>
+                            <span className="text-brand-text font-semibold tracking-wide uppercase text-xs">Lead Gen Funnels</span>
                         </div>
                     </div>
                     <h1 className="text-5xl md:text-7xl font-bold mb-6 tracking-tight">
@@ -59,7 +59,7 @@ const LeadGenerationSystems = () => {
                                 <div className={"w-5 h-5 rounded-full bg-white absolute top-1/2 -translate-y-1/2 transition-all shadow-sm " + (quickCall ? "left-[calc(100%-1.5rem)]" : "left-0.5")}></div>
                             </button>
                             <div>
-                                <h4 className="font-semibold text-white text-lg leading-tight mb-1">I am in a hurry</h4 >
+                                <h4 className="font-semibold text-brand-text text-lg leading-tight mb-1">I am in a hurry</h4 >
                                 <p className="text-sm text-brand-text-muted">Just take my number and call me.</p>
                             </div>
                         </div>
@@ -69,11 +69,11 @@ const LeadGenerationSystems = () => {
                                 <div className="space-y-6 max-w-lg mx-auto">
                                     <div>
                                         <label className="block text-sm font-medium text-brand-text-muted mb-2">Name</label>
-                                        <input type="text" required className="w-full bg-brand-bg/30 border border-brand-border/60 hover:bg-brand-bg/50 hover:border-brand-border backdrop-blur-sm rounded-lg px-4 py-3.5 text-white focus:outline-none focus:ring-2 focus:ring-accent-green/50 focus:ring-offset-2 focus:ring-offset-brand-bg shadow-[0_0_15px_rgba(0,0,0,0)] focus:shadow-[0_0_20px_rgba(0,0,0,0.3)] shadow-accent-green/20 transition-all" placeholder="John Doe" />
+                                        <input type="text" required className="w-full bg-brand-bg/30 border border-brand-border/60 hover:bg-brand-bg/50 hover:border-brand-border backdrop-blur-sm rounded-lg px-4 py-3.5 text-brand-text focus:outline-none focus:ring-2 focus:ring-accent-green/50 focus:ring-offset-2 focus:ring-offset-brand-bg shadow-[0_0_15px_rgba(0,0,0,0)] focus:shadow-[0_0_20px_rgba(0,0,0,0.3)] shadow-accent-green/20 transition-all" placeholder="John Doe" />
                                     </div>
                                     <div>
                                         <label className="block text-sm font-medium text-brand-text-muted mb-2">Phone / WhatsApp</label>
-                                        <input type="tel" required className="w-full bg-brand-bg/30 border border-brand-border/60 hover:bg-brand-bg/50 hover:border-brand-border backdrop-blur-sm rounded-lg px-4 py-3.5 text-white focus:outline-none focus:ring-2 focus:ring-accent-green/50 focus:ring-offset-2 focus:ring-offset-brand-bg shadow-[0_0_15px_rgba(0,0,0,0)] focus:shadow-[0_0_20px_rgba(0,0,0,0.3)] shadow-accent-green/20 transition-all" placeholder="+91 98765 43210" />
+                                        <input type="tel" required className="w-full bg-brand-bg/30 border border-brand-border/60 hover:bg-brand-bg/50 hover:border-brand-border backdrop-blur-sm rounded-lg px-4 py-3.5 text-brand-text focus:outline-none focus:ring-2 focus:ring-accent-green/50 focus:ring-offset-2 focus:ring-offset-brand-bg shadow-[0_0_15px_rgba(0,0,0,0)] focus:shadow-[0_0_20px_rgba(0,0,0,0.3)] shadow-accent-green/20 transition-all" placeholder="+91 98765 43210" />
                                     </div>
                                 </div>
                             ) : (
@@ -87,19 +87,19 @@ const LeadGenerationSystems = () => {
                                         <div className="grid md:grid-cols-2 gap-6">
                                             <div>
                                                 <label className="block text-sm font-medium text-brand-text-muted mb-2">Company Name</label>
-                                                <input type="text" required className="w-full bg-brand-bg/30 border border-brand-border/60 hover:bg-brand-bg/50 hover:border-brand-border backdrop-blur-sm rounded-lg px-4 py-3.5 text-white focus:outline-none focus:ring-2 focus:ring-accent-green/50 focus:ring-offset-2 focus:ring-offset-brand-bg shadow-[0_0_15px_rgba(0,0,0,0)] focus:shadow-[0_0_20px_rgba(0,0,0,0.3)] shadow-accent-green/20 transition-all" placeholder="Acme Corp" />
+                                                <input type="text" required className="w-full bg-brand-bg/30 border border-brand-border/60 hover:bg-brand-bg/50 hover:border-brand-border backdrop-blur-sm rounded-lg px-4 py-3.5 text-brand-text focus:outline-none focus:ring-2 focus:ring-accent-green/50 focus:ring-offset-2 focus:ring-offset-brand-bg shadow-[0_0_15px_rgba(0,0,0,0)] focus:shadow-[0_0_20px_rgba(0,0,0,0.3)] shadow-accent-green/20 transition-all" placeholder="Acme Corp" />
                                             </div>
                                             <div>
                                                 <label className="block text-sm font-medium text-brand-text-muted mb-2">Contact Name</label>
-                                                <input type="text" required className="w-full bg-brand-bg/30 border border-brand-border/60 hover:bg-brand-bg/50 hover:border-brand-border backdrop-blur-sm rounded-lg px-4 py-3.5 text-white focus:outline-none focus:ring-2 focus:ring-accent-green/50 focus:ring-offset-2 focus:ring-offset-brand-bg shadow-[0_0_15px_rgba(0,0,0,0)] focus:shadow-[0_0_20px_rgba(0,0,0,0.3)] shadow-accent-green/20 transition-all" placeholder="John Doe" />
+                                                <input type="text" required className="w-full bg-brand-bg/30 border border-brand-border/60 hover:bg-brand-bg/50 hover:border-brand-border backdrop-blur-sm rounded-lg px-4 py-3.5 text-brand-text focus:outline-none focus:ring-2 focus:ring-accent-green/50 focus:ring-offset-2 focus:ring-offset-brand-bg shadow-[0_0_15px_rgba(0,0,0,0)] focus:shadow-[0_0_20px_rgba(0,0,0,0.3)] shadow-accent-green/20 transition-all" placeholder="John Doe" />
                                             </div>
                                             <div>
                                                 <label className="block text-sm font-medium text-brand-text-muted mb-2">Phone / WhatsApp</label>
-                                                <input type="tel" required className="w-full bg-brand-bg/30 border border-brand-border/60 hover:bg-brand-bg/50 hover:border-brand-border backdrop-blur-sm rounded-lg px-4 py-3.5 text-white focus:outline-none focus:ring-2 focus:ring-accent-green/50 focus:ring-offset-2 focus:ring-offset-brand-bg shadow-[0_0_15px_rgba(0,0,0,0)] focus:shadow-[0_0_20px_rgba(0,0,0,0.3)] shadow-accent-green/20 transition-all" placeholder="+91 98765 43210" />
+                                                <input type="tel" required className="w-full bg-brand-bg/30 border border-brand-border/60 hover:bg-brand-bg/50 hover:border-brand-border backdrop-blur-sm rounded-lg px-4 py-3.5 text-brand-text focus:outline-none focus:ring-2 focus:ring-accent-green/50 focus:ring-offset-2 focus:ring-offset-brand-bg shadow-[0_0_15px_rgba(0,0,0,0)] focus:shadow-[0_0_20px_rgba(0,0,0,0.3)] shadow-accent-green/20 transition-all" placeholder="+91 98765 43210" />
                                             </div>
                                             <div>
                                                 <label className="block text-sm font-medium text-brand-text-muted mb-2">Email</label>
-                                                <input type="email" required className="w-full bg-brand-bg/30 border border-brand-border/60 hover:bg-brand-bg/50 hover:border-brand-border backdrop-blur-sm rounded-lg px-4 py-3.5 text-white focus:outline-none focus:ring-2 focus:ring-accent-green/50 focus:ring-offset-2 focus:ring-offset-brand-bg shadow-[0_0_15px_rgba(0,0,0,0)] focus:shadow-[0_0_20px_rgba(0,0,0,0.3)] shadow-accent-green/20 transition-all" placeholder="john@example.com" />
+                                                <input type="email" required className="w-full bg-brand-bg/30 border border-brand-border/60 hover:bg-brand-bg/50 hover:border-brand-border backdrop-blur-sm rounded-lg px-4 py-3.5 text-brand-text focus:outline-none focus:ring-2 focus:ring-accent-green/50 focus:ring-offset-2 focus:ring-offset-brand-bg shadow-[0_0_15px_rgba(0,0,0,0)] focus:shadow-[0_0_20px_rgba(0,0,0,0.3)] shadow-accent-green/20 transition-all" placeholder="john@example.com" />
                                             </div>
                                         </div>
                                     </div>
@@ -112,23 +112,23 @@ const LeadGenerationSystems = () => {
                                         </h3>
                                         <div>
                                             <label className="block text-sm font-medium text-brand-text-muted mb-2">Where do most of your leads come from?</label>
-                                            <select required className="w-full bg-brand-bg/30 border border-brand-border/60 hover:bg-brand-bg/50 hover:border-brand-border backdrop-blur-sm rounded-lg px-4 py-3.5 text-white focus:outline-none focus:ring-2 focus:ring-accent-blue/50 focus:ring-offset-2 focus:ring-offset-brand-bg shadow-[0_0_15px_rgba(0,0,0,0)] focus:shadow-[0_0_20px_rgba(0,0,0,0.3)] shadow-accent-blue/20 transition-all appearance-none cursor-pointer">
-                                                <option value="" className="bg-brand-bg text-white">Select source...</option>
-                                                <option value="Instagram" className="bg-brand-bg text-white">Instagram</option>
-                                                <option value="Facebook Ads" className="bg-brand-bg text-white">Facebook Ads</option>
-                                                <option value="Website" className="bg-brand-bg text-white">Website</option>
-                                                <option value="Walk-ins" className="bg-brand-bg text-white">Walk-ins</option>
-                                                <option value="Other" className="bg-brand-bg text-white">Other</option>
+                                            <select required className="w-full bg-brand-bg/30 border border-brand-border/60 hover:bg-brand-bg/50 hover:border-brand-border backdrop-blur-sm rounded-lg px-4 py-3.5 text-brand-text focus:outline-none focus:ring-2 focus:ring-accent-blue/50 focus:ring-offset-2 focus:ring-offset-brand-bg shadow-[0_0_15px_rgba(0,0,0,0)] focus:shadow-[0_0_20px_rgba(0,0,0,0.3)] shadow-accent-blue/20 transition-all appearance-none cursor-pointer">
+                                                <option value="" className="bg-brand-bg text-brand-text">Select source...</option>
+                                                <option value="Instagram" className="bg-brand-bg text-brand-text">Instagram</option>
+                                                <option value="Facebook Ads" className="bg-brand-bg text-brand-text">Facebook Ads</option>
+                                                <option value="Website" className="bg-brand-bg text-brand-text">Website</option>
+                                                <option value="Walk-ins" className="bg-brand-bg text-brand-text">Walk-ins</option>
+                                                <option value="Other" className="bg-brand-bg text-brand-text">Other</option>
                                             </select>
                                         </div>
                                         <div>
                                             <label className="block text-sm font-medium text-brand-text-muted mb-2">What do you want to improve?</label>
-                                            <select required className="w-full bg-brand-bg/30 border border-brand-border/60 hover:bg-brand-bg/50 hover:border-brand-border backdrop-blur-sm rounded-lg px-4 py-3.5 text-white focus:outline-none focus:ring-2 focus:ring-accent-blue/50 focus:ring-offset-2 focus:ring-offset-brand-bg shadow-[0_0_15px_rgba(0,0,0,0)] focus:shadow-[0_0_20px_rgba(0,0,0,0.3)] shadow-accent-blue/20 transition-all appearance-none cursor-pointer">
-                                                <option value="" className="bg-brand-bg text-white">Select goal...</option>
-                                                <option value="More qualified leads" className="bg-brand-bg text-white">More qualified leads</option>
-                                                <option value="Faster response" className="bg-brand-bg text-white">Faster response</option>
-                                                <option value="Automatic follow-ups" className="bg-brand-bg text-white">Automatic follow-ups</option>
-                                                <option value="Booking appointments automatically" className="bg-brand-bg text-white">Booking appointments automatically</option>
+                                            <select required className="w-full bg-brand-bg/30 border border-brand-border/60 hover:bg-brand-bg/50 hover:border-brand-border backdrop-blur-sm rounded-lg px-4 py-3.5 text-brand-text focus:outline-none focus:ring-2 focus:ring-accent-blue/50 focus:ring-offset-2 focus:ring-offset-brand-bg shadow-[0_0_15px_rgba(0,0,0,0)] focus:shadow-[0_0_20px_rgba(0,0,0,0.3)] shadow-accent-blue/20 transition-all appearance-none cursor-pointer">
+                                                <option value="" className="bg-brand-bg text-brand-text">Select goal...</option>
+                                                <option value="More qualified leads" className="bg-brand-bg text-brand-text">More qualified leads</option>
+                                                <option value="Faster response" className="bg-brand-bg text-brand-text">Faster response</option>
+                                                <option value="Automatic follow-ups" className="bg-brand-bg text-brand-text">Automatic follow-ups</option>
+                                                <option value="Booking appointments automatically" className="bg-brand-bg text-brand-text">Booking appointments automatically</option>
                                             </select>
                                         </div>
                                     </div>
@@ -141,11 +141,11 @@ const LeadGenerationSystems = () => {
                                         </h3>
                                         <div>
                                             <label className="block text-sm font-medium text-brand-text-muted mb-2">Current monthly lead volume?</label>
-                                            <select required className="w-full bg-brand-bg/30 border border-brand-border/60 hover:bg-brand-bg/50 hover:border-brand-border backdrop-blur-sm rounded-lg px-4 py-3.5 text-white focus:outline-none focus:ring-2 focus:ring-accent-green/50 focus:ring-offset-2 focus:ring-offset-brand-bg shadow-[0_0_15px_rgba(0,0,0,0)] focus:shadow-[0_0_20px_rgba(0,0,0,0.3)] shadow-accent-green/20 transition-all appearance-none cursor-pointer">
-                                                <option value="" className="bg-brand-bg text-white">Select volume...</option>
-                                                <option value="0–50" className="bg-brand-bg text-white">0–50</option>
-                                                <option value="50–200" className="bg-brand-bg text-white">50–200</option>
-                                                <option value="200+" className="bg-brand-bg text-white">200+</option>
+                                            <select required className="w-full bg-brand-bg/30 border border-brand-border/60 hover:bg-brand-bg/50 hover:border-brand-border backdrop-blur-sm rounded-lg px-4 py-3.5 text-brand-text focus:outline-none focus:ring-2 focus:ring-accent-green/50 focus:ring-offset-2 focus:ring-offset-brand-bg shadow-[0_0_15px_rgba(0,0,0,0)] focus:shadow-[0_0_20px_rgba(0,0,0,0.3)] shadow-accent-green/20 transition-all appearance-none cursor-pointer">
+                                                <option value="" className="bg-brand-bg text-brand-text">Select volume...</option>
+                                                <option value="0–50" className="bg-brand-bg text-brand-text">0–50</option>
+                                                <option value="50–200" className="bg-brand-bg text-brand-text">50–200</option>
+                                                <option value="200+" className="bg-brand-bg text-brand-text">200+</option>
                                             </select>
                                         </div>
                                     </div>

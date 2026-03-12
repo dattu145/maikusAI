@@ -184,7 +184,7 @@ const Pricing = () => {
                                 }`}
                         >
                             {plan.popular && (
-                                <div className="absolute top-0 left-0 right-0 bg-gradient-to-r from-accent-blue to-accent-purple text-white text-xs font-bold text-center py-1">
+                                <div className="absolute top-0 left-0 right-0 bg-gradient-to-r from-accent-blue to-accent-purple text-brand-text text-xs font-bold text-center py-1">
                                     MOST POPULAR
                                 </div>
                             )}
@@ -281,7 +281,7 @@ const Pricing = () => {
                                 }`}
                         >
                             {plan.popular && (
-                                <div className="absolute top-0 w-full bg-gradient-to-r from-accent-blue to-accent-purple text-white text-xs font-bold text-center py-1 rounded-t-2xl">
+                                <div className="absolute top-0 w-full bg-gradient-to-r from-accent-blue to-accent-purple text-brand-text text-xs font-bold text-center py-1 rounded-t-2xl">
                                     MOST POPULAR
                                 </div>
                             )}

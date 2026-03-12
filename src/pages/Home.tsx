@@ -385,7 +385,7 @@ const Home = () => {
                         </div>
                         {/* Growth - Highlighted */}
                         <div className="glass-card flex flex-col items-center justify-between p-10 border-accent-blue relative transform md:-translate-y-4 shadow-[0_0_50px_rgba(0,240,255,0.1)]">
-                            <div className="absolute top-0 w-full bg-gradient-to-r from-accent-blue to-accent-purple text-white text-xs font-bold text-center py-1 rounded-t-2xl">MOST POPULAR</div>
+                            <div className="absolute top-0 w-full bg-gradient-to-r from-accent-blue to-accent-purple text-brand-text text-xs font-bold text-center py-1 rounded-t-2xl">MOST POPULAR</div>
                             <div className="w-full text-center mt-6">
                                 <h3 className="text-2xl font-bold text-brand-text mb-2">Growth</h3>
                                 <div className="text-brand-text-muted text-sm mb-6">For scaling companies</div>
