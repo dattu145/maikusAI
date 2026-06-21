@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(node check_hero.mjs)",
+      "Bash(rm -f check_hero.mjs hero-desktop.png hero-desktop-2.png hero-mobile.png)",
+      "Bash(pkill -f vite)",
+      "Bash(node -e \"const icons = require\\('c:/Dattu Personal/maikusAI/node_modules/lucide-react'\\); const names = Object.keys\\(icons\\); console.log\\(names.filter\\(n => /twitter|linkedin|github|X$/i.test\\(n\\)\\).join\\(', '\\)\\)\")"
+    ]
+  }
+}

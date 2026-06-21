@@ -165,7 +165,7 @@ const LeadGenerationSystems = () => {
                 </div>
             </section>
 
-            <a href="/contact" className="fixed bottom-6 right-6 z-50 flex items-center gap-3 bg-brand-glass backdrop-blur-lg border border-accent-green/50 px-5 py-3.5 rounded-full hover:-translate-y-1 transition-all group">
+            <a href="/contact" className="fixed bottom-6 right-6 z-30 flex items-center gap-3 bg-brand-glass backdrop-blur-lg border border-accent-green/50 px-5 py-3.5 rounded-full hover:-translate-y-1 transition-all group">
                 <Phone className="w-5 h-5 text-accent-green" /><span className="font-semibold text-brand-text">Doubt? Let's talk!</span>
             </a>
         </div>

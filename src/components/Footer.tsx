@@ -1,78 +1,143 @@
-import { Link } from 'react-router-dom';
-import { BrainCircuit, Twitter, Linkedin, Github, Mail } from 'lucide-react';
+import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
+import { LucideTwitter, LucideLinkedin, LucideGithub, Mail, Phone, ArrowRight } from "lucide-react";
 
 const Footer = () => {
-    return (
-        <footer className="bg-brand-bg relative border-t border-brand-border pt-20 pb-10">
-            <div className="container mx-auto px-6 lg:px-12 relative z-10">
-                <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
+  return (
+    <footer className="bg-brand-bg relative border-t border-brand-border overflow-hidden">
+      {/* Ambient glows */}
+      <div className="absolute bottom-0 left-1/4 w-96 h-96 bg-accent-blue/4 rounded-full blur-[120px] pointer-events-none" />
+      <div className="absolute top-0 right-1/4 w-80 h-80 bg-accent-purple/4 rounded-full blur-[100px] pointer-events-none" />
 
-                    <div className="col-span-1 md:col-span-2">
-                        <Link to="/" className="flex items-center gap-2 mb-6">
-                            <div className="flex items-center justify-center w-8 h-8 rounded-lg bg-gradient-to-tr from-accent-blue to-accent-purple p-[1px]">
-                                <div className="w-full h-full bg-brand-bg rounded-lg flex items-center justify-center">
-                                    <BrainCircuit className="w-4 h-4 text-brand-text" />
-                                </div>
-                            </div>
-                            <span className="text-xl font-bold tracking-tight text-brand-text">
-                                Maikus <span className="text-gradient">AI</span>
-                            </span>
-                        </Link>
-                        <p className="text-brand-text-muted max-w-sm mb-8 leading-relaxed">
-                            We build intelligent automation systems that generate leads, reply to customers, create content, and scale your operations — 24/7 on autopilot.
-                        </p>
-                        <div className="flex items-center gap-4">
-                            <a href="#" className="w-10 h-10 rounded-full border border-brand-border flex items-center justify-center text-brand-text-muted hover:text-brand-text hover:border-accent-blue hover:bg-accent-blue/10 transition-all">
-                                <Twitter className="w-4 h-4" />
-                            </a>
-                            <a href="#" className="w-10 h-10 rounded-full border border-brand-border flex items-center justify-center text-brand-text-muted hover:text-brand-text hover:border-accent-blue hover:bg-accent-blue/10 transition-all">
-                                <Linkedin className="w-4 h-4" />
-                            </a>
-                            <a href="#" className="w-10 h-10 rounded-full border border-brand-border flex items-center justify-center text-brand-text-muted hover:text-brand-text hover:border-accent-blue hover:bg-accent-blue/10 transition-all">
-                                <Github className="w-4 h-4" />
-                            </a>
-                        </div>
-                    </div>
+      <div className="container mx-auto px-6 lg:px-12 relative z-10 pt-16 pb-10">
 
-                    <div>
-                        <h4 className="text-brand-text font-semibold mb-6">Company</h4>
-                        <ul className="flex flex-col gap-4">
-                            <li><Link to="/about" className="text-brand-text-muted hover:text-accent-blue transition-colors">About Us</Link></li>
-                            <li><Link to="/services" className="text-brand-text-muted hover:text-accent-blue transition-colors">AI Automations Platform</Link></li>
-                            <li><Link to="/services/ai-voice-receptionist" className="text-brand-text-muted hover:text-accent-blue transition-colors">AI Voice Receptionist</Link></li>
-                            <li><Link to="/pricing" className="text-brand-text-muted hover:text-accent-blue transition-colors">Pricing</Link></li>
-                            <li><Link to="/blog" className="text-brand-text-muted hover:text-accent-blue transition-colors">Blog</Link></li>
-                        </ul>
-                    </div>
+        {/* Top CTA strip */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="flex flex-col sm:flex-row items-center justify-between gap-5 mb-16 p-6 sm:p-8 rounded-2xl border border-accent-blue/20 bg-accent-blue/5"
+          style={{ backdropFilter: "blur(12px)" }}
+        >
+          <div>
+            <p className="text-base sm:text-lg font-bold text-brand-text mb-1">Ready to stop missing calls?</p>
+            <p className="text-brand-text-muted text-sm">Get your AI receptionist live in 3–5 business days.</p>
+          </div>
+          <Link
+            to="/contact"
+            className="btn-primary shrink-0 py-3 px-7 text-sm shadow-[0_0_20px_rgba(0,240,255,0.2)] flex items-center gap-2 whitespace-nowrap w-full sm:w-auto justify-center"
+          >
+            Book Free Demo <ArrowRight className="w-4 h-4" />
+          </Link>
+        </motion.div>
 
-                    <div>
-                        <h4 className="text-brand-text font-semibold mb-6">Contact</h4>
-                        <ul className="flex flex-col gap-4">
-                            <li><Link to="/contact" className="text-brand-text-muted hover:text-accent-blue transition-colors">Contact Us</Link></li>
-                            <li>
-                                <a href="mailto:hello@neuroflowai.com" className="flex items-center gap-2 text-brand-text-muted hover:text-accent-blue transition-colors">
-                                    <Mail className="w-4 h-4" />
-                                    maikusai@gmail.com
-                                </a>
-                            </li>
-                            <li><a href="#" className="text-brand-text-muted hover:text-accent-blue transition-colors">Book a Strategy Call</a></li>
-                        </ul>
-                    </div>
+        {/* Main grid */}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-10 mb-14">
 
-                </div>
+          {/* Brand column */}
+          <div className="col-span-2">
+            <Link to="/" className="flex items-center gap-2 group mb-5">
+              <motion.div
+                whileHover={{ scale: 1.05 }}
+                transition={{ duration: 0.4 }}
+                className="flex items-center justify-center w-14 h-14 rounded-xl relative z-10 shrink-0"
+              >
+                <img src="src/assets/buzcalllogo.png"      alt="BUZCALL Logo" className="w-full h-full object-contain rounded-xl hide-in-light" />
+                <img src="src/assets/buzcallLogoWhite.png" alt="BUZCALL Logo" className="w-full h-full object-contain rounded-xl show-in-light" />
+              </motion.div>
+              <span
+                className="-ml-3 text-xl tracking-wide text-brand-text"
+                style={{ fontFamily: "'Red Hat Display', sans-serif", fontWeight: 800 }}
+              >
+                Buz<span style={{ display: 'inline-block', transform: 'scaleX(-1)' }}>c</span>all
+              </span>
+            </Link>
 
-                <div className="border-t border-brand-border pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
-                    <p className="text-brand-text-muted text-sm">
-                        &copy; {new Date().getFullYear()} Maikus AI. All rights reserved.
-                    </p>
-                    <div className="flex gap-6 text-sm text-brand-text-muted">
-                        <Link to="/privacy" className="hover:text-brand-text transition-colors">Privacy Policy</Link>
-                        <Link to="/terms" className="hover:text-brand-text transition-colors">Terms of Service</Link>
-                    </div>
-                </div>
+            <p className="text-brand-text-muted text-sm max-w-xs mb-6 leading-relaxed">
+              AI-powered voice receptionist that answers every call, books appointments, and captures leads — 24/7, so you never miss a customer.
+            </p>
+
+            <div className="space-y-2 mb-6">
+              <a
+                href="mailto:maikusai@gmail.com"
+                className="flex items-center gap-2 text-sm text-brand-text-muted hover:text-accent-blue transition-colors group"
+              >
+                <Mail className="w-3.5 h-3.5 shrink-0" />
+                maikusai@gmail.com
+              </a>
+              <a
+                href="tel:+918888888888"
+                className="flex items-center gap-2 text-sm text-brand-text-muted hover:text-accent-blue transition-colors"
+              >
+                <Phone className="w-3.5 h-3.5 shrink-0" />
+                +91 888 888 8888
+              </a>
             </div>
-        </footer>
-    );
+
+            <div className="flex items-center gap-3">
+              {[{ icon: LucideTwitter, href: "#" }, { icon: LucideLinkedin, href: "#" }, { icon: LucideGithub, href: "#" }].map(({ icon: Icon, href }, i) => (
+                <motion.a
+                  key={i}
+                  href={href}
+                  whileHover={{ scale: 1.15 }}
+                  className="w-9 h-9 rounded-full border border-brand-border flex items-center justify-center text-brand-text-muted hover:text-accent-blue hover:border-accent-blue/50 hover:bg-accent-blue/8 transition-all"
+                >
+                  <Icon className="w-4 h-4" />
+                </motion.a>
+              ))}
+            </div>
+          </div>
+
+          {/* Company */}
+          <div>
+            <h4 className="text-xs font-bold uppercase tracking-widest mb-5 text-accent-blue">Company</h4>
+            <ul className="flex flex-col gap-3">
+              {[
+                { label: "About Us", to: "/about" },
+                { label: "AI Receptionist", to: "/services/ai-voice-receptionist" },
+                { label: "All Services", to: "/services" },
+                { label: "Pricing", to: "/pricing" },
+                { label: "Blog", to: "/blog" },
+              ].map(({ label, to }) => (
+                <li key={label}>
+                  <Link to={to} className="text-sm text-brand-text-muted hover:text-accent-blue transition-colors hover:translate-x-1 inline-block duration-200">
+                    {label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Contact */}
+          <div>
+            <h4 className="text-xs font-bold uppercase tracking-widest mb-5 text-accent-blue">Contact</h4>
+            <ul className="flex flex-col gap-3">
+              {[
+                { label: "Contact Us", to: "/contact" },
+                { label: "Book a Call", to: "/contact" },
+                { label: "Privacy Policy", to: "/privacy" },
+                { label: "Terms of Service", to: "/terms" },
+              ].map(({ label, to }) => (
+                <li key={label}>
+                  <Link to={to} className="text-sm text-brand-text-muted hover:text-accent-blue transition-colors hover:translate-x-1 inline-block duration-200">
+                    {label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+
+        {/* Bottom bar */}
+        <div className="border-t border-brand-border pt-7 flex flex-col sm:flex-row justify-between items-center gap-3">
+          <p className="text-brand-text-muted text-xs">
+            &copy; {new Date().getFullYear()} Buzcall. All rights reserved.
+          </p>
+          <p className="text-brand-text-muted/40 text-xs">Built with ❤️ for Indian businesses</p>
+        </div>
+      </div>
+    </footer>
+  );
 };
 
 export default Footer;
