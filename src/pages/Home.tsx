@@ -9,7 +9,6 @@ import {
 import { Link, useNavigate } from 'react-router-dom';
 import DecryptedText from '../components/DecryptedText';
 import TiltCard from '../components/TiltCard';
-import FAQItem from '../components/FAQItem';
 import MagicRings from '../components/MagicRings';
 import Antigravity from '../components/Antigravity';
 import CardSwap, { Card } from '../components/CardSwap';
@@ -71,15 +70,6 @@ const testimonials = [
         quote: "The lead capture alone paid for the subscription in the first week. It feels like having a full-time receptionist for a fraction of the cost.",
         rating: 5,
     },
-];
-
-const faqs = [
-    { q: "Will it sound robotic to my customers?", a: "No. Buzcall uses hyper-realistic voice synthesis with natural pauses, tone, and empathy — most callers can't tell they're speaking with an AI." },
-    { q: "What languages does it support?", a: "Buzcall is fluent in English, Hindi, and several regional Indian languages, with more being added regularly." },
-    { q: "How does appointment booking work?", a: "We connect directly to your existing calendar (Google Calendar, Calendly, or practice management software) so the AI books, reschedules, and cancels appointments in real time." },
-    { q: "Is my customer data secure?", a: "Yes. All conversations are processed through encrypted, HIPAA-compliant infrastructure, and call data is never shared with third parties." },
-    { q: "Can it handle multiple calls at once?", a: "Absolutely. Unlike a human receptionist, Buzcall can handle unlimited simultaneous calls without ever putting anyone on hold." },
-    { q: "How long does setup take?", a: "Most businesses are fully live within 3-5 business days. We handle the entire setup, integration, and training process for you." },
 ];
 
 const industries = [
@@ -1609,101 +1599,6 @@ const Home = () => {
                 </p>
             </section>
 
-
-            {/* FAQ SECTION */}
-            <section className="py-24 relative bg-brand-bg overflow-hidden">
-                {/* Ambient glows */}
-                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[500px] bg-accent-blue/4 rounded-full blur-[130px] pointer-events-none" />
-                <div className="absolute bottom-0 right-0 w-96 h-96 bg-accent-purple/4 rounded-full blur-[100px] pointer-events-none" />
-
-                <div className="container mx-auto px-6 lg:px-12 relative z-10">
-                    <div className="flex flex-col lg:flex-row gap-14 lg:gap-20 max-w-6xl mx-auto">
-
-                        {/* ── Left: sticky heading panel ── */}
-                        <motion.div
-                            initial={{ opacity: 0, x: -28 }}
-                            whileInView={{ opacity: 1, x: 0 }}
-                            viewport={{ once: true }}
-                            transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
-                            className="lg:w-[38%] lg:sticky lg:top-28 lg:self-start"
-                        >
-                            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-accent-blue/25 bg-accent-blue/8 text-accent-blue text-xs font-bold uppercase tracking-widest mb-6">
-                                <MessageSquare className="w-3.5 h-3.5" />
-                                FAQ
-                            </div>
-
-                            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-5 leading-tight">
-                                Got{" "}
-                                <span className="text-accent-blue">Questions?</span>
-                            </h2>
-
-                            <p className="text-brand-text-muted text-sm sm:text-base leading-relaxed mb-10 max-w-sm">
-                                Everything you need to know before getting started. Can't find an answer? Talk to us directly.
-                            </p>
-
-                            {/* Quick-fact list */}
-                            <div className="space-y-4 mb-10">
-                                {[
-                                    { stat: "3–5 days", label: "Average go-live time" },
-                                    { stat: "24 / 7", label: "Support availability" },
-                                    { stat: "100%", label: "Setup handled by us" },
-                                ].map(({ stat, label }) => (
-                                    <div key={label} className="flex items-center gap-4">
-                                        <span className="text-accent-blue font-black text-lg whitespace-nowrap tabular-nums shrink-0 leading-none">
-                                            {stat}
-                                        </span>
-                                        <span className="h-px flex-1 bg-brand-border" />
-                                        <span className="text-brand-text-muted text-sm">{label}</span>
-                                    </div>
-                                ))}
-                            </div>
-
-                            <Link
-                                to="/contact"
-                                className="btn-secondary inline-flex items-center gap-2 text-sm py-3 px-6"
-                            >
-                                Ask Us Anything <ArrowRight className="w-4 h-4" />
-                            </Link>
-                        </motion.div>
-
-                        {/* ── Right: FAQ accordion list ── */}
-                        <div className="lg:w-[62%] space-y-3">
-                            {faqs.map((faq, idx) => (
-                                <motion.div
-                                    key={idx}
-                                    initial={{ opacity: 0, y: 16 }}
-                                    whileInView={{ opacity: 1, y: 0 }}
-                                    viewport={{ once: true }}
-                                    transition={{ delay: idx * 0.07, duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-                                >
-                                    <FAQItem question={faq.q} answer={faq.a} index={idx} />
-                                </motion.div>
-                            ))}
-
-                            {/* Bottom CTA card */}
-                            <motion.div
-                                initial={{ opacity: 0, y: 16 }}
-                                whileInView={{ opacity: 1, y: 0 }}
-                                viewport={{ once: true }}
-                                transition={{ delay: faqs.length * 0.07 + 0.1, duration: 0.5 }}
-                                className="mt-6 rounded-2xl border border-accent-blue/20 bg-accent-blue/5 p-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4"
-                                style={{ backdropFilter: 'blur(12px)' }}
-                            >
-                                <div>
-                                    <p className="font-bold text-brand-text text-sm mb-1">Still have a question?</p>
-                                    <p className="text-brand-text-muted text-xs">Our team replies within a few hours.</p>
-                                </div>
-                                <Link
-                                    to="/contact"
-                                    className="btn-primary shrink-0 py-2.5 px-6 text-sm shadow-[0_0_20px_rgba(0,240,255,0.2)] whitespace-nowrap flex items-center gap-1.5"
-                                >
-                                    Contact Us <ArrowRight className="w-3.5 h-3.5" />
-                                </Link>
-                            </motion.div>
-                        </div>
-                    </div>
-                </div>
-            </section>
         </div>
     );
 };

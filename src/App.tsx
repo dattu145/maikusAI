@@ -66,7 +66,10 @@ function AnimatedRoutes() {
 }
 
 function App() {
-  const [theme, setTheme] = useState('dark');
+  // Default: light. Restore user's last choice from localStorage if present.
+  const [theme, setTheme] = useState<string>(
+    () => localStorage.getItem('buzcall-theme') ?? 'light'
+  );
 
   useEffect(() => {
     if (theme === 'light') {
@@ -76,6 +79,7 @@ function App() {
       document.documentElement.classList.remove('light');
       document.documentElement.classList.add('dark');
     }
+    localStorage.setItem('buzcall-theme', theme);
   }, [theme]);
 
   const toggleTheme = () => {

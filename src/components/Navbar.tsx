@@ -1,14 +1,13 @@
 import { useState, useEffect } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { Menu, X, Sun, Moon } from 'lucide-react';
+import { Menu, X, Sun, Moon, ArrowUpRight, Twitter, Linkedin, Github } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
-import FlowingMenu from './FlowingMenu';
+import logoDark  from '../assets/buzcalllogo.png';
+import logoLight from '../assets/buzcallLogoWhite.png';
 
 const Navbar = ({ theme, toggleTheme }: { theme: string; toggleTheme: () => void }) => {
     const [isOpen, setIsOpen] = useState(false);
     const [scrolled, setScrolled] = useState(false);
-    // Delay pointer events so cursor position on open doesn't trigger a menu item hover
-    const [menuInteractive, setMenuInteractive] = useState(false);
     const location = useLocation();
     const navigate = useNavigate();
 
@@ -21,76 +20,27 @@ const Navbar = ({ theme, toggleTheme }: { theme: string; toggleTheme: () => void
     // Close menu on route change
     useEffect(() => { setIsOpen(false); }, [location.pathname]);
 
-    // Prevent body scroll + control pointer events timing
+    // Lock body scroll when menu is open
     useEffect(() => {
         document.body.style.overflow = isOpen ? 'hidden' : '';
-        if (isOpen) {
-            const t = setTimeout(() => setMenuInteractive(true), 520);
-            return () => clearTimeout(t);
-        } else {
-            setMenuInteractive(false);
-        }
         return () => { document.body.style.overflow = ''; };
     }, [isOpen]);
 
     const navLinks = [
-        { name: 'Home', path: '/' },
+        { name: 'Home',            path: '/'                               },
         { name: 'AI Receptionist', path: '/services/ai-voice-receptionist' },
-        { name: 'Pricing', path: '/pricing' },
-        { name: 'Blog', path: '/blog' },
-        { name: 'About', path: '/about' },
+        { name: 'Pricing',         path: '/pricing'                        },
+        { name: 'Blog',            path: '/blog'                           },
+        { name: 'About',           path: '/about'                          },
+        { name: 'Contact',         path: '/contact'                        },
     ];
 
+    const desktopLinks = navLinks.slice(0, 5); // Home → About
     const isActive = (path: string) => location.pathname === path;
-
-    const flowingItems = [
-        {
-            link: '/',
-            text: 'Home',
-            image: 'https://picsum.photos/600/400?random=11',
-            isActive: location.pathname === '/',
-            onClick: () => { navigate('/'); setIsOpen(false); },
-        },
-        {
-            link: '/services/ai-voice-receptionist',
-            text: 'AI Receptionist',
-            image: 'https://picsum.photos/600/400?random=22',
-            isActive: location.pathname === '/services/ai-voice-receptionist',
-            onClick: () => { navigate('/services/ai-voice-receptionist'); setIsOpen(false); },
-        },
-        {
-            link: '/pricing',
-            text: 'Pricing',
-            image: 'https://picsum.photos/600/400?random=33',
-            isActive: location.pathname === '/pricing',
-            onClick: () => { navigate('/pricing'); setIsOpen(false); },
-        },
-        {
-            link: '/blog',
-            text: 'Blog',
-            image: 'https://picsum.photos/600/400?random=44',
-            isActive: location.pathname === '/blog',
-            onClick: () => { navigate('/blog'); setIsOpen(false); },
-        },
-        {
-            link: '/about',
-            text: 'About',
-            image: 'https://picsum.photos/600/400?random=55',
-            isActive: location.pathname === '/about',
-            onClick: () => { navigate('/about'); setIsOpen(false); },
-        },
-        {
-            link: '/contact',
-            text: 'Contact',
-            image: 'https://picsum.photos/600/400?random=66',
-            isActive: location.pathname === '/contact',
-            onClick: () => { navigate('/contact'); setIsOpen(false); },
-        },
-    ];
 
     return (
         <>
-            <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled ? 'bg-brand-bg/80 backdrop-blur-lg py-3 shadow-lg shadow-black/20' : 'bg-transparent py-5'}`}>
+            <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled ? 'bg-brand-bg/80 backdrop-blur-lg py-3 shadow-lg shadow-black/10' : 'bg-transparent py-5'}`}>
                 <div className="container mx-auto px-6 lg:px-12 flex justify-between items-center">
 
                     {/* Logo */}
@@ -100,8 +50,8 @@ const Navbar = ({ theme, toggleTheme }: { theme: string; toggleTheme: () => void
                             transition={{ duration: 0.4 }}
                             className="flex items-center justify-center w-12 h-12 sm:w-16 sm:h-16 md:w-20 md:h-20 rounded-xl relative z-10 shrink-0"
                         >
-                            <img src="src/assets/buzcalllogo.png"      alt="BUZCALL Logo" className="w-full h-full object-contain rounded-xl hide-in-light" />
-                            <img src="src/assets/buzcallLogoWhite.png" alt="BUZCALL Logo" className="w-full h-full object-contain rounded-xl show-in-light" />
+                            <img src={logoDark}  alt="Buzcall Logo" className="w-full h-full object-contain rounded-xl hide-in-light" />
+                            <img src={logoLight} alt="Buzcall Logo" className="w-full h-full object-contain rounded-xl show-in-light" />
                         </motion.div>
                         <span className="-ml-3 sm:-ml-4 md:-ml-5 text-base sm:text-lg md:text-xl tracking-wide text-brand-text" style={{ fontFamily: "'Red Hat Display', sans-serif", fontWeight: 800 }}>
                             Buz<span style={{ display: 'inline-block', transform: 'scaleX(-1)' }}>c</span>all
@@ -110,7 +60,7 @@ const Navbar = ({ theme, toggleTheme }: { theme: string; toggleTheme: () => void
 
                     {/* Desktop Nav */}
                     <nav className="hidden md:flex items-center gap-8">
-                        {navLinks.map((link) => (
+                        {desktopLinks.map((link) => (
                             <Link
                                 key={link.name}
                                 to={link.path}
@@ -165,6 +115,7 @@ const Navbar = ({ theme, toggleTheme }: { theme: string; toggleTheme: () => void
                             </AnimatePresence>
                         </button>
 
+                        {/* Hamburger / Close */}
                         <button
                             onClick={() => setIsOpen(!isOpen)}
                             className="w-10 h-10 flex items-center justify-center rounded-full bg-brand-glass border border-brand-border text-brand-text hover:text-accent-blue transition-colors"
@@ -186,29 +137,104 @@ const Navbar = ({ theme, toggleTheme }: { theme: string; toggleTheme: () => void
                 </div>
             </header>
 
-            {/* Full-screen FlowingMenu overlay — mobile only */}
+            {/* ── Custom Mobile Menu Overlay ── */}
             <AnimatePresence>
                 {isOpen && (
                     <motion.div
                         initial={{ opacity: 0, clipPath: 'inset(0 0 100% 0)' }}
                         animate={{ opacity: 1, clipPath: 'inset(0 0 0% 0)' }}
                         exit={{ opacity: 0, clipPath: 'inset(0 0 100% 0)' }}
-                        transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-                        className="fixed inset-0 z-40 md:hidden"
-                        style={{
-                            top: '100px',
-                            pointerEvents: menuInteractive ? 'auto' : 'none',
-                        }}
+                        transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
+                        className="fixed inset-0 z-40 md:hidden flex flex-col"
+                        style={{ background: 'var(--theme-bg)', paddingTop: '80px' }}
                     >
-                        <FlowingMenu
-                            items={flowingItems}
-                            speed={14}
-                            bgColor={theme === 'dark' ? '#060A18' : '#f0f4f8'}
-                            textColor={theme === 'dark' ? '#ffffff' : '#0f172a'}
-                            marqueeBgColor={theme === 'dark' ? '#00f0ff' : '#0369a1'}
-                            marqueeTextColor={theme === 'dark' ? '#060A18' : '#ffffff'}
-                            borderColor={theme === 'dark' ? 'rgba(0,240,255,0.12)' : 'rgba(0,0,0,0.08)'}
-                        />
+                        {/* Decorative accent glow */}
+                        <div className="absolute top-1/3 right-[-10%] w-72 h-72 bg-accent-blue/8 rounded-full blur-[80px] pointer-events-none" />
+                        <div className="absolute bottom-1/4 left-[-5%] w-56 h-56 bg-accent-purple/6 rounded-full blur-[70px] pointer-events-none" />
+
+                        {/* Nav links — main content area */}
+                        <div className="flex-1 flex flex-col justify-center px-8 sm:px-12 relative z-10">
+                            <div className="space-y-1">
+                                {navLinks.map((link, idx) => (
+                                    <motion.div
+                                        key={link.name}
+                                        initial={{ opacity: 0, x: -28 }}
+                                        animate={{ opacity: 1, x: 0 }}
+                                        exit={{ opacity: 0, x: -28 }}
+                                        transition={{ delay: idx * 0.06 + 0.1, duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+                                    >
+                                        <Link
+                                            to={link.path}
+                                            onClick={() => setIsOpen(false)}
+                                            className={`group flex items-center gap-4 py-3.5 border-b transition-all duration-200 ${
+                                                isActive(link.path)
+                                                    ? 'border-accent-blue/30'
+                                                    : 'border-brand-border/30 hover:border-accent-blue/20'
+                                            }`}
+                                        >
+                                            {/* Number */}
+                                            <span className={`text-[10px] font-black tabular-nums leading-none w-5 shrink-0 transition-colors duration-200 ${
+                                                isActive(link.path) ? 'text-accent-blue' : 'text-brand-text-muted/30 group-hover:text-brand-text-muted/60'
+                                            }`}>
+                                                {String(idx + 1).padStart(2, '0')}
+                                            </span>
+
+                                            {/* Link text */}
+                                            <span className={`text-3xl sm:text-4xl font-black tracking-tight leading-none flex-1 transition-colors duration-200 ${
+                                                isActive(link.path)
+                                                    ? 'text-accent-blue'
+                                                    : 'text-brand-text group-hover:text-accent-blue'
+                                            }`}>
+                                                {link.name}
+                                            </span>
+
+                                            {/* Arrow / active dot */}
+                                            {isActive(link.path) ? (
+                                                <span className="w-2.5 h-2.5 rounded-full bg-accent-blue shadow-[0_0_8px_rgba(0,240,255,0.8)] animate-pulse shrink-0" />
+                                            ) : (
+                                                <ArrowUpRight className="w-5 h-5 text-brand-text-muted/20 group-hover:text-accent-blue group-hover:translate-x-1 group-hover:-translate-y-1 transition-all duration-200 shrink-0" />
+                                            )}
+                                        </Link>
+                                    </motion.div>
+                                ))}
+                            </div>
+                        </div>
+
+                        {/* Bottom action row */}
+                        <motion.div
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            exit={{ opacity: 0, y: 20 }}
+                            transition={{ delay: 0.45, duration: 0.4 }}
+                            className="relative z-10 px-8 sm:px-12 pb-10 pt-6 border-t border-brand-border/30 flex items-center justify-between gap-4"
+                        >
+                            {/* Social links */}
+                            <div className="flex items-center gap-2">
+                                {[
+                                    { icon: Twitter,  href: '#', label: 'Twitter'  },
+                                    { icon: Linkedin, href: '#', label: 'LinkedIn' },
+                                    { icon: Github,   href: '#', label: 'GitHub'   },
+                                ].map(({ icon: Icon, href, label }) => (
+                                    <a
+                                        key={label}
+                                        href={href}
+                                        aria-label={label}
+                                        className="w-10 h-10 rounded-full border border-brand-border bg-brand-glass flex items-center justify-center text-brand-text-muted hover:text-accent-blue hover:border-accent-blue/40 transition-all"
+                                    >
+                                        <Icon className="w-4 h-4" />
+                                    </a>
+                                ))}
+                            </div>
+
+                            {/* CTA */}
+                            <Link
+                                to="/contact"
+                                onClick={() => setIsOpen(false)}
+                                className="btn-primary py-3 px-7 text-sm"
+                            >
+                                Let's Talk
+                            </Link>
+                        </motion.div>
                     </motion.div>
                 )}
             </AnimatePresence>

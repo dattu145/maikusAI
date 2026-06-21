@@ -1,6 +1,8 @@
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { LucideTwitter, LucideLinkedin, LucideGithub, Mail, Phone, ArrowRight } from "lucide-react";
+import logoDark  from "../assets/buzcalllogo.png";
+import logoLight from "../assets/buzcallLogoWhite.png";
 
 const Footer = () => {
   return (
@@ -42,8 +44,8 @@ const Footer = () => {
                 transition={{ duration: 0.4 }}
                 className="flex items-center justify-center w-14 h-14 rounded-xl relative z-10 shrink-0"
               >
-                <img src="src/assets/buzcalllogo.png"      alt="BUZCALL Logo" className="w-full h-full object-contain rounded-xl hide-in-light" />
-                <img src="src/assets/buzcallLogoWhite.png" alt="BUZCALL Logo" className="w-full h-full object-contain rounded-xl show-in-light" />
+                <img src={logoDark}  alt="BUZCALL Logo" className="w-full h-full object-contain rounded-xl hide-in-light" />
+                <img src={logoLight} alt="BUZCALL Logo" className="w-full h-full object-contain rounded-xl show-in-light" />
               </motion.div>
               <span
                 className="-ml-3 text-xl tracking-wide text-brand-text"

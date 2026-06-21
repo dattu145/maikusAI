@@ -1,13 +1,20 @@
-import { useState } from 'react';
-import { Phone, ShieldCheck, CheckCircle, CheckCircle2, Star, HelpCircle, Zap } from 'lucide-react';
+import { useState, useEffect } from 'react';
+import {
+    Phone, ShieldCheck, CheckCircle, Star, Zap,
+    ArrowRight, MessageSquare, Bot, Clock,
+    Check, Calendar, Target
+} from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { Link, useSearchParams } from 'react-router-dom';
 import DecryptedText from '../components/DecryptedText';
+import FAQItem from '../components/FAQItem';
 
+// Theme-aware input/select styles
 const inputClass =
-    'w-full bg-brand-bg/30 border border-brand-border/60 hover:bg-brand-bg/50 hover:border-brand-border backdrop-blur-sm rounded-lg px-4 py-3.5 text-brand-text focus:outline-none focus:ring-2 focus:ring-accent-blue/50 focus:ring-offset-2 focus:ring-offset-brand-bg transition-all';
+    'w-full bg-brand-glass border border-brand-border hover:border-accent-blue/40 rounded-xl px-4 py-3.5 text-brand-text placeholder:text-brand-text-muted/50 focus:outline-none focus:ring-2 focus:ring-accent-blue/30 focus:border-accent-blue/50 transition-all';
 
 const selectClass =
-    'w-full bg-brand-bg/30 border border-brand-border/60 hover:bg-brand-bg/50 hover:border-brand-border backdrop-blur-sm rounded-lg px-4 py-3.5 text-brand-text focus:outline-none focus:ring-2 focus:ring-accent-purple/50 focus:ring-offset-2 focus:ring-offset-brand-bg transition-all appearance-none cursor-pointer';
+    'w-full bg-brand-glass border border-brand-border hover:border-accent-blue/40 rounded-xl px-4 py-3.5 text-brand-text focus:outline-none focus:ring-2 focus:ring-accent-blue/30 focus:border-accent-blue/50 transition-all appearance-none cursor-pointer';
 
 const plans = [
     {
@@ -25,6 +32,7 @@ const plans = [
             'Basic Support',
         ],
         popular: false,
+        accent: false,
     },
     {
         id: 'excel-integration',
@@ -41,6 +49,7 @@ const plans = [
             'Priority Support',
         ],
         popular: false,
+        accent: false,
     },
     {
         id: 'dashboard-pro',
@@ -57,6 +66,7 @@ const plans = [
             'Account Manager',
         ],
         popular: true,
+        accent: true,
     },
     {
         id: 'custom-enterprise',
@@ -73,448 +83,523 @@ const plans = [
             '24/7 Priority SLA Support',
         ],
         popular: false,
+        accent: false,
     },
 ];
 
+// FAQ moved from Home page
 const faqs = [
-    {
-        q: "Will my patients know they're speaking to an AI?",
-        a: 'Our receptionists are designed to sound warm, natural, and professional. We recommend transparent disclosure — most patients appreciate an instant response over being put on hold. For complex or sensitive conversations, the AI hands off to your human staff seamlessly.',
-    },
-    {
-        q: 'What happens outside office hours and on weekends?',
-        a: 'Your AI receptionist is always on — 24 hours a day, 7 days a week, including public holidays. Every call after closing time is handled exactly the same as during business hours. No missed calls, no voicemail.',
-    },
-    {
-        q: 'How long does it take to go live?',
-        a: 'Most clients are fully live within 5 business days of signing up. We handle all the technical configuration, script writing, and testing. You simply review the final result before we switch it on.',
-    },
-    {
-        q: 'Do I need any technical knowledge?',
-        a: 'None at all. We manage everything from setup to ongoing maintenance. Your only job is to tell us about your practice — we handle the rest.',
-    },
-    {
-        q: 'Can I cancel my subscription?',
-        a: 'Yes. All plans require 30 days written notice to cancel. There are no lock-in contracts or cancellation penalties. We keep clients because the service works, not because we trap them.',
-    },
-    {
-        q: 'What types of businesses does this work for?',
-        a: 'Any business that receives inbound calls and books appointments — including dental clinics, medical offices, real estate agencies, law firms, salons, and physiotherapy studios. If your team answers repetitive phone calls, we can automate it.',
-    },
+    { q: "Will it sound robotic to my customers?", a: "No. Buzcall uses hyper-realistic voice synthesis with natural pauses, tone, and empathy — most callers can't tell they're speaking with an AI." },
+    { q: "What languages does it support?", a: "Buzcall is fluent in English, Hindi, and several regional Indian languages, with more being added regularly." },
+    { q: "How does appointment booking work?", a: "We connect directly to your existing calendar (Google Calendar, Calendly, or practice management software) so the AI books, reschedules, and cancels appointments in real time." },
+    { q: "Is my customer data secure?", a: "Yes. All conversations are processed through encrypted, HIPAA-compliant infrastructure, and call data is never shared with third parties." },
+    { q: "Can it handle multiple calls at once?", a: "Absolutely. Unlike a human receptionist, Buzcall can handle unlimited simultaneous calls without ever putting anyone on hold." },
+    { q: "How long does setup take?", a: "Most businesses are fully live within 3–5 business days. We handle the entire setup, integration, and training process for you." },
 ];
 
 const smoothScroll = (id: string) => {
     document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
 };
 
-const AnimatedWaveform = () => {
-    return (
-        <div className="flex items-center gap-1 h-12">
-            {[...Array(9)].map((_, i) => (
-                <motion.div
-                    key={i}
-                    className="w-1.5 bg-accent-blue rounded-full"
-                    animate={{
-                        height: ['20%', '100%', '20%']
-                    }}
-                    transition={{
-                        duration: 1.5,
-                        repeat: Infinity,
-                        ease: "easeInOut",
-                        delay: i * 0.1
-                    }}
-                />
-            ))}
-        </div>
-    );
-};
+const AnimatedWaveform = () => (
+    <div className="flex items-center gap-1 h-10">
+        {[...Array(9)].map((_, i) => (
+            <motion.div
+                key={i}
+                className="w-1.5 bg-accent-blue rounded-full"
+                animate={{ height: ['20%', '100%', '20%'] }}
+                transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut", delay: i * 0.1 }}
+            />
+        ))}
+    </div>
+);
 
 const AIVoiceReceptionist = () => {
+    const [searchParams] = useSearchParams();
     const [quickCall, setQuickCall] = useState(false);
-    const [selectedPlan, setSelectedPlan] = useState<string>('growth');
+    const [selectedPlan, setSelectedPlan] = useState<string>('dashboard-pro');
     const [contactForPricing, setContactForPricing] = useState(false);
-    const [openFaq, setOpenFaq] = useState<number | null>(null);
 
     const [demoPhone, setDemoPhone] = useState('');
     const [demoState, setDemoState] = useState<'idle' | 'calling' | 'connected'>('idle');
 
+    // Pre-select plan from ?plan= query param and scroll to intake form
+    useEffect(() => {
+        const planParam = searchParams.get('plan');
+        if (planParam) {
+            const valid = ['essential', 'excel-integration', 'dashboard-pro', 'custom-enterprise'];
+            if (valid.includes(planParam)) {
+                setSelectedPlan(planParam);
+                setContactForPricing(planParam === 'custom-enterprise');
+            }
+            setTimeout(() => {
+                document.getElementById('intake-form')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }, 300);
+        }
+    }, [searchParams]);
+
     const handleDemoCall = (e: React.FormEvent) => {
         e.preventDefault();
-        if(!demoPhone) return;
+        if (!demoPhone) return;
         setDemoState('calling');
         setTimeout(() => setDemoState('connected'), 3000);
     };
 
     return (
-        <div className="pt-24 pb-16">
+        <div className="bg-brand-bg text-brand-text">
 
             {/* ─── HERO & LIVE DEMO ─── */}
-            <section id="live-demo" className="relative overflow-hidden pt-20 pb-24 border-b border-brand-border">
-                <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-accent-blue/10 via-brand-bg to-brand-bg -z-10" />
-                <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center mt-12">
+            <section id="live-demo" className="relative overflow-hidden pt-40 pb-20 border-b border-brand-border">
+                {/* Background layers */}
+                <div className="absolute inset-0 pointer-events-none">
+                    <div className="absolute inset-0" style={{ background: "radial-gradient(ellipse 90% 65% at 50% 0%, rgba(var(--theme-primary-rgb),0.09) 0%, transparent 60%)" }} />
+                    <div className="absolute bottom-0 left-0 w-80 h-80 bg-accent-purple/5 rounded-full blur-[100px]" />
+                    <div className="absolute top-1/3 right-0 w-72 h-72 bg-accent-blue/4 rounded-full blur-[80px]" />
+                    {/* Subtle dot grid */}
+                    <div className="absolute inset-0" style={{ backgroundImage: 'radial-gradient(circle, rgba(var(--theme-primary-rgb),0.12) 1px, transparent 1px)', backgroundSize: '38px 38px', opacity: 0.04 }} />
+                </div>
 
-                    <div className="flex justify-center mb-6">
-                        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-accent-green/10 border border-accent-green/40 dark:text-accent-green text-xs font-bold tracking-widest uppercase mb-2">
-                            <ShieldCheck className="w-4 h-4 shrink-0" />
-                            <DecryptedText text="HIPAA-Compliant: All patient data is fully encrypted." animateOn="view" speed={60} maxIterations={15} />
-                        </div>
-                    </div>
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 relative z-10">
+                    <div className="grid lg:grid-cols-[1fr_1fr] gap-14 lg:gap-20 items-start">
 
-                    <h1 className="text-5xl md:text-7xl font-bold mb-6 tracking-tight">
-                        Have a <span className="dark:bg-white dark:text-black text-white bg-black px-4 mx-2 rounded-lg">Live</span> Demo!
-                    </h1>
-                    <p className="text-xl text-brand-text-muted mb-12 max-w-2xl mx-auto leading-relaxed">
-                        Enter your number and our AI will call you instantly. Hear how human it sounds — no hold music, no waiting.
-                    </p>
+                        {/* ── Left: Rich content ── */}
+                        <motion.div
+                            initial={{ opacity: 0, y: 24 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.7 }}
+                            className="pt-2"
+                        >
+                            {/* Live badge */}
+                            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-accent-blue/25 bg-accent-blue/8 text-accent-blue text-xs font-bold uppercase tracking-widest mb-7">
+                                <span className="relative flex h-2 w-2">
+                                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent-blue opacity-75" />
+                                    <span className="relative inline-flex rounded-full h-2 w-2 bg-accent-blue" />
+                                </span>
+                                Live AI Receptionist Demo
+                            </div>
 
-                    <div className="max-w-md mx-auto relative z-10">
-                        <AnimatePresence mode="wait">
-                            {demoState === 'idle' && (
-                                <motion.form 
-                                    key="form"
-                                    initial={{opacity: 0, y: 20}}
-                                    animate={{opacity: 1, y: 0}}
-                                    exit={{opacity: 0, scale: 0.95}}
-                                    onSubmit={handleDemoCall}
-                                    className="flex flex-col gap-4"
-                                >
-                                    <input 
-                                        type="tel" 
-                                        value={demoPhone}
-                                        onChange={e => setDemoPhone(e.target.value)}
-                                        placeholder="Enter your mobile number" 
-                                        className="w-full bg-brand-bg border border-brand-border rounded-xl px-6 py-5 text-lg text-brand-text outline-none focus:border-accent-blue focus:ring-1 focus:ring-accent-blue transition-all shadow-xl"
-                                        required
-                                    />
-                                    <button type="submit" className="btn-primary w-full py-5 text-lg shadow-[0_0_20px_rgba(0,240,255,0.3)] hover:shadow-[0_0_40px_rgba(0,240,255,0.5)] flex items-center justify-center gap-3">
-                                        <Phone className="w-5 h-5" /> Receive Demo Call
-                                    </button>
-                                </motion.form>
-                            )}
+                            <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight mb-5 leading-[1.1]">
+                                Hear It{" "}
+                                <span className="text-accent-blue">In Action</span>
+                            </h1>
 
-                            {demoState === 'calling' && (
-                                <motion.div 
-                                    key="calling"
-                                    initial={{opacity: 0, scale: 0.95}}
-                                    animate={{opacity: 1, scale: 1}}
-                                    className="glass-card py-12 flex flex-col items-center justify-center border-accent-blue/40 shadow-[0_0_50px_rgba(0,240,255,0.2)]"
-                                >
-                                    <div className="w-20 h-20 rounded-full bg-accent-blue/20 flex items-center justify-center mb-6 animate-pulse">
-                                        <Phone className="w-8 h-8 text-accent-blue animate-bounce" />
+                            <p className="text-base md:text-lg text-brand-text-muted mb-8 max-w-lg leading-relaxed">
+                                Enter your number and our AI calls you instantly — sounds completely human, answers every time.
+                            </p>
+
+                            {/* Feature cards — 3 mini glass cards */}
+                            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-8">
+                                {[
+                                    { icon: Bot,         title: "Human-Like Voice",   desc: "Natural pauses, tone & empathy" },
+                                    { icon: Clock,       title: "Answers in < 1s",    desc: "Zero hold music, ever"           },
+                                    { icon: ShieldCheck, title: "HIPAA Compliant",    desc: "Fully encrypted calls"           },
+                                ].map(({ icon: Icon, title, desc }) => (
+                                    <div key={title} className="glass-card !p-4 flex flex-col gap-2">
+                                        <div className="w-8 h-8 rounded-lg bg-accent-blue/10 border border-accent-blue/20 flex items-center justify-center">
+                                            <Icon className="w-4 h-4 text-accent-blue" />
+                                        </div>
+                                        <p className="text-xs font-bold text-brand-text leading-snug">{title}</p>
+                                        <p className="text-[11px] text-brand-text-muted leading-snug">{desc}</p>
                                     </div>
-                                    <h3 className="text-2xl font-bold mb-2 text-brand-text">Connecting...</h3>
-                                    <p className="text-brand-text-muted">You will receive a call momentarily.</p>
-                                </motion.div>
-                            )}
+                                ))}
+                            </div>
 
-                            {demoState === 'connected' && (
-                                <motion.div 
-                                    key="connected"
-                                    initial={{opacity: 0, scale: 0.95}}
-                                    animate={{opacity: 1, scale: 1}}
-                                    className="glass-card py-12 flex flex-col items-center justify-center border-accent-green/40 shadow-[0_0_50px_rgba(16,185,129,0.2)]"
-                                >
-                                    <AnimatedWaveform />
-                                    <h3 className="text-2xl font-bold mt-8 mb-2 text-brand-text">Call in Progress</h3>
-                                    <p className="text-brand-text-muted mb-6">Speak to the AI normally.</p>
-                                    <div className="flex items-center justify-center w-full min-h-[40px] mb-8">
-                                        <div className="flex items-center gap-2 text-accent-green text-xs font-bold bg-accent-green/10 px-4 py-2 rounded-full shadow-sm text-center">
-                                            <ShieldCheck className="w-4 h-4 shrink-0" />
-                                            <DecryptedText text="Live Audio Stream: Fully encrypted and privately processed." animateOn="view" speed={40} maxIterations={12} />
+                            {/* Capabilities list */}
+                            <div className="space-y-2.5 mb-8">
+                                {[
+                                    "Books, reschedules & cancels appointments in real time",
+                                    "Speaks English, Hindi & regional Indian languages",
+                                    "Captures lead details & sends SMS confirmations instantly",
+                                    "Unlimited concurrent calls — no one ever goes to voicemail",
+                                ].map(item => (
+                                    <div key={item} className="flex items-start gap-2.5 text-sm text-brand-text-muted">
+                                        <Check className="w-4 h-4 text-accent-blue shrink-0 mt-0.5" />
+                                        {item}
+                                    </div>
+                                ))}
+                            </div>
+
+                        </motion.div>
+
+                        {/* ── Right: Demo form + extras ── */}
+                        <motion.div
+                            initial={{ opacity: 0, y: 24 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.7, delay: 0.15 }}
+                            className="relative"
+                        >
+                            {/* Main demo card */}
+                            <div className="rounded-3xl border border-brand-border overflow-hidden shadow-xl" style={{ background: "var(--theme-glass)", backdropFilter: "blur(20px)" }}>
+                                {/* Card header */}
+                                <div className="px-5 sm:px-6 py-4 sm:py-5 border-b border-brand-border flex items-center justify-between" style={{ background: "rgba(var(--theme-primary-rgb),0.03)" }}>
+                                    <div className="flex items-center gap-2.5">
+                                        <div className="w-9 h-9 rounded-full bg-accent-blue flex items-center justify-center shrink-0">
+                                            {/* Black in dark, light in light — always contrasts with accent-blue */}
+                                            <Bot className="w-4.5 h-4.5" style={{ width: 18, height: 18, color: 'var(--theme-bg)' }} />
+                                        </div>
+                                        <div>
+                                            <p className="text-sm font-bold text-brand-text leading-none mb-0.5">Buzcall Receptionist</p>
+                                            <p className="text-xs text-brand-text-muted">Demo Mode</p>
                                         </div>
                                     </div>
-                                    <button onClick={(e: any) => {e.preventDefault(); setDemoState('idle');}} className="btn-secondary py-2 px-6 text-sm flex items-center gap-2 text-brand-text"><Phone className="w-4 h-4"/> End Call Simulation</button>
-                                </motion.div>
-                            )}
-                        </AnimatePresence>
+                                    <div className="flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-widest text-accent-blue border border-accent-blue/25 bg-accent-blue/8 rounded-full px-3 py-1">
+                                        <span className="w-1.5 h-1.5 rounded-full bg-accent-blue animate-pulse" />
+                                        Ready
+                                    </div>
+                                </div>
+
+                                {/* Form area */}
+                                <div className="p-5 sm:p-6">
+                                    <AnimatePresence mode="wait">
+                                        {demoState === 'idle' && (
+                                            <motion.form
+                                                key="form"
+                                                initial={{ opacity: 0, y: 12 }}
+                                                animate={{ opacity: 1, y: 0 }}
+                                                exit={{ opacity: 0, scale: 0.97 }}
+                                                onSubmit={handleDemoCall}
+                                                className="flex flex-col gap-4"
+                                            >
+                                                <p className="text-sm text-brand-text-muted">Enter your mobile number and we'll call you right now:</p>
+                                                <input
+                                                    type="tel"
+                                                    value={demoPhone}
+                                                    onChange={e => setDemoPhone(e.target.value)}
+                                                    placeholder="+91 98765 43210"
+                                                    className={inputClass}
+                                                    required
+                                                />
+                                                <button
+                                                    type="submit"
+                                                    className="btn-primary w-full py-4 text-base flex items-center justify-center gap-3"
+                                                    style={{ boxShadow: `0 0 24px rgba(var(--theme-primary-rgb),0.3)` }}
+                                                >
+                                                    <Phone className="w-5 h-5" />
+                                                    Receive Demo Call
+                                                </button>
+                                                <p className="text-center text-xs text-brand-text-muted">
+                                                    Free · No commitment · Takes 60 seconds
+                                                </p>
+                                            </motion.form>
+                                        )}
+
+                                        {demoState === 'calling' && (
+                                            <motion.div
+                                                key="calling"
+                                                initial={{ opacity: 0, scale: 0.95 }}
+                                                animate={{ opacity: 1, scale: 1 }}
+                                                className="py-10 flex flex-col items-center justify-center text-center"
+                                            >
+                                                <div className="w-16 h-16 rounded-full flex items-center justify-center mb-5 animate-pulse" style={{ background: `rgba(var(--theme-primary-rgb),0.15)` }}>
+                                                    <Phone className="w-7 h-7 text-accent-blue animate-bounce" />
+                                                </div>
+                                                <h3 className="text-xl font-bold mb-2 text-brand-text">Connecting…</h3>
+                                                <p className="text-brand-text-muted text-sm">You'll receive a call in just a moment.</p>
+                                            </motion.div>
+                                        )}
+
+                                        {demoState === 'connected' && (
+                                            <motion.div
+                                                key="connected"
+                                                initial={{ opacity: 0, scale: 0.95 }}
+                                                animate={{ opacity: 1, scale: 1 }}
+                                                className="py-8 flex flex-col items-center justify-center text-center"
+                                            >
+                                                <AnimatedWaveform />
+                                                <h3 className="text-xl font-bold mt-6 mb-2 text-brand-text">Call in Progress</h3>
+                                                <p className="text-brand-text-muted text-sm mb-5">Speak naturally — the AI is listening.</p>
+                                                <div className="flex items-center gap-2 text-accent-blue text-xs font-bold border border-accent-blue/20 bg-accent-blue/8 px-4 py-2 rounded-full mb-6">
+                                                    <ShieldCheck className="w-4 h-4 shrink-0" />
+                                                    <DecryptedText text="Fully encrypted & privately processed." animateOn="view" speed={40} maxIterations={12} />
+                                                </div>
+                                                <button
+                                                    onClick={() => setDemoState('idle')}
+                                                    className="btn-secondary py-2.5 px-6 text-sm flex items-center gap-2"
+                                                >
+                                                    <Phone className="w-4 h-4" /> End Call Simulation
+                                                </button>
+                                            </motion.div>
+                                        )}
+                                    </AnimatePresence>
+                                </div>
+                            </div>
+
+                            {/* Transcript preview card — below form */}
+                            <motion.div
+                                initial={{ opacity: 0, y: 16 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ duration: 0.6, delay: 0.5 }}
+                                className="mt-4 glass-card !p-4 !rounded-2xl"
+                            >
+                                <p className="text-[10px] font-bold uppercase tracking-widest text-brand-text-muted mb-2">Live Transcript Sample</p>
+                                <p className="text-sm text-brand-text leading-relaxed mb-2">
+                                    "You're all set — booked for Thursday at 2:00 PM. I'll send a confirmation text shortly."
+                                </p>
+                                <div className="flex items-center gap-1.5 text-accent-blue text-xs font-bold">
+                                    <Check className="w-3.5 h-3.5" />
+                                    Appointment Confirmed · SMS Sent
+                                </div>
+                            </motion.div>
+                        </motion.div>
                     </div>
 
-                    <div className="mt-16 flex items-center justify-center gap-1">
-                        {[...Array(5)].map((_, i) => (
-                            <Star key={i} className="w-4 h-4 fill-yellow-400 text-yellow-400" />
-                        ))}
-                        <span className="ml-2 text-brand-text-muted text-sm border-l border-brand-border/50 pl-3">Trusted by clinics, dentists & real estate</span>
-                    </div>
                 </div>
             </section>
 
             {/* ─── HOW IT WORKS ─── */}
-            <section className="py-24 bg-brand-bg">
-                <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-                    <h2 className="text-3xl sm:text-4xl font-bold mb-4 text-brand-text">
-                        Up and Running in <span className="dark:bg-white dark:text-black text-white bg-black px-3 mx-2 rounded-lg">5 Days</span>
-                    </h2>
-                    <p className="text-brand-text-muted mb-16 max-w-2xl mx-auto">
-                        We handle everything. You simply tell us about your practice and we'll handle the rest.
-                    </p>
-                    <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-                        {[
-                            { step: '1', title: 'Free Demo', desc: 'We build a tailored demo for your practice and walk you through how it sounds live.' },
-                            { step: '2', title: 'Onboarding', desc: "We configure your receptionist's script, personality, and connect it to your phone line." },
-                            { step: '3', title: 'Go Live', desc: 'Your AI receptionist is switched on. Every inbound call is handled automatically from day one.' },
-                            { step: '4', title: 'Ongoing Management', desc: 'We monitor performance and fine-tune monthly. You receive a simple usage report.' },
-                        ].map((item, idx) => (
-                            <div key={idx} className="relative flex flex-col items-center">
-                                <div className="w-16 h-16 rounded-full bg-brand-bg border-2 border-accent-blue flex items-center justify-center text-2xl font-bold text-accent-blue mb-6 z-10 shadow-[0_0_30px_rgba(0,240,255,0.2)] hover:scale-110 transition-transform">
-                                    {item.step}
-                                </div>
-                                {idx !== 3 && (
-                                    <div className="hidden md:block absolute top-8 left-1/2 w-full h-[2px] bg-gradient-to-r from-accent-blue via-accent-blue/50 to-transparent -z-0" />
-                                )}
-                                <h3 className="text-lg font-bold text-brand-text mb-2">{item.title}</h3>
-                                <p className="text-brand-text-muted text-sm px-4">{item.desc}</p>
+            <section className="py-20 sm:py-28 bg-brand-bg-alt border-b border-brand-border">
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12">
+
+                    {/* Editorial label row */}
+                    <motion.div
+                        initial={{ opacity: 0, y: 16 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        className="flex items-center justify-between mb-16 pb-6 border-b border-brand-border/40"
+                    >
+                        <div>
+                            <div className="flex items-center gap-4 mb-2">
+                                <div className="h-px w-10 bg-accent-blue" />
+                                <span className="text-accent-blue text-[11px] font-black uppercase tracking-[0.25em]">Setup Process</span>
                             </div>
-                        ))}
-                    </div>
-                </div>
-            </section>
-
-            {/* ─── PRICING ─── */}
-            <section id="pricing" className="py-24 bg-brand-bg-alt/40 border-y border-brand-border">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div className="text-center mb-12">
-                        <h2 className="text-3xl sm:text-4xl font-bold text-brand-text mb-4">
-                            Simple, Transparent <span className="dark:bg-white dark:text-black text-white bg-black px-3 mx-1 rounded-lg">Plans</span>
-                        </h2>
-                        <p className="text-brand-text-muted max-w-2xl mx-auto">
-                            Flat monthly fees and transparent per-minute usage. Every plan includes setup, configuration, and ongoing management — handled entirely by us.
+                            <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-brand-text tracking-tight leading-none">
+                                Live in <span className="text-accent-blue">5 Days</span>
+                            </h2>
+                        </div>
+                        <p className="hidden md:block text-brand-text-muted text-sm max-w-xs text-right leading-relaxed">
+                            We handle every step. You simply review the result before we switch it on.
                         </p>
-                    </div>
+                    </motion.div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                        {plans.map((plan, i) => (
+                    {/* Full-width horizontal step rows */}
+                    <div className="space-y-0">
+                        {[
+                            { num: "01", icon: Phone,    title: "Free Demo",           desc: "We build a tailored demo for your specific practice, walk you through every interaction, and let you hear exactly how it sounds — before you commit to anything." },
+                            { num: "02", icon: Bot,      title: "Onboarding",          desc: "We configure your receptionist's script, personality, and voice. We connect it to your existing phone number — no porting, no hardware, no technical effort from you." },
+                            { num: "03", icon: Calendar, title: "Go Live",             desc: "Your AI receptionist is switched on. From this moment, every inbound call is answered automatically, every appointment booked, every lead captured." },
+                            { num: "04", icon: Target,   title: "Ongoing Management",  desc: "We monitor performance, fine-tune scripts, and handle updates every month. You receive a simple usage report — that's the only thing you need to look at." },
+                        ].map(({ num, icon: Icon, title, desc }, idx) => (
                             <motion.div
-                                key={i}
-                                initial={{ opacity: 0, y: 20 }}
-                                whileInView={{ opacity: 1, y: 0 }}
+                                key={num}
+                                initial={{ opacity: 0, x: -20 }}
+                                whileInView={{ opacity: 1, x: 0 }}
                                 viewport={{ once: true }}
-                                transition={{ delay: i * 0.08 }}
-                                className={`glass-card flex flex-col p-8 relative overflow-hidden ${plan.popular
-                                    ? 'border-accent-purple shadow-[0_0_40px_rgba(155,81,224,0.15)] md:-translate-y-2'
-                                    : 'border-brand-border'
-                                    }`}
+                                transition={{ delay: idx * 0.09, duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
+                                className="group grid grid-cols-1 sm:grid-cols-[72px_1fr_1fr] lg:grid-cols-[100px_280px_1fr] items-center gap-5 lg:gap-10 py-8 border-b border-brand-border/30 hover:bg-accent-blue/2 transition-colors duration-300 -mx-4 px-4 sm:-mx-6 sm:px-6 lg:-mx-12 lg:px-12"
                             >
-                                {plan.popular && (
-                                    <div className="absolute top-0 left-0 right-0 bg-gradient-to-r from-accent-blue to-accent-purple text-brand-text text-xs font-bold text-center py-1">
-                                        MOST POPULAR
-                                    </div>
-                                )}
-                                <div className={plan.popular ? 'mt-4 flex flex-col flex-grow' : 'flex flex-col flex-grow'}>
-                                    <div className="flex items-center gap-1 text-accent-green text-xs font-semibold mb-4">
-                                        <ShieldCheck className="w-3 h-3" />
-                                        Fully Managed
-                                    </div>
+                                {/* Step number */}
+                                <span className="text-5xl sm:text-6xl lg:text-7xl font-black tabular-nums text-brand-border/25 group-hover:text-accent-blue/20 transition-colors duration-300 leading-none select-none">
+                                    {num}
+                                </span>
 
-                                    <h3 className="text-2xl font-bold text-brand-text mb-1">{plan.name}</h3>
-                                    <div className="text-4xl font-bold text-brand-text mb-1">
-                                        {plan.monthly}
-                                        {plan.monthly !== 'Custom' && <span className="text-lg font-normal text-brand-text-muted">/mo</span>}
+                                {/* Icon + title */}
+                                <div className="flex items-center gap-4">
+                                    <div className="w-12 h-12 rounded-2xl border border-accent-blue/20 bg-accent-blue/10 flex items-center justify-center shrink-0 group-hover:bg-accent-blue/18 group-hover:border-accent-blue/35 transition-all duration-300">
+                                        <Icon className="w-5 h-5 text-accent-blue" />
                                     </div>
-                                    <div className="text-xs text-brand-text-muted mb-1">{plan.setup}</div>
-                                    <div className="text-xs text-brand-text-muted mb-6 pb-6 border-b border-brand-border">
-                                        {plan.minutes} · {plan.overage}
-                                    </div>
-
-                                    <ul className="space-y-3 mb-8 flex-grow">
-                                        {plan.features.map((f, j) => (
-                                            <li key={j} className="flex items-start gap-2 text-brand-text-muted text-sm">
-                                                <CheckCircle2 className="w-4 h-4 text-accent-green flex-shrink-0 mt-0.5" />
-                                                {f}
-                                            </li>
-                                        ))}
-                                    </ul>
-
-                                    <button
-                                        onClick={() => {
-                                            setSelectedPlan(plan.id);
-                                            setContactForPricing(plan.id === 'enterprise');
-                                            smoothScroll('intake-form');
-                                        }}
-                                        className={plan.popular ? 'btn-primary w-full py-3 text-center' : 'btn-secondary w-full py-3 text-center'}
-                                    >
-                                        {plan.id === 'enterprise' ? 'Contact Us' : 'Get Started'}
-                                    </button>
+                                    <h3 className="text-lg sm:text-xl lg:text-2xl font-black text-brand-text group-hover:text-accent-blue transition-colors duration-300 leading-tight">
+                                        {title}
+                                    </h3>
                                 </div>
+
+                                {/* Description */}
+                                <p className="text-brand-text-muted text-sm leading-relaxed">
+                                    {desc}
+                                </p>
                             </motion.div>
                         ))}
                     </div>
+
+                    {/* Bottom CTA strip */}
+                    <motion.div
+                        initial={{ opacity: 0, y: 16 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ delay: 0.45 }}
+                        className="mt-12 flex flex-col sm:flex-row items-center justify-between gap-4 pt-8 border-t border-brand-border/40"
+                    >
+                        <p className="text-brand-text-muted text-sm">
+                            From signing up to taking your first AI call —{" "}
+                            <span className="text-brand-text font-semibold">5 business days, guaranteed.</span>
+                        </p>
+                        <button
+                            onClick={() => smoothScroll('intake-form')}
+                            className="btn-primary py-3 px-7 text-sm shrink-0"
+                            style={{ boxShadow: `0 0 20px rgba(var(--theme-primary-rgb),0.22)` }}
+                        >
+                            Get Started <Zap className="ml-1.5 w-4 h-4" />
+                        </button>
+                    </motion.div>
                 </div>
             </section>
 
             {/* ─── INTAKE FORM ─── */}
-            <section id="intake-form" className="py-24 relative bg-brand-bg-alt/30">
-                <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div className="glass-card p-8 md:p-12 relative overflow-hidden">
-                        <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-accent-purple via-accent-blue to-accent-purple" />
+            <section id="intake-form" className="py-20 sm:py-28 bg-brand-bg-alt border-b border-brand-border relative overflow-hidden">
+                <div className="absolute inset-0 bg-[radial-gradient(ellipse_50%_40%_at_50%_100%,rgba(var(--theme-primary-rgb),0.05)_0%,transparent_70%)] pointer-events-none" />
+
+                <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-12 relative z-10">
+                    <motion.div
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        className="glass-card p-6 sm:p-8 md:p-12 relative overflow-hidden"
+                    >
+                        {/* Top accent bar */}
+                        <div className="absolute top-0 inset-x-0 h-0.5 bg-gradient-to-r from-accent-purple via-accent-blue to-accent-purple" />
 
                         <div className="text-center mb-10">
-                            <h2 className="text-3xl font-bold mb-4">
-                                Get Your AI Receptionist <span className="text-gradient">Running</span>
+                            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-accent-blue/25 bg-accent-blue/8 text-accent-blue text-xs font-bold uppercase tracking-widest mb-5">
+                                <Bot className="w-3.5 h-3.5" />
+                                Get Started
+                            </div>
+                            <h2 className="text-2xl sm:text-3xl font-bold mb-3">
+                                Get Your AI Receptionist{" "}
+                                <span className="text-gradient">Running</span>
                             </h2>
-                            <p className="text-brand-text-muted">Tell us about your practice and we'll be in touch within 24 hours with a custom demo.</p>
+                            <p className="text-brand-text-muted text-sm sm:text-base">
+                                Tell us about your practice and we'll be in touch within 24 hours with a custom demo.
+                            </p>
                         </div>
 
-                        {/* Quick call toggle */}
-                        <div className="flex items-center gap-4 mb-10 bg-brand-bg/40 p-5 rounded-2xl border border-brand-border/50 max-w-md mx-auto hover:bg-brand-bg/60 transition-colors">
+                        {/* Quick-call toggle */}
+                        <div className="flex items-center gap-4 mb-10 p-5 rounded-2xl border border-brand-border bg-brand-bg/40 max-w-md mx-auto">
                             <button
                                 type="button"
                                 onClick={() => setQuickCall(!quickCall)}
-                                className={
-                                    'w-14 h-7 rounded-full transition-colors relative outline-none focus:ring-2 focus:ring-accent-blue/50 focus:ring-offset-2 focus:ring-offset-brand-bg shrink-0 ' +
-                                    (quickCall ? 'bg-accent-blue' : 'bg-brand-bg-alt border border-brand-border')
-                                }
+                                className={`w-14 h-7 rounded-full transition-colors relative outline-none focus:ring-2 focus:ring-accent-blue/40 shrink-0 ${
+                                    quickCall ? 'bg-accent-blue' : 'bg-brand-glass border border-brand-border'
+                                }`}
                             >
-                                <div className={'w-5 h-5 rounded-full bg-white absolute top-1/2 -translate-y-1/2 transition-all shadow-sm ' + (quickCall ? 'left-[calc(100%-1.5rem)]' : 'left-0.5')} />
+                                <div className={`w-5 h-5 rounded-full bg-white absolute top-1/2 -translate-y-1/2 transition-all shadow-sm ${quickCall ? 'left-[calc(100%-1.5rem)]' : 'left-0.5'}`} />
                             </button>
                             <div>
-                                <h4 className="font-semibold text-brand-text text-lg leading-tight mb-1">I'm in a hurry</h4>
-                                <p className="text-sm text-brand-text-muted">Just take my number and call me.</p>
+                                <h4 className="font-semibold text-brand-text text-sm leading-tight mb-0.5">I'm in a hurry</h4>
+                                <p className="text-xs text-brand-text-muted">Just take my number and call me.</p>
                             </div>
                         </div>
 
                         <form
                             className="space-y-8"
-                            onSubmit={(e) => { e.preventDefault(); alert("Request submitted! We'll contact you within 24 hours."); }}
+                            onSubmit={e => { e.preventDefault(); alert("Request submitted! We'll contact you within 24 hours."); }}
                         >
                             {quickCall ? (
-                                <div className="space-y-6 max-w-lg mx-auto">
+                                <div className="space-y-5 max-w-lg mx-auto">
                                     <div>
                                         <label className="block text-sm font-medium text-brand-text-muted mb-2">Name</label>
                                         <input type="text" required className={inputClass} placeholder="Dr. John Smith" />
                                     </div>
                                     <div>
                                         <label className="block text-sm font-medium text-brand-text-muted mb-2">Phone / WhatsApp</label>
-                                        <input type="tel" required className={inputClass} placeholder="+1 555 000 1234" />
+                                        <input type="tel" required className={inputClass} placeholder="+91 98765 43210" />
                                     </div>
                                 </div>
                             ) : (
                                 <>
-                                    {/* Section 1 — Basic Info */}
-                                    <div className="space-y-6">
-                                        <h3 className="text-xl font-semibold flex items-center gap-2 border-b border-brand-border pb-2">
-                                            <span className="w-6 h-6 rounded-full bg-accent-blue/20 text-accent-blue flex items-center justify-center text-sm">1</span>
+                                    {/* Section 1 */}
+                                    <div className="space-y-5">
+                                        <h3 className="text-base font-bold flex items-center gap-2 border-b border-brand-border pb-3">
+                                            <span className="w-6 h-6 rounded-full bg-accent-blue/15 text-accent-blue flex items-center justify-center text-xs font-black">1</span>
                                             Your Practice
                                         </h3>
-                                        <div className="grid md:grid-cols-2 gap-6">
-                                            <div>
-                                                <label className="block text-sm font-medium text-brand-text-muted mb-2">Practice / Business Name</label>
-                                                <input type="text" required className={inputClass} placeholder="Dr. Smith's Dental Clinic" />
-                                            </div>
-                                            <div>
-                                                <label className="block text-sm font-medium text-brand-text-muted mb-2">Contact Name</label>
-                                                <input type="text" required className={inputClass} placeholder="Dr. John Smith" />
-                                            </div>
-                                            <div>
-                                                <label className="block text-sm font-medium text-brand-text-muted mb-2">Email</label>
-                                                <input type="email" required className={inputClass} placeholder="john@clinic.com" />
-                                            </div>
-                                            <div>
-                                                <label className="block text-sm font-medium text-brand-text-muted mb-2">Phone / WhatsApp</label>
-                                                <input type="tel" required className={inputClass} placeholder="+1 555 000 1234" />
-                                            </div>
+                                        <div className="grid sm:grid-cols-2 gap-5">
+                                            {[
+                                                { label: "Practice / Business Name", placeholder: "Dr. Smith's Dental Clinic", type: "text" },
+                                                { label: "Contact Name", placeholder: "Dr. John Smith", type: "text" },
+                                                { label: "Email", placeholder: "john@clinic.com", type: "email" },
+                                                { label: "Phone / WhatsApp", placeholder: "+91 98765 43210", type: "tel" },
+                                            ].map(f => (
+                                                <div key={f.label}>
+                                                    <label className="block text-sm font-medium text-brand-text-muted mb-2">{f.label}</label>
+                                                    <input type={f.type} required className={inputClass} placeholder={f.placeholder} />
+                                                </div>
+                                            ))}
                                         </div>
                                     </div>
 
-                                    {/* Section 2 — About Your Calls */}
-                                    <div className="space-y-6">
-                                        <h3 className="text-xl font-semibold flex items-center gap-2 border-b border-brand-border pb-2">
-                                            <span className="w-6 h-6 rounded-full bg-accent-purple/20 text-accent-purple flex items-center justify-center text-sm">2</span>
+                                    {/* Section 2 */}
+                                    <div className="space-y-5">
+                                        <h3 className="text-base font-bold flex items-center gap-2 border-b border-brand-border pb-3">
+                                            <span className="w-6 h-6 rounded-full bg-accent-purple/15 text-accent-purple flex items-center justify-center text-xs font-black">2</span>
                                             About Your Calls
                                         </h3>
-                                        <div className="grid md:grid-cols-2 gap-6">
-                                            <div>
-                                                <label className="block text-sm font-medium text-brand-text-muted mb-2">Industry / Specialty</label>
-                                                <select required className={selectClass}>
-                                                    <option value="" className="bg-brand-bg text-brand-text">Select industry...</option>
-                                                    <option value="Dental" className="bg-brand-bg text-brand-text">Dental Clinic</option>
-                                                    <option value="Medical" className="bg-brand-bg text-brand-text">Medical / GP</option>
-                                                    <option value="Real Estate" className="bg-brand-bg text-brand-text">Real Estate</option>
-                                                    <option value="Law Firm" className="bg-brand-bg text-brand-text">Law Firm</option>
-                                                    <option value="Salon/Spa" className="bg-brand-bg text-brand-text">Salon / Spa</option>
-                                                    <option value="Other" className="bg-brand-bg text-brand-text">Other</option>
-                                                </select>
-                                            </div>
-                                            <div>
-                                                <label className="block text-sm font-medium text-brand-text-muted mb-2">Primary Goal</label>
-                                                <select required className={selectClass}>
-                                                    <option value="" className="bg-brand-bg text-brand-text">Select goal...</option>
-                                                    <option value="Book appointments" className="bg-brand-bg text-brand-text">Book Appointments</option>
-                                                    <option value="Answer FAQs" className="bg-brand-bg text-brand-text">Answer FAQs &amp; Hours</option>
-                                                    <option value="Capture leads" className="bg-brand-bg text-brand-text">Capture New Leads</option>
-                                                    <option value="All" className="bg-brand-bg text-brand-text">All of the above</option>
-                                                </select>
-                                            </div>
-                                            <div>
-                                                <label className="block text-sm font-medium text-brand-text-muted mb-2">Approx. Inbound Calls / Month</label>
-                                                <select required className={selectClass}>
-                                                    <option value="" className="bg-brand-bg text-brand-text">Select volume...</option>
-                                                    <option value="0–50" className="bg-brand-bg text-brand-text">0 – 50 calls</option>
-                                                    <option value="50–200" className="bg-brand-bg text-brand-text">50 – 200 calls</option>
-                                                    <option value="200–500" className="bg-brand-bg text-brand-text">200 – 500 calls</option>
-                                                    <option value="500+" className="bg-brand-bg text-brand-text">500+ calls</option>
-                                                </select>
-                                            </div>
-                                            <div>
-                                                <label className="block text-sm font-medium text-brand-text-muted mb-2">Current Setup</label>
-                                                <select required className={selectClass}>
-                                                    <option value="" className="bg-brand-bg text-brand-text">Select current setup...</option>
-                                                    <option value="Human only" className="bg-brand-bg text-brand-text">Human Receptionist Only</option>
-                                                    <option value="Voicemail" className="bg-brand-bg text-brand-text">Mostly Voicemail</option>
-                                                    <option value="Answering service" className="bg-brand-bg text-brand-text">Answering Service</option>
-                                                    <option value="Nothing" className="bg-brand-bg text-brand-text">Nothing Yet</option>
-                                                </select>
-                                            </div>
+                                        <div className="grid sm:grid-cols-2 gap-5">
+                                            {[
+                                                {
+                                                    label: "Industry / Specialty",
+                                                    options: [["","Select industry..."],["Dental","Dental Clinic"],["Medical","Medical / GP"],["Real Estate","Real Estate"],["Law Firm","Law Firm"],["Salon/Spa","Salon / Spa"],["Other","Other"]],
+                                                },
+                                                {
+                                                    label: "Primary Goal",
+                                                    options: [["","Select goal..."],["Book appointments","Book Appointments"],["Answer FAQs","Answer FAQs & Hours"],["Capture leads","Capture New Leads"],["All","All of the above"]],
+                                                },
+                                                {
+                                                    label: "Approx. Inbound Calls / Month",
+                                                    options: [["","Select volume..."],["0–50","0 – 50 calls"],["50–200","50 – 200 calls"],["200–500","200 – 500 calls"],["500+","500+ calls"]],
+                                                },
+                                                {
+                                                    label: "Current Setup",
+                                                    options: [["","Select current setup..."],["Human only","Human Receptionist Only"],["Voicemail","Mostly Voicemail"],["Answering service","Answering Service"],["Nothing","Nothing Yet"]],
+                                                },
+                                            ].map(s => (
+                                                <div key={s.label}>
+                                                    <label className="block text-sm font-medium text-brand-text-muted mb-2">{s.label}</label>
+                                                    <select required className={selectClass}>
+                                                        {s.options.map(([v, l]) => (
+                                                            <option key={v} value={v} className="bg-brand-bg text-brand-text">{l}</option>
+                                                        ))}
+                                                    </select>
+                                                </div>
+                                            ))}
                                         </div>
                                     </div>
 
-                                    {/* Section 3 — Plan Selection */}
-                                    <div className="space-y-6">
-                                        <h3 className="text-xl font-semibold flex items-center gap-2 border-b border-brand-border pb-2">
-                                            <span className="w-6 h-6 rounded-full bg-accent-blue/20 text-accent-blue flex items-center justify-center text-sm">3</span>
+                                    {/* Section 3 — Plan */}
+                                    <div className="space-y-4">
+                                        <h3 className="text-base font-bold flex items-center gap-2 border-b border-brand-border pb-3">
+                                            <span className="w-6 h-6 rounded-full bg-accent-blue/15 text-accent-blue flex items-center justify-center text-xs font-black">3</span>
                                             Choose Your Plan
                                         </h3>
-
-                                        <div className="grid md:grid-cols-2 gap-4">
+                                        <div className="grid sm:grid-cols-2 gap-3">
                                             {plans.map(plan => (
                                                 <button
                                                     key={plan.id}
                                                     type="button"
                                                     onClick={() => { setSelectedPlan(plan.id); setContactForPricing(false); }}
-                                                    className={`p-4 rounded-xl border-2 text-left transition-all relative ${!contactForPricing && selectedPlan === plan.id
-                                                        ? 'border-accent-blue bg-accent-blue/10'
-                                                        : 'border-brand-border bg-brand-bg/20 hover:border-brand-border/60'
-                                                        }`}
+                                                    className={`p-4 rounded-xl border-2 text-left transition-all relative ${
+                                                        !contactForPricing && selectedPlan === plan.id
+                                                            ? 'border-accent-blue bg-accent-blue/8'
+                                                            : 'border-brand-border bg-brand-glass hover:border-accent-blue/30'
+                                                    }`}
                                                 >
                                                     {plan.popular && (
-                                                        <span className="absolute top-2 right-2 text-[10px] font-bold uppercase tracking-widest text-accent-purple bg-accent-purple/10 border border-accent-purple/30 px-2 py-0.5 rounded-full">
+                                                        <span className="absolute top-2 right-2 text-[9px] font-bold uppercase tracking-widest text-accent-purple border border-accent-purple/30 bg-accent-purple/10 px-2 py-0.5 rounded-full">
                                                             Popular
                                                         </span>
                                                     )}
-                                                    <div className="font-bold text-brand-text mb-0.5 flex items-center gap-2">
+                                                    <div className="font-bold text-brand-text text-sm mb-0.5 flex items-center gap-2">
                                                         {!contactForPricing && selectedPlan === plan.id && (
                                                             <CheckCircle className="w-4 h-4 text-accent-blue shrink-0" />
                                                         )}
                                                         {plan.name}
                                                     </div>
-                                                    <div className="text-accent-blue font-semibold text-sm">
+                                                    <div className="text-accent-blue font-semibold text-xs">
                                                         {plan.monthly === 'Custom' ? 'Custom pricing' : `${plan.monthly}/mo`}
                                                     </div>
-                                                    <div className="text-xs text-brand-text-muted mt-1">{plan.minutes}</div>
+                                                    <div className="text-[11px] text-brand-text-muted mt-1">{plan.minutes}</div>
                                                 </button>
                                             ))}
                                         </div>
-
-                                        {/* Contact for pricing option */}
                                         <button
                                             type="button"
                                             onClick={() => { setContactForPricing(true); setSelectedPlan(''); }}
-                                            className={`w-full p-4 rounded-xl border-2 text-left transition-all flex items-center gap-3 ${contactForPricing
-                                                ? 'border-accent-purple bg-accent-purple/10'
-                                                : 'border-brand-border bg-brand-bg/20 hover:border-brand-border/60'
-                                                }`}
+                                            className={`w-full p-4 rounded-xl border-2 text-left transition-all flex items-center gap-3 ${
+                                                contactForPricing
+                                                    ? 'border-accent-purple bg-accent-purple/8'
+                                                    : 'border-brand-border bg-brand-glass hover:border-accent-purple/30'
+                                            }`}
                                         >
-                                            <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center shrink-0 transition-colors ${contactForPricing ? 'border-accent-purple bg-accent-purple' : 'border-brand-text-muted'}`}>
-                                                {contactForPricing && <Zap className="w-3 h-3 text-brand-text" />}
+                                            <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center shrink-0 transition-colors ${contactForPricing ? 'border-accent-purple bg-accent-purple' : 'border-brand-border'}`}>
+                                                {contactForPricing && <Zap className="w-3 h-3 text-white" />}
                                             </div>
                                             <div>
                                                 <div className="font-semibold text-brand-text text-sm">I'm not sure — contact me to discuss pricing</div>
@@ -525,80 +610,125 @@ const AIVoiceReceptionist = () => {
                                 </>
                             )}
 
-                            <div className="pt-6 border-t border-brand-border/50">
-                                <button type="submit" className="w-full btn-primary text-lg py-4">
+                            <div className="pt-6 border-t border-brand-border">
+                                <button type="submit" className="w-full btn-primary text-base py-4 justify-center">
                                     {quickCall ? 'Request Quick Call' : 'Request My Free Demo'}
+                                    <ArrowRight className="ml-2 w-4 h-4" />
                                 </button>
-                                <p className="text-center text-xs text-brand-text-muted mt-4 flex items-center justify-center gap-1">
-                                    <CheckCircle className="w-3 h-3 text-accent-green" />
+                                <p className="text-center text-xs text-brand-text-muted mt-4 flex items-center justify-center gap-1.5">
+                                    <Check className="w-3.5 h-3.5 text-accent-blue" />
                                     We review every request and contact you within 24 hours.
                                 </p>
                             </div>
                         </form>
-                    </div>
+                    </motion.div>
                 </div>
             </section>
 
-            {/* ─── FAQ ─── */}
-            <section className="py-24 bg-brand-bg">
-                <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div className="text-center mb-12">
-                        <h2 className="text-3xl font-bold text-brand-text mb-4">
-                            Common <span className="dark:bg-white dark:text-black text-white bg-black px-3 mx-1 rounded-lg">Questions</span>
-                        </h2>
-                        <p className="text-brand-text-muted">Everything you need to know before going live.</p>
-                    </div>
+            {/* ─── FAQ — moved from Home page ─── */}
+            <section className="py-20 sm:py-28 relative bg-brand-bg overflow-hidden">
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[500px] bg-accent-blue/4 rounded-full blur-[130px] pointer-events-none" />
+                <div className="absolute bottom-0 right-0 w-96 h-96 bg-accent-purple/4 rounded-full blur-[100px] pointer-events-none" />
 
-                    <div className="space-y-4">
-                        {faqs.map((faq, i) => (
-                            <div key={i} className="glass-card p-0 overflow-hidden">
-                                <button
-                                    onClick={() => setOpenFaq(openFaq === i ? null : i)}
-                                    className="w-full flex items-center justify-between gap-4 p-6 text-left hover:bg-brand-glass/50 transition-colors"
-                                >
-                                    <span className="font-semibold text-brand-text flex items-center gap-3">
-                                        <HelpCircle className="w-4 h-4 text-accent-blue shrink-0" />
-                                        {faq.q}
-                                    </span>
-                                    <span className={`text-accent-blue text-xl transition-transform duration-200 ${openFaq === i ? 'rotate-45' : ''}`}>+</span>
-                                </button>
-                                <AnimatePresence>
-                                    {openFaq === i && (
-                                        <motion.div
-                                            initial={{ height: 0, opacity: 0 }}
-                                            animate={{ height: 'auto', opacity: 1 }}
-                                            exit={{ height: 0, opacity: 0 }}
-                                            transition={{ duration: 0.2 }}
-                                            className="overflow-hidden"
-                                        >
-                                            <div className="px-6 pb-6 text-brand-text-muted text-sm leading-relaxed border-t border-brand-border pt-4">
-                                                {faq.a}
-                                            </div>
-                                        </motion.div>
-                                    )}
-                                </AnimatePresence>
+                <div className="container mx-auto px-4 sm:px-6 lg:px-12 relative z-10">
+                    <div className="flex flex-col lg:flex-row gap-14 lg:gap-20 max-w-6xl mx-auto">
+
+                        {/* Left: sticky panel */}
+                        <motion.div
+                            initial={{ opacity: 0, x: -28 }}
+                            whileInView={{ opacity: 1, x: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
+                            className="lg:w-[38%] lg:sticky lg:top-28 lg:self-start"
+                        >
+                            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-accent-blue/25 bg-accent-blue/8 text-accent-blue text-xs font-bold uppercase tracking-widest mb-6">
+                                <MessageSquare className="w-3.5 h-3.5" />
+                                FAQ
                             </div>
-                        ))}
+                            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-5 leading-tight">
+                                Got <span className="text-accent-blue">Questions?</span>
+                            </h2>
+                            <p className="text-brand-text-muted text-sm sm:text-base leading-relaxed mb-10 max-w-sm">
+                                Everything you need to know before getting started. Can't find an answer? Talk to us directly.
+                            </p>
+
+                            <div className="space-y-4 mb-10">
+                                {[
+                                    { stat: "3–5 days", label: "Average go-live time" },
+                                    { stat: "24 / 7",   label: "Support availability"  },
+                                    { stat: "100%",     label: "Setup handled by us"   },
+                                ].map(({ stat, label }) => (
+                                    <div key={label} className="flex items-center gap-4">
+                                        <span className="text-accent-blue font-black text-lg whitespace-nowrap tabular-nums shrink-0 leading-none">{stat}</span>
+                                        <span className="h-px flex-1 bg-brand-border" />
+                                        <span className="text-brand-text-muted text-sm">{label}</span>
+                                    </div>
+                                ))}
+                            </div>
+
+                            <Link to="/contact" className="btn-secondary inline-flex items-center gap-2 text-sm py-3 px-6">
+                                Ask Us Anything <ArrowRight className="w-4 h-4" />
+                            </Link>
+                        </motion.div>
+
+                        {/* Right: accordion */}
+                        <div className="lg:w-[62%] space-y-3">
+                            {faqs.map((faq, idx) => (
+                                <motion.div
+                                    key={idx}
+                                    initial={{ opacity: 0, y: 16 }}
+                                    whileInView={{ opacity: 1, y: 0 }}
+                                    viewport={{ once: true }}
+                                    transition={{ delay: idx * 0.07, duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+                                >
+                                    <FAQItem question={faq.q} answer={faq.a} index={idx} />
+                                </motion.div>
+                            ))}
+
+                            {/* CTA card */}
+                            <motion.div
+                                initial={{ opacity: 0, y: 16 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                viewport={{ once: true }}
+                                transition={{ delay: faqs.length * 0.07 + 0.1, duration: 0.5 }}
+                                className="mt-6 rounded-2xl border border-accent-blue/20 bg-accent-blue/5 p-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4"
+                                style={{ backdropFilter: 'blur(12px)' }}
+                            >
+                                <div>
+                                    <p className="font-bold text-brand-text text-sm mb-1">Still have a question?</p>
+                                    <p className="text-brand-text-muted text-xs">Our team replies within a few hours.</p>
+                                </div>
+                                <Link
+                                    to="/contact"
+                                    className="btn-primary shrink-0 py-2.5 px-6 text-sm whitespace-nowrap flex items-center gap-1.5"
+                                    style={{ boxShadow: 'none' }}
+                                >
+                                    Contact Us <ArrowRight className="w-3.5 h-3.5" />
+                                </Link>
+                            </motion.div>
+                        </div>
                     </div>
                 </div>
             </section>
 
-            {/* Bottom Security Notice */}
-            <div className="container mx-auto px-6 mt-16 mb-8 text-center flex items-center justify-center">
-                <div className="flex items-center gap-2 dark:text-accent-green text-sm font-bold bg-accent-green/5 border border-accent-green/20 px-6 py-3 rounded-full">
-                    <ShieldCheck className="w-5 h-5 shrink-0" />
-                    <DecryptedText text="HIPAA-Compliant: All patient data is encrypted locally and completely safe." animateOn="view" speed={60} maxIterations={15} />
+            {/* ─── Security Notice ─── */}
+            <div className="py-8 border-t border-brand-border bg-brand-bg-alt">
+                <div className="container mx-auto px-6 text-center flex items-center justify-center">
+                    <div className="inline-flex items-center gap-2 text-accent-blue text-sm font-bold border border-accent-blue/20 bg-accent-blue/8 px-6 py-3 rounded-full">
+                        <ShieldCheck className="w-5 h-5 shrink-0" />
+                        <DecryptedText text="HIPAA-Compliant: All patient data is encrypted locally and completely safe." animateOn="view" speed={60} maxIterations={15} />
+                    </div>
                 </div>
             </div>
 
-            {/* Floating CTA */}
-            <a
-                href="/contact"
-                className="fixed bottom-6 right-6 z-30 flex items-center gap-3 bg-brand-glass backdrop-blur-lg border border-accent-purple/50 px-5 py-3.5 rounded-full hover:-translate-y-1 transition-all group shadow-xl"
+            {/* ─── Floating CTA ─── */}
+            <Link
+                to="/contact"
+                className="fixed bottom-6 right-6 z-30 flex items-center gap-3 bg-brand-glass backdrop-blur-lg border border-accent-purple/50 px-5 py-3.5 rounded-full hover:-translate-y-1 transition-all shadow-xl"
             >
                 <Phone className="w-5 h-5 text-accent-purple" />
-                <span className="font-semibold text-brand-text">Doubt? Let's talk!</span>
-            </a>
+                <span className="font-semibold text-brand-text text-sm">Doubt? Let's talk!</span>
+            </Link>
         </div>
     );
 };
