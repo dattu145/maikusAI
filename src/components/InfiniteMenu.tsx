@@ -333,11 +333,13 @@ class InfiniteGridMenu {
       // Redraw placeholder background
       ctx.fillStyle = '#0d1628';
       ctx.fillRect(0, 0, canvas.width, canvas.height);
+      ctx.filter = 'grayscale(100%)';
       images.forEach((img, i) => {
         if (!img) return;
         const x = (i % this.atlasSize) * cellSize, y = Math.floor(i / this.atlasSize) * cellSize;
         ctx.drawImage(img, x, y, cellSize, cellSize);
       });
+      ctx.filter = 'none';
       gl.bindTexture(gl.TEXTURE_2D, this.tex);
       gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, canvas);
       gl.generateMipmap(gl.TEXTURE_2D);

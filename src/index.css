@@ -114,6 +114,38 @@
   }
 
   /* Theme-aware range slider */
+  /* Native select dropdown — dark bg in dark mode, light bg in light mode */
+  select {
+    color-scheme: dark;
+  }
+  .light select {
+    color-scheme: light;
+  }
+
+  /* Contact page: always-vivid left panel */
+  .contact-left-panel {
+    background: #07040f; /* dark mode: deep dark */
+  }
+  .light .contact-left-panel {
+    background: #4c33d6; /* light mode: brand purple */
+  }
+
+  /* "Talk." text — visible on both panel colors */
+  .contact-talk-color {
+    color: #00f0ff; /* dark mode: cyan */
+  }
+  .light .contact-talk-color {
+    color: rgba(255, 255, 255, 0.92); /* light mode: white on purple */
+  }
+
+  /* Contact links on colored panel */
+  .contact-panel-link {
+    color: rgba(255, 255, 255, 0.82);
+  }
+  .contact-panel-link:hover {
+    color: rgba(255, 255, 255, 1);
+  }
+
   /* Theme-aware visibility helpers */
   .light .hide-in-light {
     display: none !important;

@@ -58,10 +58,10 @@
   user-select: none;
   pointer-events: none;
   position: absolute;
-  max-width: 16ch;
+  max-width: 30ch;
   top: 50%;
-  right: 2em;
-  font-size: clamp(0.75rem, 1.4vw, 1rem);
+  right: 3em;
+  font-size: clamp(1rem, 1.4vw, 1.1rem);
   color: var(--theme-text-muted);
   line-height: 1.5;
   font-style: italic;

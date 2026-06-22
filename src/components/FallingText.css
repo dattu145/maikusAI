@@ -1,0 +1,40 @@
+.falling-text-container {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+  text-align: left;
+  padding-top: 1em;
+}
+
+.falling-text-target {
+  display: inline-block;
+  color: rgba(255, 255, 255, 0.60);
+  font-weight: 700;
+}
+
+.word {
+  display: inline-block;
+  margin: 0 3px;
+  user-select: none;
+}
+
+/* Dark mode: highlighted = cyan */
+.word-highlighted {
+  color: #00f0ff;
+  font-weight: 900;
+}
+
+/* Light mode (purple panel): highlighted = bright white so it's visible */
+.light .word-highlighted {
+  color: rgba(255, 255, 255, 1);
+  font-weight: 900;
+}
+
+.falling-text-canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 0;
+}

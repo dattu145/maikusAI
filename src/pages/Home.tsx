@@ -13,6 +13,12 @@ import MagicRings from '../components/MagicRings';
 import Antigravity from '../components/Antigravity';
 import CardSwap, { Card } from '../components/CardSwap';
 import InfiniteMenu from '../components/InfiniteMenu';
+import tImg1 from '../assets/TestinomialsImgs/testimonial-girl.jpg';
+import tImg2 from '../assets/TestinomialsImgs/testimonial-boy.jpg';
+import tImg3 from '../assets/TestinomialsImgs/testimonial-girl2.jpg';
+import tImg4 from '../assets/TestinomialsImgs/testimonial-boy2.jpg';
+import tImg5 from '../assets/TestinomialsImgs/testimonial-boy3.jpg';
+import tImg6 from '../assets/TestinomialsImgs/testimonial-girl3.jpg';
 
 const NumberCounter = ({ from = 0, to, duration = 2, prefix = "", suffix = "" }: { from?: number, to: number, duration?: number, prefix?: string, suffix?: string }) => {
     const [count, setCount] = useState(from);
@@ -185,51 +191,92 @@ const Home = () => {
                     <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
 
                         {/* Left: Text content */}
-                        <motion.div
-                            initial={{ opacity: 0, y: 24 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.7 }}
-                            className="text-center lg:text-left"
-                        >
-                            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 border border-accent-blue/20 text-accent-blue text-xs font-bold tracking-widest uppercase mb-7">
-                                <span className="relative flex h-2 w-2">
-                                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent-blue opacity-75"></span>
-                                    <span className="relative inline-flex rounded-full h-2 w-2 bg-accent-blue"></span>
+                        <div className="text-center lg:text-left">
+
+                            {/* Editorial label */}
+                            <motion.div
+                                initial={{ opacity: 0, x: -16 }}
+                                animate={{ opacity: 1, x: 0 }}
+                                transition={{ duration: 0.55 }}
+                                className="flex items-center gap-3 mb-8 justify-center lg:justify-start"
+                            >
+                                <div className="h-px w-8 bg-accent-blue" />
+                                <span className="text-accent-blue text-[11px] font-black uppercase tracking-[0.25em] flex items-center gap-2">
+                                    <span className="relative flex h-2 w-2">
+                                        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent-blue opacity-75" />
+                                        <span className="relative inline-flex rounded-full h-2 w-2 bg-accent-blue" />
+                                    </span>
+                                    AI Voice Receptionist
                                 </span>
-                                Buzcall Receptionist
+                            </motion.div>
+
+                            {/* Giant line-reveal headline */}
+                            <div className="overflow-hidden mb-7">
+                                {[
+                                    { text: "Never Miss", accent: false },
+                                    { text: "Another", accent: false },
+                                    { text: "Customer Call.", accent: true },
+                                ].map(({ text, accent }, i) => (
+                                    <motion.h1
+                                        key={text}
+                                        initial={{ y: "105%", opacity: 0 }}
+                                        animate={{ y: 0, opacity: 1 }}
+                                        transition={{ duration: 0.75, delay: i * 0.1 + 0.05, ease: [0.22, 1, 0.36, 1] }}
+                                        className={`block font-black leading-[0.9] tracking-tighter select-none
+                                            text-5xl sm:text-6xl md:text-7xl lg:text-8xl
+                                            ${accent ? 'text-accent-blue' : 'text-brand-text'}`}
+                                    >
+                                        {text}
+                                    </motion.h1>
+                                ))}
                             </div>
 
-                            <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight mb-6 leading-[1.1]">
-                                Never Miss Another{" "}
-                                <span className="text-accent-blue">Customer Call</span>
-                            </h1>
+                            <motion.p
+                                initial={{ opacity: 0 }}
+                                animate={{ opacity: 1 }}
+                                transition={{ delay: 0.5 }}
+                                className="text-sm sm:text-base md:text-lg text-brand-text-muted mb-10 max-w-md mx-auto lg:mx-0 leading-relaxed"
+                            >
+                                Answers every call, books appointments, and captures leads — 24 hours a day, 7 days a week. No hold music. No voicemail.
+                            </motion.p>
 
-                            <p className="text-base md:text-lg text-brand-text-muted mb-10 max-w-lg mx-auto lg:mx-0 leading-relaxed">
-                                Buzcall Receptionist answers every call, books appointments, and captures leads — 24 hours a day, 7 days a week.
-                            </p>
-
-                            <div className="flex flex-col sm:flex-row items-center lg:items-start justify-center lg:justify-start gap-4">
+                            <motion.div
+                                initial={{ opacity: 0, y: 12 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ delay: 0.6 }}
+                                className="flex flex-col sm:flex-row items-center lg:items-start justify-center lg:justify-start gap-4"
+                            >
                                 <button
                                     onClick={handleDemoNavigation}
-                                    className="btn-primary w-full sm:w-auto py-4 px-8 shadow-[0_0_30px_rgba(0,240,255,0.3)] hover:shadow-[0_0_50px_rgba(0,240,255,0.5)]"
+                                    className="btn-primary w-full sm:w-auto py-4 px-9 text-base"
+                                    style={{ boxShadow: `0 0 32px rgba(var(--theme-primary-rgb),0.35)` }}
                                 >
                                     Try Live Demo
                                 </button>
-                                <a href="#how-it-works" className="btn-secondary w-full sm:w-auto py-4 px-8 gap-2 group">
+                                <a href="#how-it-works" className="btn-secondary w-full sm:w-auto py-4 px-9 gap-2 group text-base">
                                     See How It Works <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                                 </a>
-                            </div>
+                            </motion.div>
 
                             {/* Trust row */}
-                            <div className="mt-10 flex flex-wrap items-center justify-center lg:justify-start gap-x-6 gap-y-2">
-                                {["HIPAA-Compliant", "24/7 Live", "Zero Missed Calls"].map((tag) => (
-                                    <span key={tag} className="flex items-center gap-1.5 text-brand-text-muted text-sm font-medium">
-                                        <span className="w-1.5 h-1.5 rounded-full bg-accent-blue" />
-                                        {tag}
+                            <motion.div
+                                initial={{ opacity: 0 }}
+                                animate={{ opacity: 1 }}
+                                transition={{ delay: 0.75 }}
+                                className="mt-10 flex flex-wrap items-center justify-center lg:justify-start gap-2"
+                            >
+                                {[
+                                    { icon: ShieldCheck, text: "HIPAA-Compliant" },
+                                    { icon: Clock,       text: "24/7 Live"       },
+                                    { icon: Zap,         text: "Zero Missed Calls"},
+                                ].map(({ icon: Icon, text }) => (
+                                    <span key={text} className="inline-flex items-center gap-1.5 text-xs font-semibold text-brand-text-muted border border-brand-border bg-brand-glass rounded-full px-3 py-1.5">
+                                        <Icon className="w-3.5 h-3.5 text-accent-blue shrink-0" />
+                                        {text}
                                     </span>
                                 ))}
-                            </div>
-                        </motion.div>
+                            </motion.div>
+                        </div>
 
                         {/* Right: Visual panel */}
                         <motion.div
@@ -999,22 +1046,24 @@ const Home = () => {
 
                 <div className="container mx-auto px-4 sm:px-6 lg:px-12 relative z-10">
 
-                    {/* Header */}
+                    {/* Header — editorial */}
                     <motion.div
-                        initial={{ opacity: 0, y: 20 }}
+                        initial={{ opacity: 0, y: 16 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
-                        className="text-center mb-10 sm:mb-14"
+                        className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-10 sm:mb-14 pb-6 border-b border-brand-border/40"
                     >
-                        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-accent-blue/25 bg-accent-blue/8 text-accent-blue text-xs font-bold uppercase tracking-widest mb-5">
-                            <Zap className="w-3.5 h-3.5" />
-                            Why Switch
+                        <div>
+                            <div className="flex items-center gap-4 mb-3">
+                                <div className="h-px w-10 bg-accent-blue" />
+                                <span className="text-accent-blue text-[11px] font-black uppercase tracking-[0.25em]">Why Switch</span>
+                            </div>
+                            <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-brand-text tracking-tight leading-none">
+                                Old Way <span className="text-brand-text-muted/40 font-light italic text-2xl sm:text-3xl">vs.</span>{" "}
+                                <span className="text-accent-blue">Buzcall Way</span>
+                            </h2>
                         </div>
-                        <h2 className="text-2xl sm:text-3xl md:text-5xl font-bold mb-4 leading-tight">
-                            Old Way <span className="text-brand-text-muted/60">vs.</span>{" "}
-                            <span className="text-accent-blue">Buzcall Way</span>
-                        </h2>
-                        <p className="text-brand-text-muted text-sm sm:text-base md:text-lg max-w-xl mx-auto">
+                        <p className="text-brand-text-muted text-sm max-w-xs leading-relaxed sm:text-right">
                             See exactly what changes when AI takes over your front desk.
                         </p>
                     </motion.div>
@@ -1395,7 +1444,7 @@ const Home = () => {
                                 desc: "Smart sequences that nurture leads, follow up missed calls, and book appointments — all on autopilot.",
                                 stat: "3× open rates",
                                 eta: "Q3 2025",
-                                img: "https://picsum.photos/seed/emailai/600/280",
+                                img: "src/assets/aiemailautomation.jpg",
                             },
                             {
                                 title: "Smart Lead Funnels",
@@ -1404,7 +1453,7 @@ const Home = () => {
                                 desc: "AI lead scoring and instant routing so your team focuses only on hot, ready-to-convert prospects.",
                                 stat: "2× conversions",
                                 eta: "Q3 2025",
-                                img: "https://picsum.photos/seed/leadfunnel/600/280",
+                                img: "src/assets/smartleadfunnels.jpg",
                             },
                             {
                                 title: "Website AI Chatbots",
@@ -1413,7 +1462,7 @@ const Home = () => {
                                 desc: "Converts website visitors into booked appointments 24/7, without any human involvement.",
                                 stat: "+40% bookings",
                                 eta: "Q4 2025",
-                                img: "https://picsum.photos/seed/chatbotai/600/280",
+                                img: "src/assets/aichatbot.jpg",
                             },
                             {
                                 title: "Social Media Automation",
@@ -1422,7 +1471,7 @@ const Home = () => {
                                 desc: "Replies to DMs, captures social leads, and schedules appointments directly from Instagram & WhatsApp.",
                                 stat: "Zero response lag",
                                 eta: "Q4 2025",
-                                img: "https://picsum.photos/seed/socialautom/600/280",
+                                img: "src/assets/socialmediaautomation.jpg",
                             },
                             {
                                 title: "CRM Workflow Automation",
@@ -1431,7 +1480,7 @@ const Home = () => {
                                 desc: "Auto-syncs every call, note, and appointment to your CRM in real time — zero manual data entry.",
                                 stat: "100% auto-sync",
                                 eta: "Q1 2026",
-                                img: "https://picsum.photos/seed/crmflow/600/280",
+                                img: "src/assets/CRMworkflowautomation.jpg",
                             },
                             {
                                 title: "Custom AI Tools",
@@ -1440,7 +1489,7 @@ const Home = () => {
                                 desc: "Bespoke AI solutions purpose-built for your industry, workflow, and compliance requirements.",
                                 stat: "Purpose-built",
                                 eta: "Ongoing",
-                                img: "https://picsum.photos/seed/customaitools/600/280",
+                                img: "src/assets/customimage.jpg",
                             },
                         ] as const).map((item, idx) => {
                             const isBlue = item.color === "blue";
@@ -1548,55 +1597,93 @@ const Home = () => {
                         // eslint-disable-next-line @typescript-eslint/no-explicit-any
                         items={([
                             {
-                                image: 'https://picsum.photos/seed/bzdoc1/400/400',
+                                image: tImg1,
                                 link: '/contact',
                                 name: 'Dr. Priya Sharma',
                                 role: 'Owner, SmileCare Dental',
-                                description: '"30% more bookings since going live."',
+                                description: '"Before Buzcall, we often missed calls during busy hours. Now every customer gets a quick response, and we\'ve noticed a big improvement in how smoothly our day-to-day operations run."',
                             },
                             {
-                                image: 'https://picsum.photos/seed/bzsalon2/400/400',
+                                image: tImg2,
                                 link: '/contact',
                                 name: 'Rohan Mehta',
                                 role: 'Founder, UrbanCuts Salon',
-                                description: '"Every caller answered instantly."',
+                                description: '"I really recommend Buzcall as it has been a pleasant surprise. It handles customer inquiries professionally and helps us stay available even when our team is fully occupied."',
                             },
                             {
-                                image: 'https://picsum.photos/seed/bzrealt3/400/400',
+                                image: tImg3,
                                 link: '/contact',
                                 name: 'Anjali Verma',
                                 role: 'Director, Vista Realty',
-                                description: '"Lead capture paid for itself in week one."',
+                                description: '"As a small business, we can\'t always answer every call right away. Buzcall has made a huge difference by ensuring customers always have someone there to assist them."',
                             },
                             {
-                                image: 'https://picsum.photos/seed/bzdoc4/400/400',
+                                image: tImg4,
                                 link: '/contact',
                                 name: 'Dr. Kiran Patel',
                                 role: 'Director, Patel Multi-Specialty',
-                                description: '"After-hours requests handled automatically."',
+                                description: '"Hi, I wasn\'t expecting to rely on Buzcall this much. After using it daily, it\'s become an important part of how we handle customer inquiries."',
                             },
                             {
-                                image: 'https://picsum.photos/seed/bzlaw5/400/400',
+                                image: tImg5,
                                 link: '/contact',
                                 name: 'Suresh Iyer',
                                 role: 'Managing Partner, Iyer Law',
-                                description: '"Client intake tripled after hours."',
+                                description: '"Hello, Buzcall is really easy to work with. After using it for some time, I can honestly say it has made our customer communication much smoother."',
                             },
                             {
-                                image: 'https://picsum.photos/seed/bzspa6/400/400',
+                                image: tImg6,
                                 link: '/contact',
                                 name: 'Meena Kapoor',
                                 role: 'Owner, Bliss Wellness Spa',
-                                description: '"No-shows dropped 40% with reminders."',
+                                description: '"The AI receptionist service is working smoothly and keeps our business responsive 24/7."',
                             },
                         ] as any[])}
                     />
                 </div>
 
-                {/* Hint text */}
-                <p className="text-center text-brand-text-muted/40 text-xs py-5">
+                {/* Desktop hint */}
+                <p className="hidden sm:block text-center text-brand-text-muted/40 text-xs py-5">
                     Drag to rotate · Pause on a face to read the story
                 </p>
+
+                {/* ── Mobile-only testimonial cards ── */}
+                <div className="sm:hidden px-5 pb-10 space-y-4">
+                    {[
+                        { img: tImg1, name: "Dr. Priya Sharma",  role: "Owner, SmileCare Dental",      quote: "30% more new patient bookings since going live with Buzcall." },
+                        { img: tImg2, name: "Rohan Mehta",        role: "Founder, UrbanCuts Salon",     quote: "Every single caller gets answered instantly, every time."      },
+                        { img: tImg3, name: "Anjali Verma",        role: "Director, Vista Realty",       quote: "Lead capture paid for itself in the very first week."          },
+                        { img: tImg4, name: "Dr. Kiran Patel",    role: "Director, Patel Multi-Spec.",  quote: "After-hours requests are handled automatically now."           },
+                        { img: tImg5, name: "Suresh Iyer",        role: "Managing Partner, Iyer Law",   quote: "Client intake tripled. Handles it all after hours."            },
+                        { img: tImg6, name: "Meena Kapoor",       role: "Owner, Bliss Wellness Spa",    quote: "No-shows dropped 40% with Buzcall reminders."                 },
+                    ].map((t, idx) => (
+                        <motion.div
+                            key={idx}
+                            initial={{ opacity: 0, y: 16 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ delay: idx * 0.07, duration: 0.5 }}
+                            className="glass-card !p-5 flex items-start gap-4"
+                        >
+                            {/* Avatar */}
+                            <img src={t.img} alt={t.name}
+                                className="w-12 h-12 rounded-full object-cover shrink-0 border-2 border-accent-blue/20 grayscale" />
+                            <div className="flex-1 min-w-0">
+                                {/* Stars */}
+                                <div className="flex gap-0.5 mb-2">
+                                    {[...Array(5)].map((_, i) => (
+                                        <Star key={i} className="w-3 h-3 fill-accent-blue text-accent-blue" />
+                                    ))}
+                                </div>
+                                {/* Quote */}
+                                <p className="text-sm text-brand-text leading-relaxed mb-2">"{t.quote}"</p>
+                                {/* Author */}
+                                <p className="text-xs font-bold text-brand-text">{t.name}</p>
+                                <p className="text-[11px] text-brand-text-muted">{t.role}</p>
+                            </div>
+                        </motion.div>
+                    ))}
+                </div>
             </section>
 
         </div>
