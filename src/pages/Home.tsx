@@ -704,7 +704,7 @@ const Home = () => {
 
                                 {/* Text */}
                                 <div className="flex-1">
-                                    <h3 className="text-base sm:text-lg font-bold mb-2 group-hover:text-accent-blue transition-colors leading-snug">
+                                    <h3 className="text-base sm:text-lg font-bold mb-2 transition-colors leading-snug">
                                         Answers on First Ring
                                     </h3>
                                     <p className="text-brand-text-muted text-sm leading-relaxed">
@@ -747,7 +747,7 @@ const Home = () => {
                                     <span className="text-accent-purple font-black text-base opacity-50 tabular-nums">24/7</span>
                                 </div>
                                 <div className="flex-1">
-                                    <h3 className="text-sm sm:text-base font-bold mb-1.5 group-hover:text-accent-purple transition-colors leading-snug">Books Appointments</h3>
+                                    <h3 className="text-sm sm:text-base font-bold mb-1.5 transition-colors leading-snug">Books Appointments</h3>
                                     <p className="text-brand-text-muted text-xs sm:text-sm leading-relaxed">Integrates with your live calendar to schedule, reschedule or cancel in real time.</p>
                                 </div>
                                 <span className="self-start text-[10px] font-bold uppercase tracking-wide text-accent-purple bg-accent-purple/8 border border-accent-purple/20 rounded-full px-2.5 py-1">Real-Time Booking</span>
@@ -770,7 +770,7 @@ const Home = () => {
                                     <span className="text-accent-blue font-black text-base opacity-50 tabular-nums">365</span>
                                 </div>
                                 <div className="flex-1">
-                                    <h3 className="text-sm sm:text-base font-bold mb-1.5 group-hover:text-accent-blue transition-colors leading-snug">Works 24/7/365</h3>
+                                    <h3 className="text-sm sm:text-base font-bold mb-1.5 transition-colors leading-snug">Works 24/7/365</h3>
                                     <p className="text-brand-text-muted text-xs sm:text-sm leading-relaxed">No breaks, no sick days, no holidays — fully operational around the clock, forever.</p>
                                 </div>
                                 <span className="self-start text-[10px] font-bold uppercase tracking-wide text-accent-blue bg-accent-blue/8 border border-accent-blue/20 rounded-full px-2.5 py-1">Zero Downtime</span>
@@ -793,7 +793,7 @@ const Home = () => {
                                     <span className="text-accent-purple font-black text-base opacity-50 tabular-nums">10+</span>
                                 </div>
                                 <div className="flex-1">
-                                    <h3 className="text-sm sm:text-base font-bold mb-1.5 group-hover:text-accent-purple transition-colors leading-snug">Speaks 10+ Languages</h3>
+                                    <h3 className="text-sm sm:text-base font-bold mb-1.5 transition-colors leading-snug">Speaks 10+ Languages</h3>
                                     <p className="text-brand-text-muted text-xs sm:text-sm leading-relaxed">Fluent in English, Hindi, and regional Indian languages for every caller.</p>
                                 </div>
                                 <span className="self-start text-[10px] font-bold uppercase tracking-wide text-accent-purple bg-accent-purple/8 border border-accent-purple/20 rounded-full px-2.5 py-1">Multilingual</span>
@@ -816,7 +816,7 @@ const Home = () => {
                                     <span className="text-accent-blue font-black text-base opacity-50 tabular-nums">100%</span>
                                 </div>
                                 <div className="flex-1">
-                                    <h3 className="text-sm sm:text-base font-bold mb-1.5 group-hover:text-accent-blue transition-colors leading-snug">Captures Every Lead</h3>
+                                    <h3 className="text-sm sm:text-base font-bold mb-1.5 transition-colors leading-snug">Captures Every Lead</h3>
                                     <p className="text-brand-text-muted text-xs sm:text-sm leading-relaxed">Records caller details instantly and texts follow-up info before the caller hangs up.</p>
                                 </div>
                                 <span className="self-start text-[10px] font-bold uppercase tracking-wide text-accent-blue bg-accent-blue/8 border border-accent-blue/20 rounded-full px-2.5 py-1">Zero Miss Rate</span>
@@ -843,7 +843,7 @@ const Home = () => {
                                         <span className="text-accent-blue font-black text-base opacity-50">HD</span>
                                     </div>
                                     <div className="flex-1">
-                                        <h3 className="text-sm sm:text-base font-bold mb-1.5 group-hover:text-accent-blue transition-colors leading-snug">Truly Human-Like Voice</h3>
+                                        <h3 className="text-sm sm:text-base font-bold mb-1.5 transition-colors leading-snug">Truly Human-Like Voice</h3>
                                         <p className="text-brand-text-muted text-xs sm:text-sm leading-relaxed">Natural pauses, tone, and empathy — most callers genuinely cannot tell it's AI.</p>
                                     </div>
                                     <div className="flex items-center gap-1">
@@ -1287,7 +1287,7 @@ const Home = () => {
                                         transition={{ delay: 0.1 }}
                                         className="flex gap-3 items-end"
                                     >
-                                        <div className="w-8 h-8 rounded-full bg-white/8 border border-white/10 flex items-center justify-center text-xs font-bold text-brand-text-muted shrink-0">R</div>
+                                        <div className="w-8 h-8 rounded-full bg-white/8 border border-brand-border flex items-center justify-center text-xs font-bold text-brand-text-muted shrink-0">R</div>
                                         <div className="max-w-[80%]">
                                             <p className="text-[10px] text-brand-text-muted font-bold uppercase tracking-widest mb-1.5">Rahul · Caller</p>
                                             <div className="rounded-2xl rounded-bl-sm bg-white/8 border border-white/8 px-4 py-3">
@@ -1330,7 +1330,7 @@ const Home = () => {
                                         transition={{ delay: 0.6 }}
                                         className="flex gap-3 items-end"
                                     >
-                                        <div className="w-8 h-8 rounded-full bg-white/8 border border-white/10 flex items-center justify-center text-xs font-bold text-brand-text-muted shrink-0">R</div>
+                                        <div className="w-8 h-8 rounded-full bg-white/8 border border-brand-border flex items-center justify-center text-xs font-bold text-brand-text-muted shrink-0">R</div>
                                         <div className="max-w-[80%]">
                                             <div className="rounded-2xl rounded-bl-sm bg-white/8 border border-white/8 px-4 py-3">
                                                 <p className="text-sm sm:text-base text-brand-text leading-relaxed">"I'm a new patient. My name is Rahul."</p>
@@ -1376,7 +1376,7 @@ const Home = () => {
                                         <div className="w-10 h-10 rounded-full bg-accent-blue/20 border border-accent-blue/30 flex items-center justify-center mx-auto mb-2">
                                             <Check className="w-5 h-5 text-accent-blue" />
                                         </div>
-                                        <p className="font-bold text-white text-sm mb-0.5">Appointment Confirmed</p>
+                                        <p className="font-bold text-brand-text text-sm mb-0.5">Appointment Confirmed</p>
                                         <p className="text-accent-blue text-xs font-semibold">Thursday, 2:00 PM · Dental Cleaning</p>
                                         <p className="text-brand-text-muted text-[10px] mt-1.5">SMS confirmation sent · Calendar updated</p>
                                     </motion.div>

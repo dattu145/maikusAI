@@ -16,6 +16,9 @@ import AutomationWorkflows from './forms/AutomationWorkflows';
 import CustomAIDevelopment from './forms/CustomAIDevelopment';
 import AIVoiceReceptionist from './forms/AIVoiceReceptionist';
 import Pricing from './pages/Pricing';
+import Privacy from './pages/Privacy';
+import Terms from './pages/Terms';
+import BlogPost from './pages/BlogPost';
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -51,7 +54,8 @@ function AnimatedRoutes() {
         <Route path="/services" element={<PageTransition><Services /></PageTransition>} />
         <Route path="/about" element={<PageTransition><About /></PageTransition>} />
         <Route path="/contact" element={<PageTransition><Contact /></PageTransition>} />
-        <Route path="/blog" element={<PageTransition><Blog /></PageTransition>} />
+        <Route path="/blog"      element={<PageTransition><Blog /></PageTransition>} />
+        <Route path="/blog/:slug" element={<PageTransition><BlogPost /></PageTransition>} />
         <Route path="/services/ai-email-automation" element={<PageTransition><AIEmailAutomation /></PageTransition>} />
         <Route path="/services/leadgen" element={<PageTransition><LeadGenerationSystems /></PageTransition>} />
         <Route path="/services/chatbots" element={<PageTransition><AIChatbots /></PageTransition>} />
@@ -60,6 +64,8 @@ function AnimatedRoutes() {
         <Route path="/services/custom" element={<PageTransition><CustomAIDevelopment /></PageTransition>} />
         <Route path="/services/ai-voice-receptionist" element={<PageTransition><AIVoiceReceptionist /></PageTransition>} />
         <Route path="/pricing" element={<PageTransition><Pricing /></PageTransition>} />
+        <Route path="/privacy" element={<PageTransition><Privacy /></PageTransition>} />
+        <Route path="/terms"   element={<PageTransition><Terms /></PageTransition>} />
       </Routes>
     </AnimatePresence>
   );

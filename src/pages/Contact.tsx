@@ -44,7 +44,7 @@ const Contact = () => {
                                 animate={{ y: 0, opacity: 1 }}
                                 transition={{ duration: 0.75, delay: i * 0.1 + 0.1, ease: [0.22, 1, 0.36, 1] }}
                                 className={`block font-black leading-[0.88] tracking-tighter select-none ${i === 1 ? 'contact-talk-color' : 'text-white'}`}
-                                style={{ fontSize: 'clamp(3.5rem, 7vw, 6.5rem)' }}
+                                style={{ fontSize: 'clamp(3.5rem, 7vw, 8.5rem)' }}
                             >
                                 {word}
                             </motion.h1>

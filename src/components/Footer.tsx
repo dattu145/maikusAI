@@ -68,11 +68,11 @@ const Footer = () => {
                 maikusai@gmail.com
               </a>
               <a
-                href="tel:+918888888888"
+                href="tel:+918008998312"
                 className="flex items-center gap-2 text-sm text-brand-text-muted hover:text-accent-blue transition-colors"
               >
                 <Phone className="w-3.5 h-3.5 shrink-0" />
-                +91 888 888 8888
+                +91 800 899 8312
               </a>
             </div>
 
@@ -115,7 +115,6 @@ const Footer = () => {
             <h4 className="text-xs font-bold uppercase tracking-widest mb-5 text-accent-blue">Contact</h4>
             <ul className="flex flex-col gap-3">
               {[
-                { label: "Contact Us", to: "/contact" },
                 { label: "Book a Call", to: "/contact" },
                 { label: "Privacy Policy", to: "/privacy" },
                 { label: "Terms of Service", to: "/terms" },

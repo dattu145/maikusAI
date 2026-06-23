@@ -1,249 +1,557 @@
-import { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { Mail, Zap, MessageSquare, Workflow, BrainCircuit, Phone, ArrowRight, CheckCircle2, Play, X, Lock } from 'lucide-react';
+import { motion } from 'framer-motion';
+import { Mail, Zap, MessageSquare, Workflow, BrainCircuit, Phone, ArrowRight, Check, ShieldCheck, Clock, Target, Star, Globe } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
+
+const roadmap = [
+    {
+        quarter: "Live Now",
+        accent: "blue" as const,
+        items: [
+            {
+                icon: Phone,
+                title: "AI Voice Receptionist",
+                desc: "Answers every call, books appointments, captures leads — 24/7. Our flagship product.",
+                chips: ["24/7 Answering", "Appointment Booking", "Lead Capture"],
+                live: true,
+            },
+        ],
+    },
+    {
+        quarter: "Q3 2025",
+        accent: "purple" as const,
+        items: [
+            {
+                icon: Mail,
+                title: "AI Email Automation",
+                desc: "Smart sequences that nurture leads and book appointments on autopilot.",
+                chips: ["Instant replies", "Personalized outreach", "Zero missed leads"],
+                live: false,
+            },
+            {
+                icon: Zap,
+                title: "Lead Generation Systems",
+                desc: "Intelligent funnels that qualify prospects automatically. Only hot leads reach your team.",
+                chips: ["24/7 qualification", "CRM sync", "Higher conversions"],
+                live: false,
+            },
+        ],
+    },
+    {
+        quarter: "Q4 2025",
+        accent: "purple" as const,
+        items: [
+            {
+                icon: MessageSquare,
+                title: "AI Website Chatbots",
+                desc: "Custom-trained LLMs that convert visitors into booked appointments.",
+                chips: ["Resolves 80% of queries", "Books instantly", "Multi-language"],
+                live: false,
+            },
+            {
+                icon: Globe,
+                title: "Social Media Automation",
+                desc: "AI-run socials with automated DM lead capture and content scheduling.",
+                chips: ["Content calendars", "DM lead capture", "Multi-platform"],
+                live: false,
+            },
+        ],
+    },
+    {
+        quarter: "Q1 2026",
+        accent: "purple" as const,
+        items: [
+            {
+                icon: Workflow,
+                title: "Automation Workflows",
+                desc: "Connect your tools. Orchestrate complex cross-app tasks. Eliminate manual data entry.",
+                chips: ["Saves 20+ hrs/week", "Instant triggers", "No errors"],
+                live: false,
+            },
+            {
+                icon: BrainCircuit,
+                title: "Custom AI Development",
+                desc: "Bespoke internal AI tools, apps, and dashboards built for your exact workflows.",
+                chips: ["Full data ownership", "Tailored to SOPs", "Scalable"],
+                live: false,
+            },
+        ],
+    },
+];
+
 const Services = () => {
-    const [demoVideo, setDemoVideo] = useState<string | null>(null);
-
-    const flagshipService = {
-        id: "ai-voice-receptionist",
-        icon: Phone,
-        title: "AI Voice Receptionist",
-        isFlagship: true,
-        problem: "Your front desk misses calls after hours, loses leads to voicemail, and costs you a full-time salary every month.",
-        solution: "We deploy a 24/7 HIPAA-ready AI receptionist on your phone line. It books appointments, answers FAQs, and captures every lead — automatically.",
-        benefits: ["Never miss an inbound call", "HIPAA-compliant infrastructure", "Setup fee + predictable monthly plan"],
-        useCase: "A dental clinic deployed an AI receptionist and booked 22 extra appointments in the first month — at zero extra staffing cost."
-    };
-
-    const upcomingServices = [
-        {
-            id: "email",
-            icon: Mail,
-            title: "AI Email Systems",
-            isFlagship: false,
-            problem: "Your sales team spends 60% of their day writing follow-ups and answering repetitive questions.",
-            solution: "We deploy an AI agent that drafts, personalizes, and sends emails automatically based on intent.",
-            benefits: ["Instant replies (under 2 minutes)", "Hyper-personalized cold outreach", "Zero missed leads"],
-            useCase: "A B2B agency automated their cold outreach and achieved a 22% reply rate, booking 15 extra meetings per month."
-        },
-        {
-            id: "leadgen",
-            icon: Zap,
-            title: "Lead Generation Systems",
-            isFlagship: false,
-            problem: "You have traffic, but no predictable way to capture and qualify them automatically.",
-            solution: "Intelligent funnels that offer personalized lead magnets and dynamically qualify prospects.",
-            benefits: ["24/7 prospect qualification", "Seamless CRM integration", "Higher conversion rates"],
-            useCase: "A real estate firm used our system to qualify 500+ leads automatically, only passing hot buyers to agents."
-        },
-        {
-            id: "chatbots",
-            icon: MessageSquare,
-            title: "AI Chatbots",
-            isFlagship: false,
-            problem: "Customers bounce from your website because they can't get their specific questions answered instantly.",
-            solution: "Custom-trained LLM chatbots that know your entire business and speak in your brand voice.",
-            benefits: ["Resolves 80% of support queries", "Books appointments instantly", "Multi-language support"],
-            useCase: "An eCommerce store recovered $12k in abandoned carts using an AI chatbot that answered sizing questions."
-        },
-        {
-            id: "social-media",
-            icon: MessageSquare,
-            title: "Social Media Automation",
-            isFlagship: false,
-            problem: "You are spending hours daily creating content, scheduling posts, and replying to repetitive DMs.",
-            solution: "AI generation and distribution systems that run your socials and handle inbound messages automatically.",
-            benefits: ["Automated content calendars", "Instant DM lead capture", "Multi-platform scheduling"],
-            useCase: "A fitness coach automated Instagram DMs to send booking links and scaled their client calendar by 30%."
-        },
-        {
-            id: "workflows",
-            icon: Workflow,
-            title: "Automation Workflows",
-            isFlagship: false,
-            problem: "Data is siloed across 10 different apps. Your team manually copies and pastes information daily.",
-            solution: "Architectural workflows via Zapier/Make that connect your tools and orchestrate complex tasks.",
-            benefits: ["Eliminates human error", "Saves 20+ hours per week", "Instantly triggers actions across platforms"],
-            useCase: "A clinic automated patient onboarding, consent forms, and follow-ups, saving the admin staff 12 hours a week."
-        },
-        {
-            id: "custom",
-            icon: BrainCircuit,
-            title: "Custom AI Development",
-            isFlagship: false,
-            problem: "Off-the-shelf software doesn't fit your unique operational workflows and proprietary data.",
-            solution: "Bespoke internal AI applications, tools, and dashboards built entirely for your specific needs.",
-            benefits: ["Full data ownership & privacy", "Tailored to your exact SOPs", "Scalable infrastructure"],
-            useCase: "A consulting firm got a custom internal research tool that summarized 100-page reports in seconds."
-        }
-    ];
-
-    const services = [flagshipService, ...upcomingServices];
-
     return (
-        <div className="pt-32 lg:pt-40 pb-20 bg-brand-bg text-brand-text">
-            <div className="container mx-auto px-6 lg:px-12">
-                <div className="text-center max-w-3xl mx-auto mb-20">
-                    <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-accent-blue/10 border border-accent-blue/20 text-accent-blue text-sm font-bold tracking-widest uppercase mb-8">
-                        The Hub
-                    </div>
-                    <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold mb-6 text-brand-text"><span className="text-gradient">AI Automations</span> Platform</h1>
-                    <p className="text-brand-text-muted text-lg md:text-xl leading-relaxed">
-                        We build intelligent systems that run your business operations smoothly 24/7. Discover our flagship platform and upcoming ecosystem.
-                    </p>
-                </div>
-                
-                {/* Service Quick Navigation */}
-                <div className="sticky top-20 z-40 py-4 mb-20 -mx-6 px-6 bg-brand-bg/80 backdrop-blur-md border-y border-brand-border overflow-x-auto no-scrollbar">
-                    <div className="flex items-center gap-4 md:justify-center min-w-max pb-2 md:pb-0">
-                        {services.map((service) => (
-                            <button
-                                key={`nav-${service.id}`}
-                                onClick={() => document.getElementById(service.id)?.scrollIntoView({ behavior: 'smooth', block: 'center' })}
-                                className={`flex items-center gap-2 px-4 py-2 rounded-full border transition-all group shrink-0 ${service.isFlagship ? 'border-accent-blue bg-accent-blue/10 hover:bg-accent-blue/20' : 'border-brand-border bg-brand-bg-alt hover:border-accent-purple/30'}`}
-                            >
-                                <service.icon className={`w-4 h-4 transition-colors ${service.isFlagship ? 'text-accent-blue' : 'text-brand-text-muted group-hover:text-accent-purple'}`} />
-                                <span className={`text-sm font-medium transition-colors ${service.isFlagship ? 'text-brand-text' : 'text-brand-text-muted group-hover:text-brand-text'}`}>
-                                    {service.title} {service.isFlagship ? '' : '(Coming Soon)'}
-                                </span>
-                            </button>
-                        ))}
-                    </div>
+        <div className="bg-brand-bg text-brand-text">
+
+            {/* ─── HERO — Left headline + Right status board ─── */}
+            <section className="relative min-h-screen flex items-center overflow-hidden border-b border-brand-border pt-32 pb-16">
+
+                {/* Background */}
+                <div className="absolute inset-0 pointer-events-none">
+                    <div className="absolute inset-0" style={{ backgroundImage: 'radial-gradient(circle, rgba(var(--theme-primary-rgb),0.12) 1px, transparent 1px)', backgroundSize: '36px 36px', opacity: 0.05 }} />
+                    <div className="absolute top-0 left-0 w-[600px] h-[600px] bg-accent-blue/4 rounded-full blur-[150px]" />
+                    <div className="absolute bottom-0 right-0 w-96 h-96 bg-accent-purple/4 rounded-full blur-[100px]" />
                 </div>
 
-                <div className="flex flex-col gap-32">
-                    {services.map((service, index) => {
-                        const isFlagship = service.isFlagship;
-                        return (
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 relative z-10 w-full">
+                    <div className="grid lg:grid-cols-[1fr_460px] gap-14 lg:gap-20 items-center">
+
+                        {/* ── Left: Big vertical statement ── */}
+                        <div>
                             <motion.div
-                                key={service.id}
-                                id={service.id}
-                                initial={{ opacity: 0, y: 30 }}
-                                whileInView={{ opacity: 1, y: 0 }}
-                                viewport={{ once: true, margin: "-100px" }}
-                                transition={{ duration: 0.6 }}
-                                className={`relative flex flex-col md:flex-row gap-12 items-center scroll-mt-40 ${index % 2 !== 0 ? 'md:flex-row-reverse' : ''}`}
+                                initial={{ opacity: 0, x: -16 }}
+                                animate={{ opacity: 1, x: 0 }}
+                                transition={{ duration: 0.5 }}
+                                className="flex items-center gap-3 mb-10"
                             >
-                                {!isFlagship && (
-                                    <div className="absolute inset-0 z-20 bg-brand-bg/60 backdrop-blur-[2px] rounded-3xl border border-brand-border flex items-center justify-center -m-8 pointer-events-none">
-                                        <div className="flex flex-col items-center bg-brand-bg/90 border border-brand-border px-8 py-4 rounded-full shadow-[0_0_30px_rgba(0,0,0,0.5)]">
-                                            <Lock className="w-6 h-6 text-brand-text-muted mb-2" />
-                                            <span className="text-xl font-bold tracking-widest uppercase text-brand-text/50">Coming Soon</span>
-                                        </div>
-                                    </div>
-                                )}
+                                <div className="h-px w-10 bg-accent-blue" />
+                                <span className="text-accent-blue text-[11px] font-black uppercase tracking-[0.25em]">AI Automations Platform</span>
+                            </motion.div>
 
-                                <div className={`flex-1 ${!isFlagship ? 'opacity-40 grayscale pointer-events-none' : ''}`}>
-                                    <div className={`w-20 h-20 rounded-2xl flex items-center justify-center border shadow-lg mb-8 ${isFlagship ? 'bg-gradient-to-br from-accent-blue/20 to-accent-purple/20 border-accent-blue/30 shadow-accent-blue/20' : 'bg-brand-bg-alt border-white/5'}`}>
-                                        <service.icon className={`w-10 h-10 ${isFlagship ? 'text-accent-blue' : 'text-brand-text'}`} />
+                            <div className="overflow-hidden mb-8">
+                                {[
+                                    { text: "AI That Works",  accent: false },
+                                    { text: "While",         accent: false },
+                                    { text: "You Sleep.",     accent: true  },
+                                ].map(({ text, accent }, i) => (
+                                    <motion.h1
+                                        key={text}
+                                        initial={{ y: '105%', opacity: 0 }}
+                                        animate={{ y: 0, opacity: 1 }}
+                                        transition={{ duration: 0.75, delay: i * 0.1 + 0.1, ease: [0.22, 1, 0.36, 1] }}
+                                        className={`block font-black leading-[0.88] tracking-tighter select-none
+                                            text-5xl sm:text-6xl md:text-7xl lg:text-8xl
+                                            ${accent ? 'text-accent-blue' : 'text-brand-text'}`}
+                                    >
+                                        {text}
+                                    </motion.h1>
+                                ))}
+                            </div>
+
+                            <motion.p
+                                initial={{ opacity: 0 }}
+                                animate={{ opacity: 1 }}
+                                transition={{ delay: 0.5 }}
+                                className="text-brand-text-muted text-base sm:text-lg mb-10 max-w-md leading-relaxed"
+                            >
+                                Six AI products that replace your most expensive manual operations. One is live right now.
+                            </motion.p>
+
+                            <motion.div
+                                initial={{ opacity: 0, y: 12 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ delay: 0.65 }}
+                                className="flex flex-wrap gap-4 mb-10"
+                            >
+                                <Link to="/services/ai-voice-receptionist"
+                                    className="btn-primary py-4 px-9 text-base flex items-center gap-2"
+                                    style={{ boxShadow: `0 0 32px rgba(var(--theme-primary-rgb),0.3)` }}>
+                                    Try Live Demo <ArrowRight className="w-4 h-4" />
+                                </Link>
+                                <Link to="/contact" className="btn-secondary py-4 px-9 text-base">
+                                    Get Free AI Audit
+                                </Link>
+                            </motion.div>
+
+                            <motion.div
+                                initial={{ opacity: 0 }}
+                                animate={{ opacity: 1 }}
+                                transition={{ delay: 0.8 }}
+                                className="flex flex-wrap gap-2"
+                            >
+                                {[
+                                    { icon: ShieldCheck, text: "HIPAA Compliant" },
+                                    { icon: Clock,       text: "Live in 5 Days"  },
+                                    { icon: Target,      text: "Fully Managed"   },
+                                ].map(({ icon: Icon, text }) => (
+                                    <span key={text} className="inline-flex items-center gap-1.5 text-xs font-semibold text-brand-text-muted border border-brand-border bg-brand-glass rounded-full px-3 py-1.5">
+                                        <Icon className="w-3.5 h-3.5 text-accent-blue" /> {text}
+                                    </span>
+                                ))}
+                            </motion.div>
+                        </div>
+
+                        {/* ── Right: System status board ── */}
+                        <motion.div
+                            initial={{ opacity: 0, x: 28 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            transition={{ duration: 0.75, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
+                            className="rounded-2xl border border-brand-border overflow-hidden"
+                            style={{ background: 'var(--theme-glass)', backdropFilter: 'blur(20px)' }}
+                        >
+                            {/* Board header */}
+                            <div className="px-5 py-4 border-b border-brand-border flex items-center justify-between"
+                                style={{ background: `rgba(var(--theme-primary-rgb),0.03)` }}>
+                                <div className="flex items-center gap-2">
+                                    <span className="w-2 h-2 rounded-full bg-accent-blue animate-pulse" />
+                                    <span className="text-[10px] font-black uppercase tracking-[0.2em] text-brand-text-muted">System Status</span>
+                                </div>
+                                <span className="text-[10px] font-bold text-brand-text-muted/50">Buzcall Platform · 2025</span>
+                            </div>
+
+                            {/* Column headers */}
+                            <div className="grid grid-cols-[24px_1fr_80px] gap-3 px-5 py-2.5 border-b border-brand-border/40">
+                                <span className="text-[9px] font-black uppercase tracking-widest text-brand-text-muted/30">#</span>
+                                <span className="text-[9px] font-black uppercase tracking-widest text-brand-text-muted/30">Product</span>
+                                <span className="text-[9px] font-black uppercase tracking-widest text-brand-text-muted/30 text-right">Status</span>
+                            </div>
+
+                            {/* Service rows */}
+                            {[
+                                { num: "01", icon: Phone,         name: "AI Voice Receptionist", status: "LIVE",   live: true,  eta: "" },
+                                { num: "02", icon: Mail,          name: "Email Automation",       status: "Q3 '25", live: false, eta: "Q3 2025" },
+                                { num: "03", icon: Zap,           name: "Lead Generation",        status: "Q3 '25", live: false, eta: "Q3 2025" },
+                                { num: "04", icon: MessageSquare, name: "AI Chatbots",            status: "Q4 '25", live: false, eta: "Q4 2025" },
+                                { num: "05", icon: Globe,         name: "Social Media",           status: "Q4 '25", live: false, eta: "Q4 2025" },
+                                { num: "06", icon: Workflow,      name: "Automation Workflows",   status: "Q1 '26", live: false, eta: "Q1 2026" },
+                            ].map(({ num, icon: Icon, name, status, live }, idx) => (
+                                <motion.div
+                                    key={num}
+                                    initial={{ opacity: 0, x: 12 }}
+                                    animate={{ opacity: 1, x: 0 }}
+                                    transition={{ delay: idx * 0.07 + 0.5, duration: 0.4 }}
+                                    className={`grid grid-cols-[24px_1fr_80px] gap-3 items-center px-5 py-4 border-b border-brand-border/25 last:border-b-0 transition-colors duration-200 group ${live ? 'hover:bg-accent-blue/4' : 'hover:bg-brand-glass/50'}`}
+                                >
+                                    {/* Number */}
+                                    <span className="text-[11px] font-black tabular-nums text-brand-text-muted/30 group-hover:text-brand-text-muted/60 transition-colors">{num}</span>
+
+                                    {/* Name + icon */}
+                                    <div className="flex items-center gap-3 min-w-0">
+                                        <div className={`w-8 h-8 rounded-lg flex items-center justify-center shrink-0 transition-all duration-200 ${live ? 'bg-accent-blue/12 border border-accent-blue/20 group-hover:bg-accent-blue/20' : 'bg-brand-glass border border-brand-border'}`}>
+                                            <Icon className={`w-3.5 h-3.5 ${live ? 'text-accent-blue' : 'text-brand-text-muted/60'}`} />
+                                        </div>
+                                        <span className={`text-sm font-bold leading-none truncate transition-colors duration-200 ${live ? 'text-brand-text group-hover:text-accent-blue' : 'text-brand-text-muted/70'}`}>
+                                            {name}
+                                        </span>
                                     </div>
-                                    
-                                    <div className="flex items-center gap-4 mb-6">
-                                        <h2 className={`text-3xl md:text-4xl font-bold text-brand-text ${isFlagship && 'text-gradient'}`}>{service.title}</h2>
-                                        {isFlagship && (
-                                            <span className="px-3 py-1 bg-accent-blue/20 text-accent-blue text-xs font-bold uppercase tracking-widest rounded-full">Flagship</span>
+
+                                    {/* Status badge */}
+                                    <div className="flex justify-end">
+                                        {live ? (
+                                            <span className="inline-flex items-center gap-1.5 text-[10px] font-bold text-accent-blue border border-accent-blue/30 bg-accent-blue/8 rounded-full px-2.5 py-1 whitespace-nowrap">
+                                                <span className="w-1.5 h-1.5 rounded-full bg-accent-blue animate-pulse" />
+                                                {status}
+                                            </span>
+                                        ) : (
+                                            <span className="text-[10px] font-bold text-brand-text-muted/40 whitespace-nowrap">{status}</span>
                                         )}
                                     </div>
+                                </motion.div>
+                            ))}
 
-                                    <div className="space-y-8 glass-card border-none bg-transparent p-0">
-                                        <div className="relative pl-6 border-l-2 border-accent-red/50">
-                                            <h4 className="text-accent-red font-bold uppercase tracking-wide text-xs mb-2">The Problem</h4>
-                                            <p className="text-brand-text-muted text-lg">{service.problem}</p>
-                                        </div>
-                                        <div className="relative pl-6 border-l-2 border-accent-blue/50">
-                                            <h4 className="text-accent-blue font-bold uppercase tracking-wide text-xs mb-2">Our Solution</h4>
-                                            <p className="text-brand-text text-lg">{service.solution}</p>
-                                        </div>
-                                    </div>
+                            {/* Board footer */}
+                            <div className="px-5 py-3 flex items-center justify-between"
+                                style={{ background: `rgba(var(--theme-primary-rgb),0.02)` }}>
+                                <span className="text-[9px] font-bold uppercase tracking-widest text-brand-text-muted/30">6 products · 1 platform</span>
+                                <Link to="/contact" className="text-[10px] font-bold text-accent-blue hover:underline">
+                                    Join waitlist →
+                                </Link>
+                            </div>
+                        </motion.div>
+                    </div>
+                </div>
+            </section>
 
-                                    <div className="mt-8 pt-8 border-t border-brand-border">
-                                        <h4 className="text-brand-text font-semibold mb-4 text-lg">Core Benefits:</h4>
-                                        <ul className="space-y-4">
-                                            {service.benefits.map((benefit, i) => (
-                                                <li key={i} className="flex items-center gap-3 text-brand-text-muted text-lg">
-                                                    <CheckCircle2 className={`w-5 h-5 flex-shrink-0 ${isFlagship ? 'text-accent-blue' : 'text-brand-text-muted'}`} />
-                                                    {benefit}
-                                                </li>
-                                            ))}
-                                        </ul>
-                                    </div>
+            {/* ─── ROADMAP TIMELINE ─── */}
+            <section className="py-20 sm:py-28 bg-brand-bg-alt border-b border-brand-border">
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12">
 
-                                    <div className="mt-10 flex flex-wrap gap-4">
-                                        <Link to={`/contact`} className={`${isFlagship ? 'btn-primary' : 'btn-secondary opacity-50'} py-4 px-8 text-lg font-bold`}>
-                                            {isFlagship ? 'Request Service' : 'Join Waitlist'}
-                                        </Link>
-                                        
-                                        {isFlagship && (
-                                            <button
-                                                onClick={() => setDemoVideo(`/videos/${service.id}-demo.mp4`)}
-                                                className="btn-secondary py-4 px-8 flex items-center gap-2 text-lg hover:border-accent-blue transition-colors"
-                                            >
-                                                <Play className="w-5 h-5" /> View Demo
-                                            </button>
-                                        )}
-                                    </div>
+                    {/* Section header */}
+                    <motion.div
+                        initial={{ opacity: 0, y: 16 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        className="mb-16 pb-6 border-b border-brand-border/40"
+                    >
+                        <div className="flex items-center gap-4 mb-3">
+                            <div className="h-px w-10 bg-accent-blue" />
+                            <span className="text-accent-blue text-[11px] font-black uppercase tracking-[0.25em]">Product Roadmap</span>
+                        </div>
+                        <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-brand-text tracking-tight leading-none">
+                            What's <span className="text-accent-blue">Coming</span>
+                        </h2>
+                    </motion.div>
+
+                    {/* Timeline rows */}
+                    <div className="space-y-14">
+                        {roadmap.map(({ quarter, accent, items }, qIdx) => (
+                            <motion.div
+                                key={quarter}
+                                initial={{ opacity: 0, y: 20 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                viewport={{ once: true }}
+                                transition={{ delay: qIdx * 0.1, duration: 0.55 }}
+                            >
+                                {/* Quarter label */}
+                                <div className="flex items-center gap-4 mb-6">
+                                    <span className={`text-xs font-black uppercase tracking-[0.25em] border rounded-full px-4 py-1.5 ${
+                                        accent === 'blue'
+                                            ? 'text-accent-blue border-accent-blue/30 bg-accent-blue/8'
+                                            : 'text-accent-purple border-accent-purple/30 bg-accent-purple/8'
+                                    }`}>
+                                        {quarter}
+                                    </span>
+                                    <div className="flex-1 h-px bg-brand-border/40" />
                                 </div>
 
-                                <div className={`flex-1 w-full relative ${!isFlagship ? 'opacity-40 grayscale pointer-events-none' : ''}`}>
-                                    <div className="absolute inset-0 bg-gradient-to-r from-accent-blue/20 to-accent-purple/20 blur-[100px] opacity-40 rounded-full"></div>
-                                    <div className={`glass-card relative p-10 border ${isFlagship ? 'border-accent-blue/30 shadow-[0_0_40px_rgba(0,240,255,0.15)] bg-brand-bg-alt/80' : 'border-brand-border bg-brand-bg/50'}`}>
-                                        <h4 className="text-brand-text font-bold mb-6 flex items-center gap-3 text-xl">
-                                            <Zap className={`w-6 h-6 ${isFlagship ? 'text-accent-purple' : 'text-brand-text-muted'}`} />
-                                            Example Use Case
-                                        </h4>
-                                        <p className="text-brand-text-muted italic text-xl leading-relaxed">"{service.useCase}"</p>
-                                    </div>
+                                {/* Service cards in this quarter */}
+                                <div className={`grid gap-5 ${items.length === 1 ? 'grid-cols-1 max-w-2xl' : 'grid-cols-1 sm:grid-cols-2'}`}>
+                                    {items.map(({ icon: Icon, title, desc, chips, live }) => (
+                                        <div key={title}
+                                            className={`glass-card flex flex-col gap-4 relative overflow-hidden ${
+                                                live ? 'border-accent-blue/30' : ''
+                                            }`}
+                                        >
+                                            {live && <div className="absolute top-0 inset-x-0 h-0.5 bg-accent-blue" />}
+
+                                            <div className="flex items-start justify-between gap-4">
+                                                <div className={`w-11 h-11 rounded-xl flex items-center justify-center border shrink-0 ${
+                                                    live
+                                                        ? 'bg-accent-blue/12 border-accent-blue/25'
+                                                        : 'bg-brand-glass border-brand-border'
+                                                }`}>
+                                                    <Icon className={`w-5 h-5 ${live ? 'text-accent-blue' : 'text-brand-text-muted'}`} />
+                                                </div>
+
+                                                {live ? (
+                                                    <Link
+                                                        to="/services/ai-voice-receptionist"
+                                                        className="text-xs font-bold text-accent-blue border border-accent-blue/25 bg-accent-blue/8 rounded-full px-3 py-1.5 flex items-center gap-1.5 shrink-0 hover:bg-accent-blue/15 transition-colors"
+                                                    >
+                                                        <span className="w-1.5 h-1.5 rounded-full bg-accent-blue animate-pulse" />
+                                                        Try Demo →
+                                                    </Link>
+                                                ) : (
+                                                    <span className="text-[9px] font-bold uppercase tracking-widest text-brand-text-muted/50 border border-brand-border rounded-full px-2.5 py-1 shrink-0">
+                                                        Coming Soon
+                                                    </span>
+                                                )}
+                                            </div>
+
+                                            <div>
+                                                <h3 className={`text-base sm:text-lg font-black mb-1.5 leading-snug ${live ? 'text-brand-text' : 'text-brand-text'}`}>
+                                                    {title}
+                                                </h3>
+                                                <p className="text-sm text-brand-text-muted leading-relaxed">{desc}</p>
+                                            </div>
+
+                                            <div className="flex flex-wrap gap-1.5 pt-2 border-t border-brand-border/40">
+                                                {chips.map(c => (
+                                                    <span key={c} className="inline-flex items-center gap-1 text-[10px] text-brand-text-muted border border-brand-border/50 rounded-full px-2 py-0.5">
+                                                        <Check className={`w-2.5 h-2.5 shrink-0 ${live ? 'text-accent-blue' : 'text-brand-text-muted/60'}`} />
+                                                        {c}
+                                                    </span>
+                                                ))}
+                                            </div>
+                                        </div>
+                                    ))}
                                 </div>
                             </motion.div>
-                        );
-                    })}
-                </div>
+                        ))}
+                    </div>
 
-                <div className="mt-40 text-center glass-card bg-brand-bg-alt p-12 md:p-16 border border-accent-blue/30 relative overflow-hidden shadow-[0_0_60px_rgba(0,240,255,0.1)]">
-                    <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-accent-blue to-accent-purple"></div>
-                    <h2 className="text-4xl sm:text-5xl font-bold text-brand-text mb-6">Ready to automate your calls?</h2>
-                    <p className="text-brand-text-muted text-xl mb-10 max-w-2xl mx-auto">Stop paying humans to do robotic work. Let's engineer a voice system tailored to your specific bottlenecks.</p>
-                    <Link to="/contact" className="btn-primary py-5 px-12 text-xl shadow-[0_0_30px_rgba(0,240,255,0.3)] hover:shadow-[0_0_50px_rgba(0,240,255,0.5)]">Get Your Free AI Audit <ArrowRight className="inline ml-2" /></Link>
-                </div>
-            </div>
-
-            {/* Video Modal */}
-            <AnimatePresence>
-                {demoVideo && (
+                    {/* Join waitlist */}
                     <motion.div
                         initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        exit={{ opacity: 0 }}
-                        className="fixed inset-0 z-[100] flex items-center justify-center bg-brand-bg/95 backdrop-blur-md p-4"
+                        whileInView={{ opacity: 1 }}
+                        viewport={{ once: true }}
+                        transition={{ delay: 0.4 }}
+                        className="mt-12 text-center"
                     >
-                        <div className="relative w-full max-w-5xl rounded-2xl overflow-hidden bg-brand-bg border border-brand-border shadow-[0_0_100px_rgba(0,240,255,0.2)]">
-                            <button
-                                onClick={() => setDemoVideo(null)}
-                                className="absolute top-4 right-4 z-10 w-12 h-12 flex items-center justify-center rounded-full bg-brand-bg/50 border border-brand-border text-brand-text hover:bg-accent-blue hover:text-brand-bg transition-colors"
-                            >
-                                <X className="w-6 h-6" />
-                            </button>
-                            <div className="aspect-video bg-black flex items-center justify-center relative">
-                                <video
-                                    src={demoVideo}
-                                    controls
-                                    autoPlay
-                                    className="w-full h-full object-contain"
-                                >
-                                    <p className="text-brand-text">Your browser does not support the video tag. Please update your browser.</p>
-                                </video>
-                                {/* Fallback UI if video doesn't load/exist */}
-                                <div className="absolute inset-0 mt-20 flex flex-col items-center justify-center pointer-events-none opacity-50">
-                                    <Play className="w-20 h-20 text-brand-border mb-4" />
-                                    <p className="text-brand-text-muted">Video Demo Not Available</p>
-                                </div>
+                        <Link to="/contact"
+                            className="inline-flex items-center gap-2 text-sm font-bold text-accent-blue border border-accent-blue/25 bg-accent-blue/8 rounded-full px-6 py-3 hover:bg-accent-blue/15 transition-colors duration-200">
+                            Join the early access waitlist <ArrowRight className="w-4 h-4" />
+                        </Link>
+                    </motion.div>
+                </div>
+            </section>
+
+            {/* ─── FLAGSHIP DEEP-DIVE — theme-aware, no forced dark ─── */}
+            <section className="py-20 sm:py-28 bg-brand-bg border-b border-brand-border relative overflow-hidden">
+                <div className="absolute inset-0 bg-[radial-gradient(ellipse_60%_50%_at_50%_0%,rgba(var(--theme-primary-rgb),0.05)_0%,transparent_70%)] pointer-events-none" />
+
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 relative z-10">
+
+                    <motion.div
+                        initial={{ opacity: 0, y: 16 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        className="mb-14 pb-6 border-b border-brand-border/40 flex items-end justify-between gap-6"
+                    >
+                        <div>
+                            <div className="flex items-center gap-4 mb-3">
+                                <div className="h-px w-10 bg-accent-blue" />
+                                <span className="text-accent-blue text-[11px] font-black uppercase tracking-[0.25em]">Flagship · Deep Dive</span>
                             </div>
+                            <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-brand-text tracking-tight leading-none">
+                                AI Voice <span className="text-accent-blue">Receptionist</span>
+                            </h2>
+                        </div>
+                        <Link to="/services/ai-voice-receptionist"
+                            className="hidden sm:flex btn-primary py-3 px-7 text-sm items-center gap-2 shrink-0"
+                            style={{ boxShadow: `0 0 24px rgba(var(--theme-primary-rgb),0.25)` }}>
+                            Try It Now <ArrowRight className="w-4 h-4" />
+                        </Link>
+                    </motion.div>
+
+                    <div className="grid grid-cols-1 lg:grid-cols-[1fr_380px] gap-8">
+
+                        {/* Left: Problem / Solution — terminal-style cards */}
+                        <div className="space-y-4">
+                            {[
+                                {
+                                    label: "The Problem",
+                                    labelColor: "text-accent-purple",
+                                    borderColor: "border-accent-purple/40",
+                                    bg: "rgba(var(--theme-purple-rgb),0.04)",
+                                    text: "Your front desk misses calls after hours, loses leads to voicemail, and costs you a full-time salary every month.",
+                                },
+                                {
+                                    label: "Our Solution",
+                                    labelColor: "text-accent-blue",
+                                    borderColor: "border-accent-blue/40",
+                                    bg: "rgba(var(--theme-primary-rgb),0.04)",
+                                    text: "We deploy a 24/7 HIPAA-ready AI receptionist on your existing phone line. It books appointments, answers FAQs, and captures every lead — automatically.",
+                                },
+                            ].map(({ label, labelColor, borderColor, bg, text }) => (
+                                <motion.div
+                                    key={label}
+                                    initial={{ opacity: 0, x: -20 }}
+                                    whileInView={{ opacity: 1, x: 0 }}
+                                    viewport={{ once: true }}
+                                    className={`rounded-2xl border ${borderColor} p-6`}
+                                    style={{ background: bg }}
+                                >
+                                    <p className={`text-[10px] font-black uppercase tracking-widest mb-3 ${labelColor}`}>{label}</p>
+                                    <p className="text-brand-text-muted text-sm sm:text-base leading-relaxed">{text}</p>
+                                </motion.div>
+                            ))}
+
+                            {/* Benefits */}
+                            <motion.div
+                                initial={{ opacity: 0 }}
+                                whileInView={{ opacity: 1 }}
+                                viewport={{ once: true }}
+                                transition={{ delay: 0.2 }}
+                                className="glass-card grid grid-cols-1 sm:grid-cols-2 gap-3"
+                            >
+                                {[
+                                    "Never miss an inbound call — even at 2 AM",
+                                    "HIPAA-compliant infrastructure from day one",
+                                    "Flat monthly subscription, zero hidden fees",
+                                    "Live within 5 business days, fully managed",
+                                ].map(b => (
+                                    <div key={b} className="flex items-start gap-2.5 text-sm text-brand-text-muted">
+                                        <Check className="w-4 h-4 text-accent-blue shrink-0 mt-0.5" />
+                                        {b}
+                                    </div>
+                                ))}
+                            </motion.div>
+
+                            <Link to="/services/ai-voice-receptionist"
+                                className="sm:hidden btn-primary py-4 px-8 text-sm flex items-center gap-2 justify-center w-full"
+                                style={{ boxShadow: `0 0 24px rgba(var(--theme-primary-rgb),0.25)` }}>
+                                Try Live Demo <ArrowRight className="w-4 h-4" />
+                            </Link>
+                        </div>
+
+                        {/* Right: Stats */}
+                        <div className="flex flex-col gap-4">
+                            <motion.div
+                                initial={{ opacity: 0, x: 20 }}
+                                whileInView={{ opacity: 1, x: 0 }}
+                                viewport={{ once: true }}
+                                className="glass-card text-center py-8"
+                            >
+                                <p className="text-[10px] font-black uppercase tracking-widest text-brand-text-muted/50 mb-3">A dental clinic reported</p>
+                                <p className="text-6xl sm:text-7xl font-black text-brand-text tabular-nums leading-none mb-2">+22</p>
+                                <p className="text-accent-blue text-sm font-bold">extra bookings month one · zero extra staff</p>
+                            </motion.div>
+
+                            <div className="grid grid-cols-2 gap-3">
+                                {[
+                                    { value: "10K+", label: "Monthly Calls",    note: "and growing"       },
+                                    { value: "< 1s", label: "Response Time",    note: "every single call" },
+                                    { value: "98%",  label: "Satisfaction",     note: "post-call surveys" },
+                                    { value: "5",    label: "Days to Go Live",  note: "fully managed"     },
+                                ].map(({ value, label, note }, idx) => (
+                                    <motion.div
+                                        key={label}
+                                        initial={{ opacity: 0, y: 12 }}
+                                        whileInView={{ opacity: 1, y: 0 }}
+                                        viewport={{ once: true }}
+                                        transition={{ delay: idx * 0.07 }}
+                                        className="glass-card !p-4 text-center"
+                                    >
+                                        <p className="text-xl sm:text-2xl font-black text-brand-text tabular-nums leading-none mb-0.5">{value}</p>
+                                        <p className="text-[9px] font-black uppercase tracking-widest text-brand-text-muted/50 mb-0.5">{label}</p>
+                                        <p className="text-[10px] text-brand-text-muted/35 italic">{note}</p>
+                                    </motion.div>
+                                ))}
+                            </div>
+
+                            <motion.div
+                                initial={{ opacity: 0 }}
+                                whileInView={{ opacity: 1 }}
+                                viewport={{ once: true }}
+                                className="glass-card border-accent-blue/20"
+                                style={{ background: `rgba(var(--theme-primary-rgb),0.04)` }}
+                            >
+                                <p className="text-[10px] font-black uppercase tracking-widest text-accent-blue/60 mb-3">Capabilities</p>
+                                <div className="flex flex-wrap gap-1.5">
+                                    {["24/7 Answering", "Booking", "SMS Confirmations", "Lead Capture", "10+ Languages", "HIPAA", "Calendar Sync", "Unlimited Calls"].map(f => (
+                                        <span key={f} className="inline-flex items-center gap-1 text-[11px] font-semibold text-accent-blue border border-accent-blue/20 bg-accent-blue/6 rounded-full px-2.5 py-1">
+                                            <Check className="w-3 h-3 shrink-0" /> {f}
+                                        </span>
+                                    ))}
+                                </div>
+                            </motion.div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            {/* ─── CTA ─── */}
+            <section className="py-20 sm:py-28 bg-brand-bg relative overflow-hidden">
+                <div className="absolute inset-0 bg-gradient-to-t from-accent-blue/5 via-transparent to-transparent pointer-events-none" />
+
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 relative z-10">
+                    <motion.div
+                        initial={{ opacity: 0, y: 24 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-10 py-14 px-8 sm:px-12 glass-card relative overflow-hidden"
+                    >
+                        <div className="absolute top-0 inset-x-0 h-0.5 bg-accent-blue" />
+
+                        <div className="flex-1 max-w-xl">
+                            <div className="flex items-center gap-4 mb-5">
+                                <div className="h-px w-10 bg-accent-blue" />
+                                <span className="text-accent-blue text-[11px] font-black uppercase tracking-[0.25em]">Start Today</span>
+                            </div>
+                            <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-brand-text leading-[0.9] tracking-tight mb-5">
+                                Stop Losing Revenue<br /><span className="text-accent-blue">to Missed Calls.</span>
+                            </h2>
+                            <p className="text-brand-text-muted text-sm sm:text-base leading-relaxed">
+                                Let's build an AI system tailored to your specific bottlenecks. Free demo, no commitment.
+                            </p>
+                        </div>
+
+                        <div className="flex flex-col gap-3 shrink-0 w-full sm:w-auto">
+                            <Link to="/services/ai-voice-receptionist"
+                                className="btn-primary py-4 px-10 text-base justify-center"
+                                style={{ boxShadow: `0 0 30px rgba(var(--theme-primary-rgb),0.28)` }}>
+                                Try Live Demo <ArrowRight className="ml-2 w-4 h-4" />
+                            </Link>
+                            <Link to="/contact" className="btn-secondary py-4 px-10 text-base justify-center">
+                                Get Free AI Audit
+                            </Link>
+                            <p className="text-center text-[10px] text-brand-text-muted/50">Free · No commitment · 24h reply</p>
                         </div>
                     </motion.div>
-                )}
-            </AnimatePresence>
+                </div>
+            </section>
+
         </div>
     );
 };
